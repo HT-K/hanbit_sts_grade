@@ -1,4 +1,4 @@
-package com.hanbit.web.subject;
+package com.hanbit.web.mapper;
 
 public interface SubjectMapper {
 

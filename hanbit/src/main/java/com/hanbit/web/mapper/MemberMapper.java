@@ -1,6 +1,8 @@
-package com.hanbit.web.member;
+package com.hanbit.web.mapper;
 
 import java.util.List;
+
+import com.hanbit.web.member.MemberDTO;
 
 public interface MemberMapper {
 	public int insert(MemberDTO member);

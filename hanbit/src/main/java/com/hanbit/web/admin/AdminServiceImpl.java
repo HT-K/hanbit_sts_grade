@@ -2,8 +2,10 @@ package com.hanbit.web.admin;
 
 import java.util.List;
 
-import com.hanbit.web.grade.GradeMemberDTO;
+import org.springframework.stereotype.Service;
 
+import com.hanbit.web.grade.GradeMemberDTO;
+@Service
 public class AdminServiceImpl implements AdminService{
 	private static AdminService instance = new AdminServiceImpl();
 	

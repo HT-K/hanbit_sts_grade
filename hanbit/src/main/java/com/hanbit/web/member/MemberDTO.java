@@ -1,5 +1,8 @@
 package com.hanbit.web.member;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberDTO {
 	private String id, password, name, addr, major, subject;
 	private int birth; // 생년월일은  800101 처럼 숫자만 입력

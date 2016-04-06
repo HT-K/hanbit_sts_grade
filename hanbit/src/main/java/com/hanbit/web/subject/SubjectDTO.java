@@ -1,5 +1,8 @@
 package com.hanbit.web.subject;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class SubjectDTO {
 	private int subjSeq;
 	private String subName;

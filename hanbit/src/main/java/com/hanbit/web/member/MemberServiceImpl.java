@@ -2,6 +2,8 @@ package com.hanbit.web.member;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+@Service
 public class MemberServiceImpl implements MemberService{
 	private static	MemberService instance = new MemberServiceImpl();
 	
