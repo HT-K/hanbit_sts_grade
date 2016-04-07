@@ -4,13 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hanbit.web.mapper.MemberMapper">
   <select id="selectList" resultType="com.hanbit.web.member.MemberDTO">
-    select * from Member
+    select *  from Member
   </select>
   <select id="selectById" resultType="com.hanbit.web.member.MemberDTO" parameterType="com.hanbit.web.member.MemberDTO">
-  	select * from Blog where id = #{id}
+  	select * from Member
+  	where id = #{id}
   </select>
-  <select id="selectMember" resultType="com.hanbit.web.member.MemberDTO" parameterType="com.hanbit.web.member.MemberDTO">
-  	select * from Blog 
+  <select id="login" resultType="com.hanbit.web.member.MemberDTO" parameterType="com.hanbit.web.member.MemberDTO">
+  	select * from Member 
   	where id = #{id} and password = #{password}
   </select>
   <insert id="insert" parameterType="com.hanbit.web.member.MemberDTO"></insert>

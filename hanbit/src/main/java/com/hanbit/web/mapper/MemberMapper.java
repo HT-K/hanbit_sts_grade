@@ -2,12 +2,14 @@ package com.hanbit.web.mapper;
 
 import java.util.List;
 
-import com.hanbit.web.member.MemberDTO;
+import org.springframework.stereotype.Repository;
 
+import com.hanbit.web.member.MemberDTO;
+@Repository
 public interface MemberMapper {
 	public int insert(MemberDTO member);
-	public MemberDTO selectById(String id, String password);
-	public MemberDTO selectMember(String id);
+	public MemberDTO selectById(String id);
+	public MemberDTO login(MemberDTO member);
 	public int update(MemberDTO member);
 	public int delete(String id);
 	public boolean isMember(String id);

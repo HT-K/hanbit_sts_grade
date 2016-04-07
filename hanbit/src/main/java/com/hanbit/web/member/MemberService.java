@@ -8,7 +8,7 @@ public interface MemberService {
 	// 그러나 추상클래스는 구상 메소드가 존재 가능하므로
 	// 둘을 구분하기 위해서 반드시 abstract 을 붙여야 한다
 	public abstract int join(MemberDTO member);
-	public MemberDTO login(String id, String password);
+	public MemberDTO login(MemberDTO member);
 	public MemberDTO detail(String id);
 	public int update(MemberDTO member);
 	public int remove(String id);

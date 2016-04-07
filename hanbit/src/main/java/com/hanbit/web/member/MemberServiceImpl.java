@@ -1,16 +1,25 @@
 package com.hanbit.web.member;
 
+
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
+import com.hanbit.web.mapper.MemberMapper;
+
+
 @Service
 public class MemberServiceImpl implements MemberService{
-	private static	MemberService instance = new MemberServiceImpl();
+	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
 	
-	public static MemberService getInstance() {
-		return instance;
-	}
-
+	@Autowired SqlSession session;
+	@Autowired MemberDTO member;
+	
 	@Override
 	public int join(MemberDTO member) {
 		// 회원가입
@@ -18,14 +27,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberDTO login(String id, String password) {
-		MemberDTO member = new MemberDTO();
-		member = null;
+	public MemberDTO login(MemberDTO member) {
+		logger.info("memberService : login() 진입 후 id = {}",member.getId());
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		member = mapper.login(member);
 		if (member != null) {
-			System.out.println("서비스 : 멤버가 널이 아님");
+			logger.info("memberService : login() 성공 후 id = {}",member.getId());
 			return member;
 		} else {
-			System.out.println("서비스 : 멤버가 널임");
+			logger.info("memberService : login() 실패, 널 반환");
 			return null;
 		}
 		// 로그인
@@ -48,6 +58,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public MemberDTO detail(String id) {
+		MemberDTO member = new MemberDTO();
 		return null;
 		
 	}
