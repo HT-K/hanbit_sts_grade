@@ -45,7 +45,10 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int update(MemberDTO member) {
 		// 수정
-		return 0;
+		logger.info("memberService : update() 진입 후 주소 = {}",member.getAddr());
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		int result = mapper.update(member);
+		return result;
 		
 	}
 

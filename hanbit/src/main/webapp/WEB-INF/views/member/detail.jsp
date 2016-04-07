@@ -49,7 +49,7 @@
 	$(function() {
 		$('form').addClass('form-horizontal');
 		$('#updateBtn').addClass('btn btn-primary').click(function() {
-			location.href = '${context}/member/update_form.do'; 
+			location.href = '${context}/member/update'; 
 		});
 		$('#delBtn').addClass('btn btn-primary').click(function() {
 			location.href = '${context}/member/delete.do';

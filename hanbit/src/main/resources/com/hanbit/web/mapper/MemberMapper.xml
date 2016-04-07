@@ -15,6 +15,16 @@
   	where id = #{id} and password = #{password}
   </select>
   <insert id="insert" parameterType="com.hanbit.web.member.MemberDTO"></insert>
-  <update id="update" parameterType="com.hanbit.web.member.MemberDTO"></update>
-  <delete id="delete" parameterType="com.hanbit.web.member.MemberDTO"></delete>
+  <update id="update" parameterType="com.hanbit.web.member.MemberDTO">
+  	
+  	UPDATE Member SET password = #{password},
+  	addr = #{addr}
+  	WHERE id = #{id}
+  	
+  </update>
+  <delete id="delete" parameterType="com.hanbit.web.member.MemberDTO">
+  	
+  	
+  	
+  </delete>
 </mapper>
