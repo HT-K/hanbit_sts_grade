@@ -11,7 +11,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<c:choose>
+<jsp:include page="../global/default_header.jsp"/>
+<%-- <c:choose>
 	<c:when test="empty sessionScope.user || empty sessionScope.admin">
 		<jsp:include page="../global/default_header.jsp"/>
 	</c:when>
@@ -25,7 +26,7 @@
 			</c:otherwise>
 		</c:choose>
 	</c:otherwise>
-</c:choose>
+</c:choose> --%>
 
 
 

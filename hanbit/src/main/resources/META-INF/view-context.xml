@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- viewResolver Negotiator 를 이용해서 선택하는 로직 만듦 : SWITCH ~ CASE -->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="mediaTypes">
+			<map>
+				<entry key="atom" value="application/atom+xml"/>
+				<entry key="html" value="text/html"/> <!-- MIME -->
+				<entry key="json" value="application/json"/>
+			</map>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"/>
+				<bean  class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+				<bean  class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
+			</list>
+		</property>
+		<property name="defaultContentType" value="application/json"/>
+	</bean>
+	
+</beans>

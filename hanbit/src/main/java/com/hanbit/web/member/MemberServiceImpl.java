@@ -18,7 +18,6 @@ public class MemberServiceImpl implements MemberService{
 	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
 	
 	@Autowired SqlSession session;
-	@Autowired MemberDTO member;
 	
 	@Override
 	public int join(MemberDTO member) {

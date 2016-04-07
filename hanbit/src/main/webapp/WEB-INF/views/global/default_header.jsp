@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <header style="width:100%;margin: 0 auto">
  <h3 style="color: white; text-align: center;">
-  		<a href="${context}/global/main.do">한빛 성적 관리</a>
+  		<a href="${context}/">한빛 성적 관리</a>
   	</h3>
   	<p style="float:right;margin-right: 50px;"><fmt:formatDate type="both" value="${now}" /></p>
             
