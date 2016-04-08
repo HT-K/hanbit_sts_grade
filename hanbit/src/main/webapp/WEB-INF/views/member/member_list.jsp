@@ -11,7 +11,7 @@
 		<c:forEach items="${list}"  var="member" >
 			<tr>
 				<td>${member.id}</td>
-				<td><a href="${context}/grade/add_form.do?${member.id}">${member.name}</a></td>
+				<td><a href="${context}/grade/add/${member.id}">${member.name}</a></td>
 				<td>${member.major}</td>
 				<td>${member.subject}</td> 
 				<td>${member.addr}</td>

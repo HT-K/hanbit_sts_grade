@@ -28,7 +28,7 @@ public class MemberController {
 	
 	@RequestMapping("/join")
 	public String join(){
-		logger.info("로그인 컨트롤러 파라미터 ID : {}");
+		logger.info("===member-join(GET)===");
 		return "member/join_form";
 	}	
 	@RequestMapping(value="/join",method=RequestMethod.POST)
@@ -38,7 +38,9 @@ public class MemberController {
 			@RequestParam("addr")String addr,
 			@RequestParam("birth")int birth,
 			@RequestParam("cate")int cate){
-		logger.info("===member-join=== ID : {}");
+		logger.info("===member-join(POST)===");
+		logger.info("넘어온 ID = {}", id);
+		
 		member.setId(id);
 		member.setPassword(password);
 		member.setName(name);

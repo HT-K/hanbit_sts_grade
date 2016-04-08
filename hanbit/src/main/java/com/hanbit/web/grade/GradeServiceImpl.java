@@ -1,70 +1,87 @@
 package com.hanbit.web.grade;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
+
+import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.hanbit.web.mapper.GradeMapper;
+import com.hanbit.web.mapper.MemberMapper;
+import com.hanbit.web.member.MemberController;
+
 
 public class GradeServiceImpl implements GradeService{
+	private static final Logger logger = LoggerFactory.getLogger(GradeServiceImpl.class);
 	// 멤버 필드
-	ArrayList<GradeDTO> gradeList;
-	public GradeServiceImpl() {
-		gradeList = new ArrayList<GradeDTO>(); // 초기화
-	}
+	@Autowired SqlSession session;
 	// 멤버 메소드 에어리어
 	@Override
-	public void input(GradeDTO grade) {
+	public int input(GradeDTO grade) {
 		// 성적표 등록 
-		gradeList.add(new GradeDTO(2,"김구",100,100,100,100));
-		gradeList.add(new GradeDTO(3,"강감찬",90,90,90,90));
-		gradeList.add(new GradeDTO(4,"유관순",80,80,80,80));
-		gradeList.add(new GradeDTO(5,"김구",70,70,70,70));
-		gradeList.add(grade);
+		logger.info("===gradeService : input()===");
+		GradeMapper mapper = session.getMapper(GradeMapper.class);
+		return mapper.insert(grade);
 	}
 
 	@Override
-	public ArrayList<GradeDTO> getList() {
+	public List<GradeDTO> getList() {
 		// 성적표 리스트 출력
-		return gradeList;
+		logger.info("===gradeService : getList()===");
+		GradeMapper mapper = session.getMapper(GradeMapper.class);
+		return mapper.selectAll();
 	}
 
 	@Override
 	public GradeMemberDTO getGradeByHak(int hak) {
 		// 성적표 조회(학번)
-	
-		return null;
+		logger.info("===gradeService : getGradeByHak()===");
+		GradeMapper mapper = session.getMapper(GradeMapper.class);
+		return mapper.selectGradeByHak(hak);
 	}
 
 	@Override
-	public ArrayList<GradeMemberDTO> getGradesByName(String name) {
+	public List<GradeMemberDTO> getGradesByName(String name) {
 		// 성적표 조회(이름)
-		return null;
+		logger.info("===gradeService : getGradesByName()===");
+		GradeMapper mapper = session.getMapper(GradeMapper.class);
+		return mapper.selectGradesByName(name);
 		
 	}
 
 	@Override
-	public String update(GradeDTO grade) {
+	public int update(GradeDTO grade) {
 		// 성적표 수정
-		String result = "수정하려는 학번이 존재하지 않음";
-		
-		return result;
+		logger.info("===gradeService : update()===");
+		GradeMapper mapper = session.getMapper(GradeMapper.class);
+		return mapper.update(grade);
 	}
 
 	@Override
-	public String delete(int hak) {
+	public int delete(int hak) {
 		// 성적표 삭제
-		return (gradeList.remove(getGradeByHak(hak))) ? "삭제 성공" : "삭제 실패";
+		logger.info("===gradeService : delete()===");
+		GradeMapper mapper = session.getMapper(GradeMapper.class);
+		return mapper.delete(hak);
 	}
 
 	@Override
 	public int getCount() {
 		// 카운트 조회
-		return gradeList.size();
+		logger.info("===gradeService : getCount()===");
+		GradeMapper mapper = session.getMapper(GradeMapper.class);
+		return mapper.count();
 	}
 
 	@Override
-	public void getCountByName() {
+	public int getCountByName() {
 		// 이름조회시 카운트 조회
-		
+		logger.info("===gradeService : getCountByName()===");
+		GradeMapper mapper = session.getMapper(GradeMapper.class);
+		return 0;
 	}
 
 }

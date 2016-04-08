@@ -1,8 +1,6 @@
 package com.hanbit.web.grade;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Vector;
+import java.util.List;
 
 /**
  * CRUD 
@@ -14,21 +12,19 @@ import java.util.Vector;
  * */
 public interface GradeService {
 	// C 성적표 등록 
-	public void input(GradeDTO grade); // 추상 메소드
+	public int input(GradeDTO grade); // 추상 메소드
 	// R 성적표 리스트 출력
-	public ArrayList<GradeDTO> getList();
+	public List<GradeDTO> getList();
 	// R 성적표 조회(학번)
 	public GradeMemberDTO getGradeByHak(int hak);
 	// R 성적표 조회(이름)
-	public ArrayList<GradeMemberDTO> getGradesByName(String name);
+	public List<GradeMemberDTO> getGradesByName(String name);
 	// R 카운트 조회
 	public int getCount();
 	// R 이름조회시 카운트 조회
-	public void getCountByName();
+	public int getCountByName();
 	// U 성적표 수정
-	public String update(GradeDTO grade);
+	public int update(GradeDTO grade);
 	// D 성적표 삭제
-	public String delete(int hak);
-	
-	
+	public int delete(int hak);
 }
