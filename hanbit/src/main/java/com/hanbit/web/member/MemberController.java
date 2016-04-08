@@ -20,6 +20,32 @@ public class MemberController {
 	@Autowired MemberDTO member;
 	@Autowired MemberServiceImpl service;
 	
+	@RequestMapping("/join")
+	public String join(){
+		logger.info("로그인 컨트롤러 파라미터 ID : {}");
+		return "member/join_form";
+	}	
+	@RequestMapping(value="/join",method=RequestMethod.POST)
+	public String join(@RequestParam("id")String id,
+			@RequestParam("password")String password){
+		return "member/join_form";
+	}	
+	@RequestMapping("/list")
+	public String list(){
+		return "member/login_form";
+	}
+	@RequestMapping("/name")
+	public String getMembersByName(@RequestParam("name")String name){
+		return "member/login_form";
+	}	
+	@RequestMapping("/id")
+	public String getMemberById(@RequestParam("id")String id){
+		return "member/login_form";
+	}	
+	@RequestMapping("/count")
+	public String count(){
+		return "member/login_form";
+	}	
 	@RequestMapping("/login")
 	public String login(){
 		return "member/login_form";
@@ -47,6 +73,11 @@ public class MemberController {
 		}
 		return view;
 	}
+	@RequestMapping("/logout")
+	public String logout(Model model,HttpSession session){
+		model.addAttribute("member",session.getAttribute("user"));
+		return "member/update_form";
+	}	
 	@RequestMapping("/update")
 	public String update(Model model,HttpSession session){
 		model.addAttribute("member",session.getAttribute("user"));
@@ -76,6 +107,11 @@ public class MemberController {
 		}
 		logger.info("수정 후 비번 : {}",param.getPassword());
 		return view;
+	}
+	@RequestMapping("/delete")
+	public String delete(Model model,HttpSession session){
+		model.addAttribute("member",session.getAttribute("user"));
+		return "member/update_form";
 	}	
 }
 
