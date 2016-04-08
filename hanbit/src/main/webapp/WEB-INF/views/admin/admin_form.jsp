@@ -16,7 +16,7 @@
 <script src="${context}/resources/js/admin.js"></script>	
 <script type="text/javascript">
 $(document).ready(function() {
-	$('#result').load('${context}/member/list.do');
+	$('#result').load('${context}/member/list');
 	$('#admin_sidebar').children().first().addClass('dropdown active');
 	$('#admin_sidebar').children().click(function() {
 		$(this).addClass('dropdown active');

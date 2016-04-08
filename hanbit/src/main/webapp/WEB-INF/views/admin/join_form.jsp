@@ -55,27 +55,6 @@
 							<input type="text" class="form-control" id="birth" name="birth" placeholder="생년월일을 입력하세요"/>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="input_name" class="col-sm-4 control-label">수강과목</label>
-					 	<div class="col-sm-4">
-							<input type="checkbox" class="form-control" id="subject" name="subject" value="java" /> Java
-							<input type="checkbox" class="form-control" id="subject" name="subject" value="jsp"/> JSP
-							<input type="checkbox" class="form-control" id="subject" name="subject" value="sql"/> SQL
-							<input type="checkbox" class="form-control" id="subject" name="subject" value="spring"/> Spring
-							<input type="checkbox" class="form-control" id="subject" name="subject" value="python"/> 파이썬
-							<input type="checkbox" class="form-control" id="subject" name="subject" value="nodejs"/> 노드JS
-							<input type="checkbox" class="form-control" id="subject" name="subject" value="android"/> 안드로이드
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="input_name" class="col-sm-4 control-label">전 공</label>
-					 	<select name="major" id="major">
-					 		<option value="computer" selected>컴퓨터공학</option>
-					 		<option value="info">정보통신</option>
-					 		<option value="security">정보보안</option>
-					 	</select>
-					</div>
-					
 					
 					<div class="input_button text-center">
 						<button id="joinBtn">회원가입</button>
@@ -91,7 +70,7 @@
 		$form = $('form');
 		$form.addClass('form-horizontal');
 		$('#joinBtn').addClass('btn btn-primary').click(function() {
-			$form.attr('method','post').attr('action','${context}/member/join').submit();
+			$form.attr('method','post').attr('action','${context}/admin/join').submit();
 		});
 		$('#cancleBtn').addClass('btn btn-primary').click(function() {
 			$form.reset();

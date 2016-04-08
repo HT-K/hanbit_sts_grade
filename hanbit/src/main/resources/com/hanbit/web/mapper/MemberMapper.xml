@@ -11,13 +11,16 @@
   	where id = #{id}
   </select>
   <select id="login" resultType="com.hanbit.web.member.MemberDTO" parameterType="com.hanbit.web.member.MemberDTO">
-  	select * from Member 
+  	SELECT * FROM Member 
   	where id = #{id} and password = #{password}
   </select>
   <select id="count" resultType="int">
     SELECT COUNT(*)  FROM Member
   </select>
-  <insert id="insert" parameterType="com.hanbit.web.member.MemberDTO"></insert>
+  <insert id="insert" parameterType="com.hanbit.web.member.MemberDTO">
+  	INSERT INTO Member(id,name,password,addr,birth,cate)
+  	VALUES (#{id},#{name},#{password},#{addr},#{birth},#{cate})
+  </insert>
   <update id="update" parameterType="com.hanbit.web.member.MemberDTO">
   	
   	UPDATE Member SET password = #{password},

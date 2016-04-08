@@ -21,8 +21,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public int join(MemberDTO member) {
-		// 회원가입
-	  return 0;
+		logger.info("memberService : join() 진입 후 id = {}",member.getId());
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+	  return mapper.insert(member);
 	}
 
 	@Override
@@ -80,7 +81,9 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public List<MemberDTO> getList() {
-		return null;
+		logger.info("=== memberService : getList() ===");
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		return mapper.selectList();
 	}
 	@Override
 	public int count() {

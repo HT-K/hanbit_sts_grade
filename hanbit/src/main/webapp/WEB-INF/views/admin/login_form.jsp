@@ -8,7 +8,7 @@
 
 	<div id="login">
 		<div class="loginTop text-center" >
-			<img src="${context}/resources/img/member/paper_plane.png" id="paper_plane"  />
+			<img src="${context}/resources/img/member/admin.jpg" id="admin"  />
 		</div>
 		<form class="form-horizontal">
 		<div class="loginCenter row" style="margin-left: 43.5%;">
@@ -39,7 +39,7 @@
 		$('#paper_plane').css('border','0').css('height','160px').css('height','160px').css('width','160px');	
 		$('#loginButton').css('width','150px');
 		$('#loginButton').click(function() {
-			$('form').attr('action','${context}/admin/login.do')
+			$('form').attr('action','${context}/admin/login')
 			.attr('method','post').submit();
 			});
 		});

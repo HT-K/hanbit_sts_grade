@@ -24,7 +24,7 @@ import com.hanbit.web.grade.GradeServiceImpl;
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired MemberDTO member;
-	@Autowired MemberServiceImpl service;
+	@Autowired MemberService service;
 	
 	@RequestMapping("/join")
 	public String join(){
@@ -38,19 +38,25 @@ public class MemberController {
 			@RequestParam("addr")String addr,
 			@RequestParam("birth")int birth,
 			@RequestParam("cate")int cate){
+		logger.info("===member-join=== ID : {}");
 		member.setId(id);
 		member.setPassword(password);
 		member.setName(name);
 		member.setAddr(addr);
 		member.setBirth(birth);
 		member.setCate(cate);
-		int result = service.join(member);
-		return "member/join_form";
+		String view = "";
+		if (service.join(member)==1) {
+			view = "member/login";
+		} else {
+			view = "member/join_form";
+		}
+		return view;
 	}	
 	@RequestMapping("/list")
 	public String list(Model model){
 		model.addAttribute("list",service.getList());
-		return "member/login_form";
+		return "member/member_list";
 	}
 	@RequestMapping("/name/{name}")
 	public String getMembersByName(@PathVariable("name")String name){
