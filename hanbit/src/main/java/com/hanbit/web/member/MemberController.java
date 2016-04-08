@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.hanbit.web.grade.GradeServiceImpl;
+
 @Controller
 @SessionAttributes("user")
 @RequestMapping("/member")
@@ -30,8 +32,19 @@ public class MemberController {
 		return "member/join_form";
 	}	
 	@RequestMapping(value="/join",method=RequestMethod.POST)
-	public String join23456(@RequestParam("id")String id,
-			@RequestParam("password")String password){
+	public String join(@RequestParam("id")String id,
+			@RequestParam("password")String password,
+			@RequestParam("name")String name,
+			@RequestParam("addr")String addr,
+			@RequestParam("birth")int birth,
+			@RequestParam("cate")int cate){
+		member.setId(id);
+		member.setPassword(password);
+		member.setName(name);
+		member.setAddr(addr);
+		member.setBirth(birth);
+		member.setCate(cate);
+		int result = service.join(member);
 		return "member/join_form";
 	}	
 	@RequestMapping("/list")
@@ -45,8 +58,11 @@ public class MemberController {
 	}	
 	@RequestMapping("/detail/{id}")
 	public String getMemberById(@PathVariable("id")String id,Model model){
+		logger.info("=== member-getMemberById() ===");
 		if (service.isMember(id)) {
-			model.addAttribute("member",service.detail(id));
+			member = service.detail(id);
+			member.setRole(User.valueOf(service.detail(id).getCate()).toString());
+			model.addAttribute("member",member);
 		} else {
 			model.addAttribute("member","");
 		}
@@ -76,8 +92,7 @@ public class MemberController {
 		if (member != null) {
 			logger.info("로그인 성공");
 			session.setAttribute("user", member);
-			model.addAttribute("member", member);
-			view = "member/detail";
+			view = "redirect:/member/detail/"+id;
 		} else {
 			logger.info("로그인 실패");
 			view = "member/login_form";

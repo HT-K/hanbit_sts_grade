@@ -1,13 +1,15 @@
 SELECT * FROM Member;
 
 DROP TABLE Member CASCADE CONSTRAINT;
-
+ALTER TABLE Member ADD COLUMN cate DECIMAL;
+UPDATE Member SET cate = 1;
 CREATE TABLE Member(
 	id VARCHAR(30) PRIMARY KEY,
 	name VARCHAR(30) NOT NULL,
 	password VARCHAR(30) NOT NULL,
 	addr VARCHAR(100),
-	birth DECIMAL
+	birth DECIMAL,
+	cate DECIMAL
 );
 INSERT INTO Member(id,name,password,addr,birth)
 VALUES ('hong','홍길동','1','서울',800101);

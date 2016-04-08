@@ -4,19 +4,34 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MemberDTO {
-	private String id, password, name, addr, major, subject;
-	private int birth; // 생년월일은  800101 처럼 숫자만 입력
+	private String id, password, name, addr, major, subject,role;
+	private int birth, cate; // 생년월일은  800101 처럼 숫자만 입력
 	
 	public MemberDTO() {} // 생성자 오버로딩
-	public MemberDTO(String id,String password, String name, 
-			String addr, int birth,String major, String subject) {
+	public MemberDTO(String id,String password, String name,String role, 
+			String addr, int birth,String major, String subject,int cate) {
 		this.id = id;
+		this.role = role;
 		this.password = password;
 		this.name = name;
 		this.addr = addr;
 		this.birth = birth;
 		this.major = major;
 		this.subject = subject;
+		this.cate = cate;
+	}
+	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public int getCate() {
+		return cate;
+	}
+	public void setCate(int cate) {
+		this.cate = cate;
 	}
 	public String getId() {
 		return id;

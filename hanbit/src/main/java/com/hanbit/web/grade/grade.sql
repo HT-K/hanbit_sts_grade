@@ -10,9 +10,9 @@ CREATE TABLE Grade(
 	subj_seq int,
 	score int,
 	CONSTRAINT grade_member_fk FOREIGN KEY(id) 
-	REFERENCES Member(id),
+	REFERENCES Member(id) ON DELETE CASCADE,
 	CONSTRAINT grade_subject_fk FOREIGN KEY(subj_seq) 
-	REFERENCES Subject(subj_seq)
+	REFERENCES Subject(subj_seq) ON DELETE CASCADE
 );
 
 

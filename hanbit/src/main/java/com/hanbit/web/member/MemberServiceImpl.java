@@ -55,22 +55,24 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int remove(MemberDTO member) {
 		// 삭제
+		
 		return 0;
 	}
 
 	@Override
 	public MemberDTO detail(String id) {
-		MemberDTO member = new MemberDTO();
-		return null;
+		logger.info("memberService : detail() 진입 후 주소 = {}",id);
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		return mapper.selectById(id);
 		
 	}
 	@Override
 	public boolean isMember(String id) {
-		boolean member = false;
-		member = false;
-		
-		if (member == true) {
-			return member;
+		logger.info("memberService : isMember() 진입 후 주소 = {}",id);
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		MemberDTO temp = mapper.selectById(id);
+		if (temp != null) {
+			return true;
 		} else {
 			return false;
 		}

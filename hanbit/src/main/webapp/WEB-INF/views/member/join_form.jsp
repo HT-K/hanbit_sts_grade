@@ -8,6 +8,14 @@
 			<form>
 				<fieldset class="joinField">
 					<div class="form-group">
+						<label for="input_cate" class="col-sm-4 control-label">회원등급</label>
+					 	<div class="col-sm-4">
+							<input type="radio" name="cate" id="cate" value="1" checked /> 관리자
+							<input type="radio" name="cate" id="cate" value="2" checked /> 교수
+							<input type="radio" name="cate" id="cate" value="3" checked /> 학생
+						</div>
+					</div>
+					<div class="form-group">
 					 	<label for="input_id" class="col-sm-4 control-label">아이디</label>
 					 	<div class="col-sm-4">
 							<input type="text" class="form-control" id="id" name="id" placeholder="아이디를 입력하세요"/>
