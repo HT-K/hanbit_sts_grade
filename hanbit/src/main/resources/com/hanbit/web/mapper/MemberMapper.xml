@@ -6,7 +6,7 @@
   <select id="selectList" resultType="com.hanbit.web.member.MemberDTO">
     select *  from Member
   </select>
-  <select id="selectById" resultType="com.hanbit.web.member.MemberDTO" parameterType="com.hanbit.web.member.MemberDTO">
+  <select id="selectById" resultType="com.hanbit.web.member.MemberDTO" parameterType="string">
   	select * from Member
   	where id = #{id}
   </select>

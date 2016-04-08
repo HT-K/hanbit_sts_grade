@@ -11,7 +11,7 @@ public interface MemberService {
 	public MemberDTO login(MemberDTO member);
 	public MemberDTO detail(String id);
 	public int update(MemberDTO member);
-	public int remove(String id);
+	public int remove(MemberDTO member);
 	public boolean isMember(String id);
 	public List<MemberDTO> getList();
 }

@@ -53,7 +53,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int remove(String id) {
+	public int remove(MemberDTO member) {
 		// 삭제
 		return 0;
 	}

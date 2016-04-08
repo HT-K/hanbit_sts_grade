@@ -7,10 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @SessionAttributes("user")
@@ -26,7 +28,7 @@ public class MemberController {
 		return "member/join_form";
 	}	
 	@RequestMapping(value="/join",method=RequestMethod.POST)
-	public String join(@RequestParam("id")String id,
+	public String join23456(@RequestParam("id")String id,
 			@RequestParam("password")String password){
 		return "member/join_form";
 	}	
@@ -34,13 +36,18 @@ public class MemberController {
 	public String list(){
 		return "member/login_form";
 	}
-	@RequestMapping("/name")
-	public String getMembersByName(@RequestParam("name")String name){
+	@RequestMapping("/name/{name}")
+	public String getMembersByName(@PathVariable("name")String name){
 		return "member/login_form";
 	}	
-	@RequestMapping("/id")
-	public String getMemberById(@RequestParam("id")String id){
-		return "member/login_form";
+	@RequestMapping("/detail/{id}")
+	public String getMemberById(@PathVariable("id")String id,Model model){
+		if (service.isMember(id)) {
+			model.addAttribute("member",service.detail(id));
+		} else {
+			model.addAttribute("member","");
+		}
+		return "member/detail";
 	}	
 	@RequestMapping("/count")
 	public String count(){
@@ -74,9 +81,10 @@ public class MemberController {
 		return view;
 	}
 	@RequestMapping("/logout")
-	public String logout(Model model,HttpSession session){
-		model.addAttribute("member",session.getAttribute("user"));
-		return "member/update_form";
+	public String logout(SessionStatus status){
+		logger.info("=== member-logout() ===");
+		status.setComplete();
+		return "redirect:/";
 	}	
 	@RequestMapping("/update")
 	public String update(Model model,HttpSession session){
@@ -110,8 +118,14 @@ public class MemberController {
 	}
 	@RequestMapping("/delete")
 	public String delete(Model model,HttpSession session){
-		model.addAttribute("member",session.getAttribute("user"));
-		return "member/update_form";
+		logger.info("=== member-delete() ===");
+		int result = service.remove((MemberDTO) session.getAttribute("user"));
+		if (result==1) {
+			logger.info("회원탈퇴 성공");
+		} else {
+			logger.info("회원탈퇴 실패");
+		}
+		return "redirect:/";
 	}	
 }
 
