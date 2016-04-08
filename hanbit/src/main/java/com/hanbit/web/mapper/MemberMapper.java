@@ -14,4 +14,5 @@ public interface MemberMapper {
 	public int delete(String id);
 	public boolean isMember(String id);
 	public List<MemberDTO> selectList();
+	public int count();
 }

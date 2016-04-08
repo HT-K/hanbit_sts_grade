@@ -14,6 +14,9 @@
   	select * from Member 
   	where id = #{id} and password = #{password}
   </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*)  FROM Member
+  </select>
   <insert id="insert" parameterType="com.hanbit.web.member.MemberDTO"></insert>
   <update id="update" parameterType="com.hanbit.web.member.MemberDTO">
   	

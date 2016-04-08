@@ -1,5 +1,7 @@
 package com.hanbit.web.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -33,7 +35,8 @@ public class MemberController {
 		return "member/join_form";
 	}	
 	@RequestMapping("/list")
-	public String list(){
+	public String list(Model model){
+		model.addAttribute("list",service.getList());
 		return "member/login_form";
 	}
 	@RequestMapping("/name/{name}")
@@ -50,7 +53,8 @@ public class MemberController {
 		return "member/detail";
 	}	
 	@RequestMapping("/count")
-	public String count(){
+	public String count(Model model){
+		int count = service.count();
 		return "member/login_form";
 	}	
 	@RequestMapping("/login")

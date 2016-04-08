@@ -14,4 +14,5 @@ public interface MemberService {
 	public int remove(MemberDTO member);
 	public boolean isMember(String id);
 	public List<MemberDTO> getList();
+	public int count();
 }

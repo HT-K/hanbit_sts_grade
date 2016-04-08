@@ -80,5 +80,10 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberDTO> getList() {
 		return null;
 	}
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }
