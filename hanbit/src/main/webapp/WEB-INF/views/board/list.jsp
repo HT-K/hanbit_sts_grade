@@ -7,11 +7,11 @@
 </style>
 <jsp:include page="../global/header.jsp" />
 <table >
-	<c:if test="${listModel.totalPageCount > 0 }">
+	<c:if test="${command.totalPages > 0 }">
 	<tr>
 		<td colspan="5">
-			${listModel.startRow} - ${listModel.endRow}
-			[${listModel.requestPage}/${listModel.totalPageCount}]
+			${command.startRow} - ${command.endRow}
+			[${command.pageNO}/${command.count}]
 		</td>
 	</tr>
 	</c:if>
@@ -24,15 +24,23 @@
 		<th>조회수</th>
 	</tr>
 	<c:choose>
-	<c:when test="${listModel.hasArticle==false}">
+	<c:when test="${command.count==0}">
 	<tr>
-		<td colspan="5">
+		<td colspan="5" style="text-align: center;">
 			게시글이 없습니다.
 		</td>
 	</tr>
+	<tr>
+		<td colspan="5">
+			<a href="#">
+			<img src="${context}/resources/img/write.png" style="width: 50px;height: 50px;float: right;margin-right: 50px" alt="" />
+			</a>
+		</td>
+		
+	</tr>
 	</c:when>
 	<c:otherwise>
-	<c:forEach var="article" items="${listModel.articleList}">
+	<c:forEach var="article" items="${list}">
 	<tr>
 		<td>${article.articleId}</td>
 		<td>
@@ -48,7 +56,7 @@
 	</c:forEach>
 	<tr>
 		<td colspan="5">
-			<a href="">
+			<a href="#">
 			<img src="${context}/resources/img/write.png" style="width: 50px;height: 50px;float: right;margin-right: 50px" alt="" />
 			</a>
 		</td>
@@ -56,12 +64,12 @@
 	</tr>
 	<tr>
 		<td colspan="5">
-		<c:if test="${startPage -PAGESIZE gt 0}">
-			<a href="${context}/article/page/${startPage-PAGESIZE}">◀ 이전</a>
+		<c:if test="${command.startPage -command.pageSize gt 0}">
+			<a href="${context}/article/page/${command.startPage-command.pageSize}">◀ 이전</a>
 		</c:if>
-		<c:forEach begin="${startPage}" end="${lastPage}" step="1" varStatus="1">
+		<c:forEach begin="${command.startPage}" end="${command.endPage}" step="1" varStatus="1">
 			<c:choose>
-				<c:when test="${i.index == pageNo}">
+				<c:when test="${i.index == command.pageNO}">
 					<font color="red">${i.index}</font>
 				</c:when>
 				<c:otherwise>
@@ -70,8 +78,8 @@
 				
 			</c:choose>
 		</c:forEach>
-		<c:if test="${startPage -PAGESIZE gt 0}">
-			<a href="${context}/article/page/${startPage+PAGESIZE}">다음 ▶</a>
+		<c:if test="${command.startPage -command.pageSize gt 0}">
+			<a href="${context}/article/page/${command.startPage+command.pageSize}">다음 ▶</a>
 		</c:if>
 		</td>
 	</tr>

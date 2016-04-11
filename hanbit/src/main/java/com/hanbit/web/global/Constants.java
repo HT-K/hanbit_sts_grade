@@ -14,6 +14,8 @@ public class Constants {
 	public static final String MYSQL_URL = "jdbc:mysql://localhost:3306/mysql?useSSL=false";
 	public static final String MSSQL_DRIVER = "";
 	public static final String MSSQL_URL = "";
-	public static final String VIEWS = "/WEB-INF/views/";
+	public static final int PAGESIZE = 10;
+	public static final int GROUPSIZE = 5;
+	
 	
 }

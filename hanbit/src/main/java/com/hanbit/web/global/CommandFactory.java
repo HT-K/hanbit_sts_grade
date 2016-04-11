@@ -1,21 +1,14 @@
 package com.hanbit.web.global;
+import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+@Component
 public class CommandFactory {
-	public static Command getCommand(HttpServletRequest request, HttpServletResponse response){
-		String[] arr = new String[2];
-		String path = request.getServletPath();
-		String temp = path.split("/")[2];
-		
-		arr[0] = path.split("/")[1];
-	//	arr[1] = temp3.split("\\.")[0]; 이 방법도 가능
-		arr[1] = temp.substring(0, temp.indexOf("."));
-		
-		return new Command(arr[0],arr[1]);
-	}
-	public static Command createCommand(String directory,String action){
-		return new Command(directory,action);
+	public static Command createCommand(String pkg,String crud,
+			String pageNO,String keyField,String keyword,int count){
+		Command command = new Command();
+		if (crud.equals("list")) {
+			command = new ListCommand(pkg,crud,pageNO,keyField,keyword,count);
+		}
+		return command;
 	}
 }

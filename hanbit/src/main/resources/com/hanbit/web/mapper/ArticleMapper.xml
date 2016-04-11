@@ -8,8 +8,8 @@
 		
 	</insert>
 	<select id="selectAll" resultType="com.hanbit.web.board.ArticleDTO" 
-		parameterType="com.hanbit.web.board.ArticleListModel">
-		SELECT artice_id AS articleId,
+		parameterType="com.hanbit.web.global.Command">
+		SELECT article_id AS articleId,
 			group_id AS groupId,
 			sequence_no AS sequenceNo,
 			posting_date AS postingDate,
@@ -19,12 +19,12 @@
 			title
 		FROM Article 
 			ORDER BY sequence_no 
-			DESC LIMIT #{firstRow -1}, #{endRow - firstRow + 1}
+			DESC LIMIT #{startRow}, #{endRow}
 		
 	</select>
 	<select id="selectById"></select>
 	<select id="selectByName"></select>
-	<select id="count" resultMap="int">
+	<select id="count" resultType="int">
 		SELECT COUNT(*)
 		FROM Article
 	</select>
