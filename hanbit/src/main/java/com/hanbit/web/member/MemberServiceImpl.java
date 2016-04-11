@@ -21,8 +21,8 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public int join(MemberDTO member) {
-		logger.info("memberService : join() 진입 후 id = {}",member.getId());
-		MemberMapper mapper = session.getMapper(MemberMapper.class);
+	  logger.info("memberService : join() 진입 후 id = {}",member.getId());
+	  MemberMapper mapper = session.getMapper(MemberMapper.class);
 	  return mapper.insert(member);
 	}
 

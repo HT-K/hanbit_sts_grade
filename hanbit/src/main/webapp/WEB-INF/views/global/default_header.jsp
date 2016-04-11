@@ -39,6 +39,9 @@
     	
     </ul>
   </li>
+  <li role="presentation" style="margin-left: 100px">
+  	<a href="${context}/article/list">게시판</a>
+  </li>
 </ul>
 
 

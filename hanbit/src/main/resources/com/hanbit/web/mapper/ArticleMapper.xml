@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanbit.web.mapper.ArticleMapper">
+	<insert id="insert">
+		
+		
+	</insert>
+	<select id="selectAll" resultType="com.hanbit.web.board.ArticleDTO" 
+		parameterType="com.hanbit.web.board.ArticleListModel">
+		SELECT artice_id AS articleId,
+			group_id AS groupId,
+			sequence_no AS sequenceNo,
+			posting_date AS postingDate,
+			read_count AS readCount,
+			writer_name AS writerName,
+			password,
+			title
+		FROM Article 
+			ORDER BY sequence_no 
+			DESC LIMIT #{firstRow -1}, #{endRow - firstRow + 1}
+		
+	</select>
+	<select id="selectById"></select>
+	<select id="selectByName"></select>
+	<select id="count" resultMap="int">
+		SELECT COUNT(*)
+		FROM Article
+	</select>
+	<update id="update"></update>
+	<delete id="delete"></delete>
+</mapper>
