@@ -7,9 +7,10 @@
 </style>
 <jsp:include page="../global/header.jsp" />
 <div class="container">
-<div style="margin-right: 100px">
+<%-- <div style="margin-right: 100px">
 	<img src="${context}/resources/img/write.png" id="writeBtn" style="cursor:pointer; width: 50px;height: 50px;float: right;margin-right: 50px" alt="" />
-</div>
+</div> --%>
+<span class="glyphicon glyphicon-pencil" id="writeBtn" style="cursor:pointer; float: right;margin : 0 50px 30px 0">글쓰기</span>
 <table class="table table-condensed" >
 	<c:if test="${command.totalPages > 0 }">
 	<tr>
@@ -105,18 +106,18 @@ $(function() {
 		var writeForm = '<form>'
 		+'<div class="form-group">'
 		+'<label for="exampleInputEmail1">제목</label>'
-		+'<input type="text" class="form-control" id="title" name="title" placeholder="Email">'
+		+'<input type="text" class="form-control" id="title" name="title" placeholder="제 목">'
 		+'</div>'
 		+'<div class="form-group">'
 		+'<label for="exampleInputPassword1">작성자</label>'
-		+'<input type="text" class="form-control" id="writerName" name="writerName" placeholder="작성자"></div>'
+		+'<input type="text" class="form-control" id="writerName" name="writerName" placeholder="작 성 자"></div>'
 		+'<div class="form-group">'
-		+'<label for="exampleInputFile">글암호</label>'
-		+'<input type="password" id="password" class="form-control" name="password"></div>'
+		+'<label for="exampleInputFile">비밀번호</label>'
+		+'<input type="password" id="password" class="form-control" name="password" placeholder="비 밀 번 호"></div>'
 		+'<div class="form-group">'
 		+'<label for="exampleInputFile">글내용</label>'
-		+'<textarea id="content" name="content" class="form-control"  rows="5"></textarea></div>'
-		+'<button type="submit" id="writeSubmit" class="btn btn-primary btn-lg btn-block">전송</button>'
+		+'<textarea id="content" name="content" class="form-control"  rows="5" placeholder="글 내 용"></textarea></div>'
+		+'<button type="submit" id="writeSubmit" class="btn btn-primary btn-lg btn-block">전 송</button>'
 		+'</form>';
 		$('.container').html(writeForm);
 	});
