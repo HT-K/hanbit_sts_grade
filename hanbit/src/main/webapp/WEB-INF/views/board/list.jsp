@@ -14,7 +14,7 @@ $(function() {
 		var keyField = $('select[name=keyField] option:selected').val();
 		var keyword = $('#keyword').val();
 		$('#wrapper').empty();
-		$('#wrapper').load(context+'/article/list/1/'+keyField+'/'+keyword);
+		$('#wrapper').load(context+'/article/list?keyField='+keyField+'&keyword='+keyword);
 	});
 });
 

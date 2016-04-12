@@ -55,8 +55,10 @@ public class ArticleController {
 	logger.info("현재 startRow = {}",command.getStartRow());
 	logger.info("현재 endRow = {}",command.getEndRow());
 	if (keyField.equals("none")) {
+		logger.info("전체 글 가져오기!! ");
 		 model.addAttribute("list",service.getList(command));
 	} else {
+		logger.info("검색된 글 가져오기!! ");
 		 model.addAttribute("list",service.getByName(command));
 	}
 	 	model.addAttribute("command", command);
