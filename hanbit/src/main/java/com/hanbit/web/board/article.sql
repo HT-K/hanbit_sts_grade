@@ -35,3 +35,11 @@ SELECT article_id AS articleId,
 		FROM Article 
 			ORDER BY sequence_no 
 			DESC LIMIT 1, 9
+			
+			
+INSERT INTO Article
+		(group_id,sequence_no,posting_date,read_count,
+		writer_name,password,title,content)
+		VALUES
+		(1,'abcd',SYSDATE(),
+		0,'김길동','1','테스트','테스트');			

@@ -3,8 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hanbit.web.mapper.ArticleMapper">
-	<insert id="insert">
-		
+	<insert id="insert" parameterType="com.hanbit.web.board.ArticleDTO">
+		INSERT INTO Article
+		(group_id,sequence_no,posting_date,read_count,
+		writer_name,password,title,content)
+		VALUES
+		(1,'abcd',SYSDATE(),
+		0,#{writerName},#{password},#{title},#{content});
 		
 	</insert>
 	<select id="selectAll" resultType="com.hanbit.web.board.ArticleDTO" 
@@ -12,7 +17,7 @@
 		SELECT article_id AS articleId,
 			group_id AS groupId,
 			sequence_no AS sequenceNo,
-			posting_date AS postingDate,
+			DATE_FORMAT(posting_date, '%Y-%m-%d')AS postingDate,
 			read_count AS readCount,
 			writer_name AS writerName,
 			password,

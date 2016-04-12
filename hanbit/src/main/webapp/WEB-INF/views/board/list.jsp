@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<style>
-	/* table{border: 1px solid black;width: 80%;margin-left: 10%}
-	table tr{border: 1px solid black}
-	table tr th{border: 1px solid black;text-align: center;background: yellow}
-	table tr td{border: 1px solid black} */
-</style>
 <jsp:include page="../global/header.jsp" />
 <div class="container">
-<%-- <div style="margin-right: 100px">
-	<img src="${context}/resources/img/write.png" id="writeBtn" style="cursor:pointer; width: 50px;height: 50px;float: right;margin-right: 50px" alt="" />
-</div> --%>
 <span class="glyphicon glyphicon-pencil" id="writeBtn" style="cursor:pointer; float: right;margin : 0 50px 30px 0">글쓰기</span>
 <table class="table table-condensed" >
 	<c:if test="${command.totalPages > 0 }">
@@ -52,39 +43,39 @@
 		<td>${article.readCount}</td>
 	</tr>
 	</c:forEach>
-	<tr>
-		<td colspan="5">
-			<a href="#">
-			<img src="${context}/resources/img/write.png" style="width: 50px;height: 50px;float: right;margin-right: 50px" alt="" />
-			</a>
-		</td>
-		
-	</tr>
-	<tr>
-		<td colspan="5">
+		</c:otherwise>
+	</c:choose>
+	</table>
+	<nav>
+	<ul class="pagination">
 		<c:if test="${command.startPage -command.pageSize gt 0}">
-			<a href="${context}/article/page/${command.startPage-command.pageSize}">◀ 이전</a>
+			<li class="disabled">
+      <a href="${context}/article/page/${command.startPage-command.pageSize}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
 		</c:if>
-		<c:forEach begin="${command.startPage}" end="${command.endPage}" step="1" varStatus="1">
+		
+		<c:forEach begin="${command.startPage}" end="${command.endPage}" step="1" varStatus="i">
 			<c:choose>
 				<c:when test="${i.index == command.pageNO}">
-					<font color="red">${i.index}</font>
+					 <li class="active"><span><a href="#">${i.index}</a><span class="sr-only">(current)</span></span></li>
 				</c:when>
 				<c:otherwise>
-					<a href="${context}/article/page/${page}">${i.index}</a>
+					<li><span><a href="${context}/article/page/${page}">${i.index}</a></span></li>
 				</c:otherwise>
 				
 			</c:choose>
 		</c:forEach>
 		<c:if test="${command.startPage -command.pageSize gt 0}">
-			<a href="${context}/article/page/${command.startPage+command.pageSize}">다음 ▶</a>
+			<li class="disabled"><a href="${context}/article/page/${command.startPage+command.pageSize}" aria-label="Next">
+       
+        <span aria-hidden="true">&raquo;</span>
+      </a> </li>
 		</c:if>
-		</td>
-	</tr>
-	</c:otherwise>
-	</c:choose>
-	<tr>
-		<td colspan="5">
+ </ul>
+	</nav>
+	<div>
 		<form action="${context}/article/option">
 			<select name="keyField" id="">
 				<option value="id" selected="selected">아이디</option>
@@ -95,9 +86,8 @@
 			<input type="hidden" name="command" value="main" />
 			<input type="submit" value="검색" />
 		</form>
-		</td>
-	</tr>
-</table>
+	</div>
+
 </div>
 <script type="text/javascript">
 $(function() {

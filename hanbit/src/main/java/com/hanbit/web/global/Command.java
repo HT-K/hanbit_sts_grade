@@ -24,7 +24,7 @@ public class Command {
 		} else {
 			totalPages = count/pageSize;
 		}
-		this.startRow = (pageNO - 1 )*pageSize+1;
+		this.startRow = (pageNO - 1 )*pageSize;
 		this.endRow = pageNO * pageSize;
 		this.startPage = pageNO - ((pageNO-1)%groupSize);
 		int end = startPage + groupSize - 1;
