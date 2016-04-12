@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <style>
-	table{border: 1px solid black;width: 80%;margin-left: 10%}
+	/* table{border: 1px solid black;width: 80%;margin-left: 10%}
 	table tr{border: 1px solid black}
 	table tr th{border: 1px solid black;text-align: center;background: yellow}
-	table tr td{border: 1px solid black}
+	table tr td{border: 1px solid black} */
 </style>
 <jsp:include page="../global/header.jsp" />
-<div id="wrapper">
+<div class="container">
 <div style="margin-right: 100px">
 	<img src="${context}/resources/img/write.png" id="writeBtn" style="cursor:pointer; width: 50px;height: 50px;float: right;margin-right: 50px" alt="" />
 </div>
-<table >
+<table class="table table-condensed" >
 	<c:if test="${command.totalPages > 0 }">
 	<tr>
 		<td colspan="5">
@@ -101,16 +101,24 @@
 <script type="text/javascript">
 $(function() {
 	$('#writeBtn').click(function() {
-		$('#wrapper').empty();
-		var writeForm = '<form action="">'
-		+'제목 : <input type="text" name="title" id="title" size="20" /> <br />'
-		+'작성자 : <input type="text" name="writerName" id="writerName" /> <br />'
-		+'글암호 : <input type="password" name="password" id="password"/> <br />'
-		+'글내용 : <br />'
-		+'<textarea name="content" id="content" cols="40" rows="5"></textarea> <br />'
-		+'<button id="writeSubmit">전 송</button>'
+		$('.container').empty();
+		var writeForm = '<form>'
+		+'<div class="form-group">'
+		+'<label for="exampleInputEmail1">제목</label>'
+		+'<input type="text" class="form-control" id="title" name="title" placeholder="Email">'
+		+'</div>'
+		+'<div class="form-group">'
+		+'<label for="exampleInputPassword1">작성자</label>'
+		+'<input type="text" class="form-control" id="writerName" name="writerName" placeholder="작성자"></div>'
+		+'<div class="form-group">'
+		+'<label for="exampleInputFile">글암호</label>'
+		+'<input type="password" id="password" class="form-control" name="password"></div>'
+		+'<div class="form-group">'
+		+'<label for="exampleInputFile">글내용</label>'
+		+'<textarea id="content" name="content" class="form-control"  rows="5"></textarea></div>'
+		+'<button type="submit" id="writeSubmit" class="btn btn-primary btn-lg btn-block">전송</button>'
 		+'</form>';
-		$('#wrapper').html(writeForm);
+		$('.container').html(writeForm);
 	});
 });
 </script>
