@@ -58,8 +58,12 @@ public class ArticleController {
     model.addAttribute("command", command);
 		return "board/list";
 	}
-	@RequestMapping("/name")
-	public String findByName(){
+	@RequestMapping("/search")
+	public String searchByKeyword(
+			@RequestParam("keyField")String keyField,
+			@RequestParam("keyword")String keyword,
+			Model model){
+		
 		return "";
 	}
 	@RequestMapping("/id")

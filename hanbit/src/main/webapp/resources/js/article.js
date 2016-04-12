@@ -23,9 +23,6 @@ var article = {
 			$('#writeSubmit').click(function() {
 				$('form').attr('method','post').attr('action',context+'/article/write').submit();
 			});
-			this.updateForm(context);
-	},
-	updateForm : function(context) {
-		
+			
 	}
 };
