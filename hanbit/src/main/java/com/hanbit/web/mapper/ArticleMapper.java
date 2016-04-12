@@ -11,7 +11,7 @@ import com.hanbit.web.global.Command;
 public interface ArticleMapper {
 	public int insert(ArticleDTO article);
 	public List<ArticleDTO> selectAll(Command command);
-	public List<ArticleDTO> selectByName(ArticleDTO article);
+	public List<ArticleDTO> selectByName(Command command);
 	public ArticleDTO selectById(ArticleDTO article);
 	public int count();
 	public int update(ArticleDTO article);

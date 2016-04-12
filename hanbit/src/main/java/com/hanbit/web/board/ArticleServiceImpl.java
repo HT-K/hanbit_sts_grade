@@ -31,10 +31,10 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public List<ArticleDTO> getByName(ArticleDTO article) {
+	public List<ArticleDTO> getByName(Command command) {
 		 logger.info("=== articleService : getByName() ===");
 		 ArticleMapper mapper = session.getMapper(ArticleMapper.class);
-		 return mapper.selectByName(article);
+		 return mapper.selectByName(command);
 	}
 
 	@Override

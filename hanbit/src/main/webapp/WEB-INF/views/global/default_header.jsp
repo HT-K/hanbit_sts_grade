@@ -40,7 +40,7 @@
     </ul>
   </li>
   <li role="presentation" style="margin-left: 100px">
-  	<a href="${context}/article/list/1/none/none">게시판</a>
+  	<a href="${context}/article/list">게시판</a>
   </li>
 </ul>
 

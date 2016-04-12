@@ -7,7 +7,7 @@ import com.hanbit.web.global.Command;
 public interface ArticleService {
 	public int write(ArticleDTO article);
 	public List<ArticleDTO> getList(Command command);
-	public List<ArticleDTO> getByName(ArticleDTO article);
+	public List<ArticleDTO> getByName(Command command);
 	public ArticleDTO getById(ArticleDTO article);
 	public int count();
 	public int update(ArticleDTO article);

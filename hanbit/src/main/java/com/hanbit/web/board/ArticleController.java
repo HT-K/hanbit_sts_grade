@@ -43,10 +43,10 @@ public class ArticleController {
 		}
 		return "redirect:/article/list/1/none/none";
 	}
-	@RequestMapping("/list/{pageNO}/{keyField}/{keyword}")
-	public String list(@PathVariable("pageNO")String pageNO,
-			@PathVariable("keyField")String keyField,
-			@PathVariable("keyword")String keyword,
+	@RequestMapping("/list")
+	public String list(@RequestParam(value="pageNO",defaultValue ="1")String pageNO,
+			@RequestParam(value="keyField",defaultValue ="none")String keyField,
+			@RequestParam(value="keyword",defaultValue ="none")String keyword,
 			Model model){
 	Command command = CommandFactory.createCommand("article","list", pageNO, keyField, keyword,service.count());
 	logger.info("현재 페이지 = {}",command.getPageNO());
@@ -54,8 +54,12 @@ public class ArticleController {
 	logger.info("현재 endPage = {}",command.getEndPage());
 	logger.info("현재 startRow = {}",command.getStartRow());
 	logger.info("현재 endRow = {}",command.getEndRow());
-    model.addAttribute("list",service.getList(command));
-    model.addAttribute("command", command);
+	if (keyField.equals("none")) {
+		 model.addAttribute("list",service.getList(command));
+	} else {
+		 model.addAttribute("list",service.getByName(command));
+	}
+	 	model.addAttribute("command", command);
 		return "board/list";
 	}
 	@RequestMapping("/search")

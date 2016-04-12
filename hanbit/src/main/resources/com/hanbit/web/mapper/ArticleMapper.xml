@@ -28,7 +28,23 @@
 		
 	</select>
 	<select id="selectById"></select>
-	<select id="selectByName"></select>
+	<select id="selectByName" resultType="com.hanbit.web.board.ArticleDTO"
+		parameterType="com.hanbit.web.global.Command">
+		SELECT article_id AS articleId,
+			group_id AS groupId,
+			sequence_no AS sequenceNo,
+			DATE_FORMAT(posting_date, '%Y-%m-%d')AS postingDate,
+			read_count AS readCount,
+			writer_name AS writerName,
+			password,
+			title
+		FROM Article 
+		WHERE ${keyField} LIKE CONCAT('%',#{keyword},'%')	
+			ORDER BY sequence_no 
+			DESC LIMIT #{startRow}, #{endRow}
+			
+		
+	</select>
 	<select id="count" resultType="int">
 		SELECT COUNT(*)
 		FROM Article
