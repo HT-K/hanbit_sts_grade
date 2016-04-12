@@ -6,6 +6,10 @@
 	table tr td{border: 1px solid black}
 </style>
 <jsp:include page="../global/header.jsp" />
+<div id="wrapper">
+<div style="margin-right: 100px">
+	<img src="${context}/resources/img/write.png" id="writeBtn" style="cursor:pointer; width: 50px;height: 50px;float: right;margin-right: 50px" alt="" />
+</div>
 <table >
 	<c:if test="${command.totalPages > 0 }">
 	<tr>
@@ -30,14 +34,7 @@
 			게시글이 없습니다.
 		</td>
 	</tr>
-	<tr>
-		<td colspan="5">
-			<a href="#">
-			<img src="${context}/resources/img/write.png" style="width: 50px;height: 50px;float: right;margin-right: 50px" alt="" />
-			</a>
-		</td>
-		
-	</tr>
+	
 	</c:when>
 	<c:otherwise>
 	<c:forEach var="article" items="${list}">
@@ -100,3 +97,20 @@
 		</td>
 	</tr>
 </table>
+</div>
+<script type="text/javascript">
+$(function() {
+	$('#writeBtn').click(function() {
+		$('#wrapper').empty();
+		var writeForm = '<form action="">'
+		+'제목 : <input type="text" name="title" id="title" size="20" /> <br />'
+		+'작성자 : <input type="text" name="writerName" id="writerName" /> <br />'
+		+'글암호 : <input type="password" name="password" id="password"/> <br />'
+		+'글내용 : <br />'
+		+'<textarea name="content" id="content" cols="40" rows="5"></textarea> <br />'
+		+'<button id="writeSubmit">전 송</button>'
+		+'</form>';
+		$('#wrapper').html(writeForm);
+	});
+});
+</script>
