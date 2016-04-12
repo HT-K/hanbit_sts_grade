@@ -21,8 +21,27 @@ public class ArticleController {
 	@Autowired ArticleDTO article;
 	@Autowired ArticleService service;
 	@RequestMapping("/write")
-	public String write(){
-		return "";
+	public String write(
+			@RequestParam("title")String title,
+			@RequestParam("writerName")String writerName,
+			@RequestParam("password")String password,
+			@RequestParam("content")String content){
+		logger.info("===ArticleController-write()===");
+		logger.info("제목 = {}",title);
+		logger.info("글쓴이 = {}",writerName);
+		logger.info("비번 = {}",password);
+		logger.info("내용 = {}",content);	
+		article.setTitle(title);
+		article.setWriterName(writerName);
+		article.setPassword(password);
+		article.setContent(content);
+		int result = service.write(article);
+		if (result == 1) {
+			logger.info("글 등록 성공!! ");
+		} else {
+			logger.info("글 등록 실패!! ");
+		}
+		return "redirect:/article/list/1/none/none";
 	}
 	@RequestMapping("/list/{pageNO}/{keyField}/{keyword}")
 	public String list(@PathVariable("pageNO")String pageNO,

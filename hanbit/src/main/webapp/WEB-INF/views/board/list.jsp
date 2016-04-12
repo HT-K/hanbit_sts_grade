@@ -41,7 +41,7 @@
 			</c:if>
 			<a href="${context}/article/page/${page}">${article.title}</a>
 		</td>
-		<td>${article.writeName}</td>
+		<td>${article.writerName}</td>
 		<td>${article.postingDate}</td>
 		<td>${article.readCount}</td>
 	</tr>
@@ -80,39 +80,33 @@
 	</nav>
 	<div style="float:right;margin:0 50px 0 0">
 		<form action="${context}/article/option">
-			<select name="keyField" id="">
-				<option value="id" selected="selected">아이디</option>
-				<option value="name" selected="selected">이름</option>
+			<select name="keyField" id="keyField">
+				<option value="title" selected="selected">제목</option>
+				<option value="name" >이름</option>
 			</select>
-			<input type="text" name="keyword" value="" />
+			<input type="text" name="keyword" id="keyword" value="" />
 			<input type="hidden" name="pageNO" />
 			<input type="hidden" name="command" value="main" />
-			<input type="submit" value="검색" />
+			<input type="submit" value="검색" id="searchBtn"/>
 		</form>
 	</div>
 
 </div>
+<script src="${js}/article.js"></script>
 <script type="text/javascript">
 $(function() {
+	var context = '${context}';
 	$('#writeBtn').click(function() {
-		$('.container').empty();
-		var writeForm = '<form>'
-		+'<div class="form-group">'
-		+'<label for="exampleInputEmail1">제목</label>'
-		+'<input type="text" class="form-control" id="title" name="title" placeholder="제 목">'
-		+'</div>'
-		+'<div class="form-group">'
-		+'<label for="exampleInputPassword1">작성자</label>'
-		+'<input type="text" class="form-control" id="writerName" name="writerName" placeholder="작 성 자"></div>'
-		+'<div class="form-group">'
-		+'<label for="exampleInputFile">비밀번호</label>'
-		+'<input type="password" id="password" class="form-control" name="password" placeholder="비 밀 번 호"></div>'
-		+'<div class="form-group">'
-		+'<label for="exampleInputFile">글내용</label>'
-		+'<textarea id="content" name="content" class="form-control"  rows="5" placeholder="글 내 용"></textarea></div>'
-		+'<button type="submit" id="writeSubmit" class="btn btn-primary btn-lg btn-block">전 송</button>'
-		+'</form>';
-		$('.container').html(writeForm);
+		article.writeForm(context);
 	});
+	var keyField = $('select[name=keyField] option:selected').val(); 
+	var keyword = $('#keyword').val();
+	$('#searchBtn').click(function() {
+		$.ajax(function(context) {
+			url : context+'/article/search/';
+		});
+	});
+	
 });
+
 </script>

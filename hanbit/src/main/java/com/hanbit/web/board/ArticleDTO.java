@@ -10,7 +10,7 @@ public class ArticleDTO {
 	private String sequenceNo;
 	private String postingDate;
 	private int readCount;
-	private String writeName;
+	private String writerName;
 	private String password;
 	private String title;
 	private String content;
@@ -45,11 +45,12 @@ public class ArticleDTO {
 	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
-	public String getWriteName() {
-		return writeName;
+	
+	public String getWriterName() {
+		return writerName;
 	}
-	public void setWriteName(String writeName) {
-		this.writeName = writeName;
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
 	}
 	public String getPassword() {
 		return password;
