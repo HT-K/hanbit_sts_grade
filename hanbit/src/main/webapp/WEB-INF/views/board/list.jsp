@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="../global/header.jsp" />
+<style>
+	table th{background: yellow;text-align: center;}
+</style>
 <div class="container">
 <span class="glyphicon glyphicon-pencil" id="writeBtn" style="cursor:pointer; float: right;margin : 0 50px 30px 0">글쓰기</span>
-<table class="table table-condensed" >
+<table class="table table-condensed table-bordered table-striped" >
 	<c:if test="${command.totalPages > 0 }">
 	<tr>
 		<td colspan="5">
@@ -47,7 +50,7 @@
 	</c:choose>
 	</table>
 	<nav>
-	<ul class="pagination">
+	<ul class="pagination" style="margin-left: 40%">
 		<c:if test="${command.startPage -command.pageSize gt 0}">
 			<li class="disabled">
       <a href="${context}/article/page/${command.startPage-command.pageSize}" aria-label="Previous">
@@ -59,7 +62,7 @@
 		<c:forEach begin="${command.startPage}" end="${command.endPage}" step="1" varStatus="i">
 			<c:choose>
 				<c:when test="${i.index == command.pageNO}">
-					 <li class="active"><span><a href="#">${i.index}</a><span class="sr-only">(current)</span></span></li>
+					 <li class="active"><span>${i.index}<span class="sr-only">(current)</span></span></li>
 				</c:when>
 				<c:otherwise>
 					<li><span><a href="${context}/article/page/${page}">${i.index}</a></span></li>
@@ -75,7 +78,7 @@
 		</c:if>
  </ul>
 	</nav>
-	<div>
+	<div style="float:right;margin:0 50px 0 0">
 		<form action="${context}/article/option">
 			<select name="keyField" id="">
 				<option value="id" selected="selected">아이디</option>

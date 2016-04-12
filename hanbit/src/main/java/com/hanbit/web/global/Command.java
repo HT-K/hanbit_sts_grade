@@ -28,7 +28,7 @@ public class Command {
 		this.endRow = pageNO * pageSize;
 		this.startPage = pageNO - ((pageNO-1)%groupSize);
 		int end = startPage + groupSize - 1;
-		if (endPage > totalPages) {
+		if (end > totalPages) {
 			end = totalPages;
 		}
 		this.endPage = end;
