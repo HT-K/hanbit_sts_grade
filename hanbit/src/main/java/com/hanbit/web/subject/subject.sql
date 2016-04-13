@@ -11,3 +11,8 @@ INSERT INTO Subject(subj_name) VALUES('sql');
 
 
 SELECT * FROM Subject;
+
+SELECT * FROM Subject;
+
+DROP TABLE Subject CASCADE ;
+

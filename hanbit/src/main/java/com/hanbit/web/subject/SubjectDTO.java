@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SubjectDTO {
 	private int subjSeq;
-	private String subName;
+	private String subjName;
 	
 	public int getSubjSeq() {
 		return subjSeq;
@@ -13,11 +13,12 @@ public class SubjectDTO {
 	public void setSubjSeq(int subjSeq) {
 		this.subjSeq = subjSeq;
 	}
-	public String getSubName() {
-		return subName;
+	public String getSubjName() {
+		return subjName;
 	}
-	public void setSubName(String subName) {
-		this.subName = subName;
+	public void setSubjName(String subjName) {
+		this.subjName = subjName;
 	}
+	
 	
 }

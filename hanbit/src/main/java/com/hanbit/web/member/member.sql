@@ -1,30 +1,30 @@
 SELECT * FROM Member;
 
 DROP TABLE Member CASCADE CONSTRAINT;
-ALTER TABLE Member ADD COLUMN cate DECIMAL;
+ALTER TABLE Member ADD COLUMN cate INT;
 UPDATE Member SET cate = 1;
 CREATE TABLE Member(
 	id VARCHAR(30) PRIMARY KEY,
 	name VARCHAR(30) NOT NULL,
 	password VARCHAR(30) NOT NULL,
 	addr VARCHAR(100),
-	birth DECIMAL,
-	cate DECIMAL
+	birth INT,
+	cate INT
 );
-INSERT INTO Member(id,name,password,addr,birth)
-VALUES ('hong','홍길동','1','서울',800101);
-INSERT INTO Member(id,name,password,addr,birth)
-VALUES ('kim','김유신','1','경기',900203);
-INSERT INTO Member(id,name,password,addr,birth)
-VALUES ('lee','이순신','1','부산',000909);
-INSERT INTO Member(id,name,password,addr,birth)
-VALUES ('song','송준기','1','대전',041001);
-INSERT INTO Member
-VALUES ('yoon','윤손하','1','인천',060201);
-INSERT INTO Member(id,name,password,addr,birth)
-VALUES ('kim2','김유신','1','LA',850501);
-INSERT INTO Member(id,name,password,addr,birth)
-VALUES ('you','유아인','1','강릉',920505);
+INSERT INTO Member(id,name,password,addr,birth,cate)
+VALUES ('hong','홍길동','1','서울',800101,1);
+INSERT INTO Member(id,name,password,addr,birth,cate)
+VALUES ('kim','김유신','1','경기',900203,1);
+INSERT INTO Member(id,name,password,addr,birth,cate)
+VALUES ('lee','이순신','1','부산',000909,1);
+INSERT INTO Member(id,name,password,addr,birth,cate)
+VALUES ('song','송준기','1','대전',041001,1);
+INSERT INTO Member(id,name,password,addr,birth,cate)
+VALUES ('yoon','윤손하','1','인천',060201,1);
+INSERT INTO Member(id,name,password,addr,birth,cate)
+VALUES ('kim2','김유신','1','LA',850501,1);
+INSERT INTO Member(id,name,password,addr,birth,cate)
+VALUES ('you','유아인','1','강릉',920505,1);
 
 UPDATE Member SET subject = 'java/jsp/sql/spring', major = 'computer' WHERE id = 'hong';
 UPDATE Member SET subject = 'java/jsp/sql/spring', major = 'computer' WHERE id = 'kim';

@@ -1,3 +1,4 @@
+
 CREATE TABLE Test(
 	sample varchar(20)
 );
