@@ -25,16 +25,5 @@ VALUES (score_seq,'hong',3,100);
 INSERT INTO Grade(score_seq,id,subj_seq,score)
 VALUES (score_seq,'hong',4,50);
 
-
-
-
-
-
-
-
-
-
-SELECT * FROM Grade;
-
 SELECT * FROM Grade
 WHERE id = 'song';

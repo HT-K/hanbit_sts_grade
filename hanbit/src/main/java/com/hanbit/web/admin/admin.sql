@@ -1,10 +1,11 @@
+SELECT * FROM Admin;
 CREATE TABLE Admin(
-	id VARCHAR2(30) PRIMARY KEY,
-	name VARCHAR2(30) NOT NULL,
-	password VARCHAR2(30) NOT NULL,
-	addr VARCHAR2(100),
-	birth NUMBER,
-	role varchar2(30) DEFAULT 'admin'
+	id VARCHAR(30) PRIMARY KEY,
+	name VARCHAR(30) NOT NULL,
+	password VARCHAR(30) NOT NULL,
+	addr VARCHAR(100),
+	birth INT,
+	role VARCHAR(30) DEFAULT 'admin'
 );
 
 INSERT INTO Admin(id,name,password,addr,birth,role)

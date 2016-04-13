@@ -2,12 +2,8 @@ SELECT * FROM Id_sequence;
 SELECT * FROM Article;
 DROP TABLE Id_seqence;
 DROP TABLE Article;
-CREATE TABLE Id_sequence(
-	sequence_name VARCHAR(10) NOT NULL,
-	next_value INT NOT NULL,
-	PRIMARY KEY (sequence_name)
-);
-INSERT INTO Id_sequence VALUES ('article',0);
+
+SHOW TABLES;
 
 CREATE TABLE Article(
 	article_id INT NOT NULL AUTO_INCREMENT,
