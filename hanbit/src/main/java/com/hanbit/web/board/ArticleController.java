@@ -1,5 +1,8 @@
 package com.hanbit.web.board;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,17 +52,24 @@ public class ArticleController {
 			@RequestParam(value="keyword",defaultValue ="none")String keyword,
 			Model model){
 	Command command = CommandFactory.createCommand("article","list", pageNO, keyField, keyword,service.count());
+	List<ArticleDTO> list = new ArrayList<ArticleDTO>();
 	logger.info("현재 페이지 = {}",command.getPageNO());
 	logger.info("현재 startPage = {}",command.getStartPage());
 	logger.info("현재 endPage = {}",command.getEndPage());
 	logger.info("현재 startRow = {}",command.getStartRow());
 	logger.info("현재 endRow = {}",command.getEndRow());
+	logger.info("현재 KeyField = {}",command.getKeyField());
+	logger.info("현재 Keyword = {}",command.getKeyword());
 	if (keyField.equals("none")) {
 		logger.info("전체 글 가져오기!! ");
-		 model.addAttribute("list",service.getList(command));
+		list = service.getList(command);
+		 model.addAttribute("list",list);
+		 logger.info("검색된 글 목록 : {} ",list);
 	} else {
 		logger.info("검색된 글 가져오기!! ");
-		 model.addAttribute("list",service.getByName(command));
+		list = service.getByName(command);
+		 model.addAttribute("list",list);
+		 logger.info("검색된 글 목록 : {} ",list);
 	}
 	 	model.addAttribute("command", command);
 		return "board/list";
