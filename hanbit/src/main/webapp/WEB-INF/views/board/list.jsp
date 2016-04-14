@@ -5,10 +5,9 @@
 <script src="${js}/article.js"></script>
 <script type="text/javascript">
 $(function() {
-	var context = '${context}';
-	
+	article.setContext('${context}');
 	$('#writeBtn').click(function() {
-		article.getContext(context);
+		article.getContext();
 		article.writeForm();
 	});
 	$('#searchBtn').click(function() {

@@ -62,6 +62,18 @@
 		SELECT COUNT(*)
 		FROM Article
 	</select>
-	<update id="update"></update>
+	<update id="update" parameterType="com.hanbit.web.board.ArticleDTO">
+		UPDATE Article
+		SET title = #{title},
+			writer_name = #{writerName},
+			password = #{password},
+			content = #{content},
+			posting_date = SYSDATE()
+		WHERE article_id = #{articleId}
+	</update>
 	<delete id="delete"></delete>
 </mapper>
+
+
+
+

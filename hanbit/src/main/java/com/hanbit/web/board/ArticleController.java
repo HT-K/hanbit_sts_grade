@@ -76,26 +76,39 @@ public class ArticleController {
 	}
 
 	@RequestMapping("/search/{id}")
-	public String findById(@PathVariable("id")int id,
+	public void findById(@PathVariable("id")int id,
 			Model model){
 		logger.info("findById() 상세 글 가져오기!! ");
 		article.setArticleId(id);
 		article = service.getById(article);
 		logger.info("상세글 결과 : {}",article);
 		model.addAttribute("article", article);
-		return "board/list";
+		
 	}
 	@RequestMapping("/count")
 	public String count(){
 		
 		
 		
-		
 		return "";
 	}
 	@RequestMapping("/update")
-	public String update(){
-		return "";
+	public void update(
+			@RequestParam()int articleId,
+			@RequestParam()String title,
+			@RequestParam()String writerName,
+			@RequestParam()String password,
+			@RequestParam()String content,
+			Model model){
+		logger.info("=== update() ===");
+		logger.info("update() 에 넘어온 컨텐츠 : {}",content);
+		article.setArticleId(articleId);
+		article.setContent(content);
+		article.setPassword(password);
+		article.setTitle(title);
+		article.setWriterName(writerName);
+		service.update(article);
+		model.addAttribute("article", service.getById(article));
 	}
 	@RequestMapping("/delete")
 	public String delet(){

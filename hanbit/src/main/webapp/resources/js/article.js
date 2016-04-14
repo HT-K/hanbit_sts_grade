@@ -2,11 +2,15 @@
  * 게시판 
  */
 var article = {
-	getContext : function(context) {
-		return context;
+	context : '',
+	setContext : function(context) {
+		this.context = context;
+	},
+	getContext : function() {
+		return this.context;
 	},	
 	writeForm : function() {
-		var context = this.getContext(context);
+		alert('컨텍스트 세팅 : '+this.getContext());
 		var writeForm = '<form>'
 			+'<div class="form-group">'
 			+'<label for="exampleInputEmail1">제목</label>'
@@ -25,7 +29,7 @@ var article = {
 			+'</form>';
 			$('.container').html(writeForm);
 			$('#writeSubmit').click(function() {
-				$('form').attr('method','post').attr('action',context+'/article/write').submit();
+				$('form').attr('method','post').attr('action',article.getContext()+'/article/write').submit();
 			});
 			
 			
@@ -41,7 +45,11 @@ var article = {
 				alert('서버를 다녀온 AJAX 결과 : '+data.article.title);
 				var searchResult = '<form>'
 					+'<div class="form-group">'
-					+'<label for="exampleInputEmail1">제목2</label>'
+					+'<label for="exampleInputEmail1">글번호</label>'
+					+'<input type="text" class="form-control" id="articleId" name="articleId" value="'+data.article.articleId+'" readonly>'
+					+'</div>'
+					+'<div class="form-group">'
+					+'<label for="exampleInputEmail1">제목</label>'
 					+'<input type="text" class="form-control" id="title" name="title" value="'+data.article.title+'" readonly>'
 					+'</div>'
 					+'<div class="form-group">'
@@ -58,18 +66,18 @@ var article = {
 				$('.container').html(searchResult);
 				$("textarea#content").text(data.article.content);
 				$('#updateSubmit').click(function() {
-					var context = article.getContext(context);
-					$.ajax({
-						url :'',
+					
+					$.ajax(article.getContext()+'/article/update',{
 						data : {
-							id : $('#').val()
-							
+							articleId : $('#articleId').val(),
+							title : $('#title').val(),
+							writerName : $('#writerName').val(),
+							password : $('#password').val(),
+							content : $('#content').text()
 						},
 						type : 'post',
-						dataType : 'json',
-						async : true,
 						success : function(data) {
-							
+							alert('바뀐 내용'+data.article.content);
 						},
 						error : function(xhr,status,msg) {
 							alert('에러발생상태 :'+status+',내용 : '+msg);
