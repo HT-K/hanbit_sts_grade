@@ -58,8 +58,8 @@ var article = {
 					+'<div class="form-group">'
 					+'<label for="exampleInputFile">글내용</label>'
 					+'<textarea id="content" name="content" class="form-control"  rows="5" >'+data.article.content+'</textarea></div>'
-					+'<button type="submit" id="updateSubmit" class="btn btn-primary btn-lg btn-block" >수 정</button>'
-					+'<button type="submit" id="deleteSubmit" class="btn btn-danger btn-lg btn-block" >삭 제</button>'
+					+'<button type="submit" id="updateSubmit" class="btn col-xs-6 btn-primary btn-lg" >수 정</button>'
+					+'<button type="submit" id="deleteSubmit" class="btn col-xs-6 btn-danger btn-lg" >삭 제</button>'
 					+'</form>';
 				$('.container').html(searchResult);
 			/*	$("textarea#content").text(data.article.content);*/
