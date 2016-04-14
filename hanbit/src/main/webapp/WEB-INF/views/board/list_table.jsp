@@ -41,7 +41,7 @@
 			<c:if test="${article.level}>0">
 			<c:forEach begin="1" end="${article.level}">-</c:forEach>&gt;
 			</c:if>
-			<a href="${context}/article/page/${page}">${article.title}</a>
+			<a class="searchId" href="${context}/article/search/${article.articleId}">${article.title}</a>
 		</td>
 		<td>${article.writerName}</td>
 		<td>${article.postingDate}</td>

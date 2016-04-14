@@ -74,20 +74,23 @@ public class ArticleController {
 	 	model.addAttribute("command", command);
 		return "board/list";
 	}
-	@RequestMapping("/search")
-	public String searchByKeyword(
-			@RequestParam("keyField")String keyField,
-			@RequestParam("keyword")String keyword,
+
+	@RequestMapping("/search/{id}")
+	public String findById(@PathVariable("id")int id,
 			Model model){
-		
-		return "";
-	}
-	@RequestMapping("/id")
-	public String findById(){
-		return "";
+		logger.info("findById() 상세 글 가져오기!! ");
+		article.setArticleId(id);
+		article = service.getById(article);
+		logger.info("상세글 결과 : {}",article);
+		model.addAttribute("article", article);
+		return "board/list";
 	}
 	@RequestMapping("/count")
 	public String count(){
+		
+		
+		
+		
 		return "";
 	}
 	@RequestMapping("/update")

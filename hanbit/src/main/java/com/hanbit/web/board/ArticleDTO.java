@@ -90,6 +90,12 @@ public class ArticleDTO {
 		}
 		return 3;
 	}
+	@Override
+	public String toString() {
+		return "ArticleDTO [articleId=" + articleId + ", groupId=" + groupId + ", sequenceNo=" + sequenceNo
+				+ ", postingDate=" + postingDate + ", readCount=" + readCount + ", writerName=" + writerName
+				+ ", password=" + password + ", title=" + title + ", content=" + content + "]";
+	}
 	
 	
 }

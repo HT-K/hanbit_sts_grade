@@ -8,13 +8,20 @@ $(function() {
 	var context = '${context}';
 	
 	$('#writeBtn').click(function() {
-		article.writeForm(context);
+		article.getContext(context);
+		article.writeForm();
 	});
 	$('#searchBtn').click(function() {
 		var keyField = $('select[name=keyField] option:selected').val();
 		var keyword = $('#keyword').val();
 		$('#wrapper').empty();
 		$('#wrapper').load(context+'/article/list?keyField='+keyField+'&keyword='+keyword);
+	});
+	$('.searchId').click(function() {
+		alert($(this).attr('href'));
+		article.detail($(this).attr('href'));
+		return false;
+		
 	});
 });
 

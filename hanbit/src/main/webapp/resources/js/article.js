@@ -2,7 +2,11 @@
  * 게시판 
  */
 var article = {
-	writeForm : function(context) {
+	getContext : function(context) {
+		return context;
+	},	
+	writeForm : function() {
+		var context = this.getContext(context);
 		var writeForm = '<form>'
 			+'<div class="form-group">'
 			+'<label for="exampleInputEmail1">제목</label>'
@@ -24,38 +28,62 @@ var article = {
 				$('form').attr('method','post').attr('action',context+'/article/write').submit();
 			});
 			
+			
 	},
-	detail : function(context) {
+	detail : function(url) {
 		$.ajax({
-			url : context+'/article/detail',
-			data : {
-				keyField : $('select[name=keyField] option:selected').val(),
-				keyword : $('#keyword').val()
-			},
+			url : url,
+			data : {},
 			async : true,
 			dataType : 'json',
 			success : function(data) {
+				alert('URL : '+url);
+				alert('서버를 다녀온 AJAX 결과 : '+data.article.title);
 				var searchResult = '<form>'
 					+'<div class="form-group">'
-					+'<label for="exampleInputEmail1">제목</label>'
-					+'<input type="text" class="form-control" id="title" name="title" value="'+data.title+'" readonly>'
+					+'<label for="exampleInputEmail1">제목2</label>'
+					+'<input type="text" class="form-control" id="title" name="title" value="'+data.article.title+'" readonly>'
 					+'</div>'
 					+'<div class="form-group">'
 					+'<label for="exampleInputPassword1">작성자</label>'
-					+'<input type="text" class="form-control" id="writerName" name="writerName" value="'+data.writerName+'"></div>'
+					+'<input type="text" class="form-control" id="writerName" name="writerName" value="'+data.article.writerName+'"></div>'
 					+'<div class="form-group">'
 					+'<label for="exampleInputFile">비밀번호</label>'
-					+'<input type="password" id="password" class="form-control" name="password" value="'+data.password+'"></div>'
+					+'<input type="password" id="password" class="form-control" name="password" value="'+data.article.password+'"></div>'
 					+'<div class="form-group">'
 					+'<label for="exampleInputFile">글내용</label>'
-					+'<textarea id="content" name="content" class="form-control"  rows="5" value="'+data.content+'"></textarea></div>'
-					+'<button type="submit" id="writeSubmit" class="btn btn-primary btn-lg btn-block">전 송</button>'
+					+'<textarea id="content" name="content" class="form-control"  rows="5" ></textarea></div>'
+					+'<button type="submit" id="updateSubmit" class="btn btn-primary btn-lg btn-block">수 정</button>'
 					+'</form>';
-					$('.container').append(writeForm);
+				$('.container').html(searchResult);
+				$("textarea#content").text(data.article.content);
+				$('#updateSubmit').click(function() {
+					var context = article.getContext(context);
+					$.ajax({
+						url :'',
+						data : {
+							id : $('#').val()
+							
+						},
+						type : 'post',
+						dataType : 'json',
+						async : true,
+						success : function(data) {
+							
+						},
+						error : function(xhr,status,msg) {
+							alert('에러발생상태 :'+status+',내용 : '+msg);
+						}
+							
+					});
+				});
 			},
 			error : function(xhr,status,msg) {
 				alert('에러발생상태 :'+status+',내용 : '+msg);
 			}
 		});
+	},
+	update : function() {
+		
 	}
 };
