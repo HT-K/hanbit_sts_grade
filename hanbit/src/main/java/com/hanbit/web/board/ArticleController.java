@@ -44,7 +44,7 @@ public class ArticleController {
 		} else {
 			logger.info("글 등록 실패!! ");
 		}
-		return "redirect:/article/list/1/none/none";
+		return "redirect:/article/list";
 	}
 	@RequestMapping("/list")
 	public String list(@RequestParam(value="pageNO",defaultValue ="1")String pageNO,
@@ -108,10 +108,19 @@ public class ArticleController {
 		article.setTitle(title);
 		article.setWriterName(writerName);
 		service.update(article);
-		model.addAttribute("article", service.getById(article));
+		logger.info("수정된 결과 {}",service.getById(article).getContent());
+		model.addAttribute("id",articleId);
+		
 	}
 	@RequestMapping("/delete")
-	public String delet(){
-		return "";
+	public void delete(
+			@RequestParam("articleId")int articleId,Model model){
+		article.setArticleId(articleId);
+		int result = service.delete(article);
+		if (result == 1) {
+			model.addAttribute("message","삭제 성공 !!");
+		} else {
+			model.addAttribute("message","삭제 실패 !!");
+		}
 	}
 }

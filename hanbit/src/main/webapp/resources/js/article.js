@@ -58,7 +58,8 @@ var article = {
 					+'<div class="form-group">'
 					+'<label for="exampleInputFile">글내용</label>'
 					+'<textarea id="content" name="content" class="form-control"  rows="5" >'+data.article.content+'</textarea></div>'
-					+'<button type="submit" id="updateSubmit" class="btn btn-primary btn-lg btn-block">수 정</button>'
+					+'<button type="submit" id="updateSubmit" class="btn btn-primary btn-lg btn-block" >수 정</button>'
+					+'<button type="submit" id="deleteSubmit" class="btn btn-danger btn-lg btn-block" >삭 제</button>'
 					+'</form>';
 				$('.container').html(searchResult);
 			/*	$("textarea#content").text(data.article.content);*/
@@ -74,12 +75,25 @@ var article = {
 						},
 						type : 'post',
 						success : function(data) {
-							alert('바뀐 내용'+data.article.content);
+							article.detail(article.getContext()+"/article/search/"+data.id);
 						},
 						error : function(xhr,status,msg) {
 							alert('에러발생상태 :'+status+',내용 : '+msg);
 						}
 							
+					});
+				});
+				$('#deleteSubmit').click(function(e) {
+					e.preventDefault();
+					$.ajax(article.getContext()+'/article/delete',{
+						data : {articleId : $('#articleId').val()},
+						success : function(data) {
+							alert(data.message);
+							location.href = article.getContext()+'/article/list';
+						},
+						error : function(xhr,status,msg) {
+							alert('에러발생상태 :'+status+',내용 : '+msg);
+						}
 					});
 				});
 			},
