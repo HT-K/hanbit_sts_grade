@@ -10,7 +10,6 @@ var article = {
 		return this.context;
 	},	
 	writeForm : function() {
-		alert('컨텍스트 세팅 : '+this.getContext());
 		var writeForm = '<form>'
 			+'<div class="form-group">'
 			+'<label for="exampleInputEmail1">제목</label>'
@@ -41,8 +40,6 @@ var article = {
 			async : true,
 			dataType : 'json',
 			success : function(data) {
-				alert('URL : '+url);
-				alert('서버를 다녀온 AJAX 결과 : '+data.article.title);
 				var searchResult = '<form>'
 					+'<div class="form-group">'
 					+'<label for="exampleInputEmail1">글번호</label>'
@@ -50,30 +47,30 @@ var article = {
 					+'</div>'
 					+'<div class="form-group">'
 					+'<label for="exampleInputEmail1">제목</label>'
-					+'<input type="text" class="form-control" id="title" name="title" value="'+data.article.title+'" readonly>'
+					+'<input type="text" class="form-control" id="title" name="title" value="'+data.article.title+'" >'
 					+'</div>'
 					+'<div class="form-group">'
 					+'<label for="exampleInputPassword1">작성자</label>'
-					+'<input type="text" class="form-control" id="writerName" name="writerName" value="'+data.article.writerName+'"></div>'
+					+'<input type="text" class="form-control" id="writerName" name="writerName" value="'+data.article.writerName+'" readonly></div>'
 					+'<div class="form-group">'
 					+'<label for="exampleInputFile">비밀번호</label>'
 					+'<input type="password" id="password" class="form-control" name="password" value="'+data.article.password+'"></div>'
 					+'<div class="form-group">'
 					+'<label for="exampleInputFile">글내용</label>'
-					+'<textarea id="content" name="content" class="form-control"  rows="5" ></textarea></div>'
+					+'<textarea id="content" name="content" class="form-control"  rows="5" >'+data.article.content+'</textarea></div>'
 					+'<button type="submit" id="updateSubmit" class="btn btn-primary btn-lg btn-block">수 정</button>'
 					+'</form>';
 				$('.container').html(searchResult);
-				$("textarea#content").text(data.article.content);
-				$('#updateSubmit').click(function() {
-					
+			/*	$("textarea#content").text(data.article.content);*/
+				$('#updateSubmit').click(function(e) {
+					e.preventDefault(); /*기존에 submit 을 무력화 시켜라*/
 					$.ajax(article.getContext()+'/article/update',{
 						data : {
 							articleId : $('#articleId').val(),
 							title : $('#title').val(),
 							writerName : $('#writerName').val(),
 							password : $('#password').val(),
-							content : $('#content').text()
+							content : $('#content').val()
 						},
 						type : 'post',
 						success : function(data) {

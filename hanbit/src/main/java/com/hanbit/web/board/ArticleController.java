@@ -92,13 +92,13 @@ public class ArticleController {
 		
 		return "";
 	}
-	@RequestMapping("/update")
+	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public void update(
-			@RequestParam()int articleId,
-			@RequestParam()String title,
-			@RequestParam()String writerName,
-			@RequestParam()String password,
-			@RequestParam()String content,
+			@RequestParam("articleId")int articleId,
+			@RequestParam("title")String title,
+			@RequestParam("writerName")String writerName,
+			@RequestParam("password")String password,
+			@RequestParam("content")String content,
 			Model model){
 		logger.info("=== update() ===");
 		logger.info("update() 에 넘어온 컨텐츠 : {}",content);

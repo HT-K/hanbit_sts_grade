@@ -17,10 +17,8 @@ $(function() {
 		$('#wrapper').load(context+'/article/list?keyField='+keyField+'&keyword='+keyword);
 	});
 	$('.searchId').click(function() {
-		alert($(this).attr('href'));
 		article.detail($(this).attr('href'));
 		return false;
-		
 	});
 });
 
