@@ -38,4 +38,11 @@ INSERT INTO Article
 		writer_name,password,title,content)
 		VALUES
 		(1,'abcd',SYSDATE(),
-		0,'김길동','1','테스트','테스트');			
+		0,'김길동','1','테스트','테스트');		
+		
+CREATE TABLE Reply(
+	reply_seq INT NOT NULL AUTO_INCREMENT,
+	reply VARCHAR(1000),
+	article_id INT,
+	PRIMARY KEY (reply_seq)
+);		
