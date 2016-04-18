@@ -10,6 +10,18 @@
   	select * from Record
   	where id = #{id}
   </select>
+  <select id="selectByIdWithExamDate" resultType="com.hanbit.web.record.RecordDTO" parameterType="string">
+  	SELECT 
+  	seq, 
+  	score,
+	id,
+  	name, 
+  	subject,
+  	exam_date AS examDate
+  	FROM Record
+	WHERE id = #{id} AND exam_date = #{examDate}
+  </select>
+  
   <select id="count" resultType="int">
     SELECT COUNT(*)  FROM Record
   </select>

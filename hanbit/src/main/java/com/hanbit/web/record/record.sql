@@ -2,6 +2,10 @@ DROP VIEW Record CASCADE;
 
 SELECT * FROM Record;
 
+SELECT * FROM Record
+WHERE id = 'kim' AND exam_date = '2016-03-31'
+
+
 CREATE OR REPLACE VIEW Record
 AS
 SELECT 
@@ -10,9 +14,27 @@ SELECT
 	m.name AS name, -- varchar
 	s.subj_name AS subject, -- varchar
 	g.score AS score, -- int
-	g.exam_date AS examDate -- varchar
+	g.exam_date AS exam_date -- varchar
 FROM Member m, Grade g, Subject s
-WHERE m.id = g.id AND g.subj_seq = s.subj_seq; 
+WHERE m.id = g.id AND s.subj_seq = g.subj_seq 
+
+
+
+-- GROUP BY & HAVING 예제
+
+SELECT 
+	g.score_seq AS seq, -- int
+	g.id  AS id, -- varchar
+	m.name AS name, -- varchar
+	s.subj_name AS subject, -- varchar
+	g.score AS score, -- int
+	g.exam_date AS exam_date -- varchar
+FROM Member m, Grade g, Subject s
+WHERE m.id = g.id AND m.id = 'kim' AND s.subj_seq = g.subj_seq 
+AND g.exam_date='2016-03-31'
+GROUP BY s.subj_name 
+HAVING score IS NOT NULL
+
 
 -- ANSI JOIN(Natural JOIN)
 

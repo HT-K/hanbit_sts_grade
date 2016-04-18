@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hanbit.web.global.Command;
 import com.hanbit.web.mapper.RecordMapper;
 @Service
 public class RecordServiceImpl implements RecordService {
@@ -23,24 +24,24 @@ private static final Logger logger = LoggerFactory.getLogger(RecordServiceImpl.c
 	}
 
 	@Override
-	public RecordDTO getById(RecordDTO record) {
+	public List<RecordDTO> getById(Command command) {
 		logger.info("RecordService-getById()");
 		RecordMapper mapper = session.getMapper(RecordMapper.class);
-		return mapper.selectById(record);
+		return mapper.selectById(command);
 	}
 
 	@Override
-	public List<RecordDTO> getByName(RecordDTO record) {
+	public List<RecordDTO> getByName(Command command) {
 		logger.info("RecordService-getByName");
 		RecordMapper mapper = session.getMapper(RecordMapper.class);
-		return mapper.selectByName(record);
+		return mapper.selectByName(command);
 	}
 
 	@Override
-	public List<RecordDTO> getList() {
+	public List<RecordDTO> getList(Command command) {
 		logger.info("RecordService-getList");
 		RecordMapper mapper = session.getMapper(RecordMapper.class);
-		return mapper.selectList();
+		return mapper.selectList(command);
 	}
 
 	@Override
@@ -63,4 +64,12 @@ private static final Logger logger = LoggerFactory.getLogger(RecordServiceImpl.c
 		RecordMapper mapper = session.getMapper(RecordMapper.class);
 		return mapper.delete(record);
 	}
+
+	@Override
+	public List<RecordDTO> getByIdWithExamDate(RecordDTO record) {
+		logger.info("RecordService-getByIdWithExamDate()");
+		RecordMapper mapper = session.getMapper(RecordMapper.class);
+		return mapper.selectByIdWithExamDate(record);
+	}
+
 }
