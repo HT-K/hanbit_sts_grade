@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanbit.web.mapper.RecordMapper">
+  <select id="selectList" resultType="com.hanbit.web.record.RecordDTO">
+    select *  from Record
+  </select>
+  <select id="selectById" resultType="com.hanbit.web.record.RecordDTO" parameterType="string">
+  	select * from Record
+  	where id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*)  FROM Record
+  </select>
+  <insert id="insert" parameterType="com.hanbit.web.record.RecordDTO">
+  </insert>
+  <update id="update" parameterType="com.hanbit.web.record.RecordDTO">
+  </update>
+  <delete id="delete" parameterType="com.hanbit.web.record.RecordDTO">
+  </delete>
+</mapper>
