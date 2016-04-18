@@ -33,9 +33,9 @@ var article = {
 			
 			
 	},
-	detail : function(url) {
+	update : function() {
 		$.ajax({
-			url : url,
+			url : '',
 			data : {},
 			async : true,
 			dataType : 'json',
@@ -102,7 +102,54 @@ var article = {
 			}
 		});
 	},
-	update : function() {
-		
-	}
+	detail : function(url) {
+		$.ajax({
+			url : url,
+			data : {},
+			async : true,
+			dataType : 'json',
+			success : function(data) {
+				var searchResult = '<form>'
+					+'<div class="form-group">'
+					+'<label for="exampleInputEmail1">글번호</label>'
+					+'<input type="text" class="form-control" id="articleId" name="articleId" value="'+data.article.articleId+'" readonly>'
+					+'</div>'
+					+'<div class="form-group">'
+					+'<label for="exampleInputEmail1">제목</label>'
+					+'<input type="text" class="form-control" id="title" name="title" value="'+data.article.title+'" >'
+					+'</div>'
+					+'<div class="form-group">'
+					+'<label for="exampleInputPassword1">작성자</label>'
+					+'<input type="text" class="form-control" id="writerName" name="writerName" value="'+data.article.writerName+'" readonly></div>'
+					+'<div class="form-group">'
+					+'<label for="exampleInputFile">비밀번호</label>'
+					+'<input type="password" id="password" class="form-control" name="password" value="'+data.article.password+'"></div>'
+					+'<div class="form-group">'
+					+'<label for="exampleInputFile">글내용</label>'
+					+'<textarea id="content" name="content" class="form-control"  rows="5" >'+data.article.content+'</textarea></div>'
+					+'<button type="submit" id="updateForm" class="btn col-xs-6 btn-primary btn-lg" >수 정</button>'
+					+'<button type="submit" id="replySubmit" class="btn col-xs-6 btn-danger btn-lg" >댓 글 감 추 기</button>'
+					+'</form>';
+				searchResult+=article.replyForm;
+				$('.container').html(searchResult);
+				$('#updateForm').click(function() {
+					
+				});
+				$('#replySubmit').click(function() {
+					article.reply();
+				});
+			},
+			error : function(xhr,status,msg) {
+				alert('에러발생상태 :'+status+',내용 : '+msg);
+			}
+		});
+	},
+	replyForm : '<form>'
+			+'<div class="form-group">'
+			+'<label for="exampleInputFile">댓 글</label>'
+			+'<form><textarea name="reply" id="reply" class="form-control"  rows="10"></textarea></form>'
+			+'<button type="submit" id="updateForm" class="btn col-xs-6 btn-success btn-lg" >확 인</button>'
+			+'<button type="submit" id="replySubmit" class="btn col-xs-6 btn-warning btn-lg" >취 소</button>'
+			+'</form>'
+	
 };
