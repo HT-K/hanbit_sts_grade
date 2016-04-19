@@ -60,11 +60,11 @@ public class GradeServiceImpl implements GradeService{
 	}
 
 	@Override
-	public int delete(int hak) {
+	public int delete(GradeDTO grade) {
 		// 성적표 삭제
 		logger.info("===gradeService : delete()===");
 		GradeMapper mapper = session.getMapper(GradeMapper.class);
-		return mapper.delete(hak);
+		return mapper.delete(grade);
 	}
 
 	@Override

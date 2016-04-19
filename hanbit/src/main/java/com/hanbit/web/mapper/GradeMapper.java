@@ -23,5 +23,5 @@ public interface GradeMapper {
 		// U 성적표 수정
 		public int update(GradeDTO grade);
 		// D 성적표 삭제
-		public int delete(int hak);
+		public int delete(GradeDTO grade);
 }

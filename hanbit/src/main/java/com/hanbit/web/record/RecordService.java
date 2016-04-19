@@ -15,6 +15,6 @@ public interface RecordService {
 	public List<RecordDTO> getList(Command command);
 	public int count();
 	public int update(RecordDTO record);
-	public int delete(RecordDTO record);	
+	public int delete(GradeDTO grade);	
 }
 

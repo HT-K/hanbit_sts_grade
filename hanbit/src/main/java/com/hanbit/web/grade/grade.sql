@@ -21,6 +21,9 @@ CREATE TABLE Grade(
 
 ALTER TABLE Grade ADD COLUMN exam_date VARCHAR(15);
 
+DELETE FROM Grade
+WHERE score_seq = 13;
+
 -- 홍길동 3월시험
 INSERT INTO Grade(score_seq,id,subj_seq,score,exam_date)
 VALUES (score_seq,'hong',1,80,'2016-03-31');

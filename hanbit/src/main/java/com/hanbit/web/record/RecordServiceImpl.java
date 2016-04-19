@@ -61,10 +61,10 @@ private static final Logger logger = LoggerFactory.getLogger(RecordServiceImpl.c
 	}
 
 	@Override
-	public int delete(RecordDTO record) {
+	public int delete(GradeDTO grade) {
 		logger.info("RecordService-delete");
-		RecordMapper mapper = session.getMapper(RecordMapper.class);
-		return mapper.delete(record);
+		GradeMapper mapper = session.getMapper(GradeMapper.class);
+		return mapper.delete(grade);
 	}
 
 	@Override

@@ -8,6 +8,8 @@ WHERE id = 'hye' AND exam_date = '2016-04-30'
 UPDATE Record SET score = 60
 WHERE id = 'kim' AND exam_date = '2016-03-31' AND subject = 'java';
 
+
+
 -- INSERT INTO Record (seq,id,name,subject,score,exam_date,prof_id,prof_name)
 -- VALUES (9,'song','송중기','java',80,'2016-03-31','prof_kim','김교수');
 

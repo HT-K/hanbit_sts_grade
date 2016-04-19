@@ -10,5 +10,8 @@
 	<select id="selectAll"></select>
 	
 	<update id="update"></update>
-	<delete id="delete"></delete>
+	<delete id="delete" parameterType="com.hanbit.web.grade.GradeDTO">
+		DELETE FROM Grade
+		WHERE score_seq = #{scoreSeq};
+	</delete>
 </mapper>
