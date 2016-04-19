@@ -3,12 +3,32 @@
 PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
 "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-	<definition name="layout" template="/WEB-INF/views/layout.jsp">
-		<put-attribute name="header" value="/WEB-INF/views/global/header.jsp"/>
+	<!-- 사용자 페이지 -->
+	<definition name="layout_user" template="/WEB-INF/views/layout_user.jsp">
+		<put-attribute name="header" value=""/>
 		<put-attribute name="content" value=""/>
 		<put-attribute name="footer" value="/WEB-INF/views/global/footer.jsp"/>
 	</definition>
-	<definition name="*/*.tiles" extends="layout">
+	<definition name="*/*.user" extends="layout_user">
+		<put-attribute name="header" value="/WEB-INF/views/global/header.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	<definition name="auth/*/*.user" extends="layout_user">
+		<put-attribute name="header" value="/WEB-INF/views/global/auth_header.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	<!-- 관리자 페이지 -->
+	<definition name="layout_admin" template="/WEB-INF/views/layout_admin.jsp">
+		<put-attribute name="header" value=""/>
+		<put-attribute name="content" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/global/footer.jsp"/>
+	</definition>
+	<definition name="*/*.admin" extends="layout_admin">
+		<put-attribute name="header" value="/WEB-INF/views/admin/header.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	<definition name="auth/*/*.admin" extends="layout_admin">
+		<put-attribute name="header" value="/WEB-INF/views/admin/auth_header.jsp"/>
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/>
 	</definition>
 </tiles-definitions>

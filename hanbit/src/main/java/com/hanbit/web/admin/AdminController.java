@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.hanbit.web.member.MemberDTO;
 import com.hanbit.web.member.MemberService;
@@ -18,62 +19,44 @@ import com.hanbit.web.member.MemberService;
 @RequestMapping("/admin")
 public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-	@Autowired MemberDTO member;
-	@Autowired MemberService service;
+	@Autowired AdminDTO admin;
+	@Autowired AdminService service;
 	
-	@RequestMapping("/join")
-	public String join(){
-		logger.info("===admin - join()===");
-		return "admin/join_form";
-	}	
-	@RequestMapping(value="/join",method=RequestMethod.POST)
-	public String join(@RequestParam("id")String id,
-			@RequestParam("password")String password,
-			@RequestParam("name")String name,
-			@RequestParam("addr")String addr,
-			@RequestParam("birth")int birth,
-			@RequestParam("cate")int cate){
-		logger.info("===admin - join(POST)===");
-		member.setId(id);
-		member.setPassword(password);
-		member.setName(name);
-		member.setAddr(addr);
-		member.setBirth(birth);
-		member.setCate(cate);
-		String view = "";
-		if (service.join(member)==1) {
-			view = "admin/login_form";
-		} else {
-			view = "admin/join_form";
-		}
-		return view;
-	}	
 	
 	
 	@RequestMapping("/login")
 	public String login(){
-		return "admin/login_form";
+		logger.info("AdminController-login(GET)");
+		return "admin/login.admin";
 	}	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login(@RequestParam("id")String id,
 			@RequestParam("password")String password,
 			HttpSession session,
 			Model model){
+		logger.info("AdminController-login(POST)");
 		logger.info("로그인 컨트롤러 파라미터 ID : {}",id);
 		logger.info("로그인 컨트롤러 파라미터 PW : {}",password);
-		MemberDTO param = new MemberDTO();
+		AdminDTO param = new AdminDTO();
 		param.setId(id);
 		param.setPassword(password);
-		member = service.login(param);
+		
+		admin = service.login(param);
 		String view = "";
-		if (member != null) {
+		if (admin != null) {
 			logger.info("로그인 성공");
-			session.setAttribute("user", member);
-			view = "admin/admin_form";
+			session.setAttribute("user", admin);
+			view = "auth/admin/main.admin";
 		} else {
 			logger.info("로그인 실패");
-			view = "admin/login_form";
+			view = "admin/login.admin";
 		}
 		return view;
 	}
+	@RequestMapping("/logout")
+	public String logout(SessionStatus status){
+		logger.info("=== member-logout() ===");
+		status.setComplete();
+		return "redirect:/admin/login.admin";
+	}	
 }

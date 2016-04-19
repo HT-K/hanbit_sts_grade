@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="admin_header.jsp"/>
 <div class="container" style="width:1000px; margin:0 auto;">
 	<div class="row display-table">
     <div class="col-xs-12 col-sm-4 display-cell" >

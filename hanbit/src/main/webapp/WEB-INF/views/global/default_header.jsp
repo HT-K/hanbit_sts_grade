@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <header style="width:100%;margin: 0 auto">
  <h3 style="color: white; text-align: center;">
-  		<a href="${context}/">한빛 성적 관리</a>
+  		<a href="${context}/">한빛 교육 센터</a>
   	</h3>
   	<p style="float:right;margin-right: 50px;"><fmt:formatDate type="both" value="${now}" /></p>
             
@@ -41,6 +41,15 @@
   </li>
   <li role="presentation" style="margin-left: 100px">
   	<a href="${context}/article/list">게시판</a>
+  </li>
+   <li role="presentation" style="margin-left: 100px">
+  	<a href="${context}/member/login">로그인</a>
+  </li>
+   <li role="presentation" style="margin-left: 100px">
+  	<a href="${context}/member/join">회원가입</a>
+  </li>
+   <li role="presentation" style="margin-left: 100px">
+  	<a href="${context}/admin/login">관리자</a>
   </li>
 </ul>
 

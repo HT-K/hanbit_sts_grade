@@ -27,7 +27,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "global/main.tiles";
+		return "global/main.user";
 	}
 	
 }

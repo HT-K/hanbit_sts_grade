@@ -18,3 +18,5 @@ INSERT INTO Admin(id,name,password,addr,birth,role)
 VALUES ('prof_park','박교수','1','의정부',830801,'prof');
 
 SELECT * FROM Admin WHERE id = 'admin' and password = '1';
+SELECT * FROM Admin 
+  	where id = 'admin' and password = '1'
