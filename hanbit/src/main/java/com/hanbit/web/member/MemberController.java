@@ -74,7 +74,7 @@ public class MemberController {
 		} else {
 			model.addAttribute("member","");
 		}
-		return "member/detail";
+		return "auth/member/detail.user";
 	}	
 	@RequestMapping("/count")
 	public String count(Model model){
@@ -83,7 +83,7 @@ public class MemberController {
 	}	
 	@RequestMapping("/login")
 	public String login(){
-		return "member/login_form";
+		return "member/login.user";
 	}	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login(@RequestParam("id")String id,

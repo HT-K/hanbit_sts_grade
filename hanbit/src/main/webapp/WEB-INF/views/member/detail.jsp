@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="../global/header.jsp"/>
 <div id="detail">
 		<div class="joinTop">
 			<h2 class="text-center">${sessionScope.user.name} ${member.role}상세정보</h2>
