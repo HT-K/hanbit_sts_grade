@@ -9,6 +9,6 @@ PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
 		<put-attribute name="footer" value="/WEB-INF/views/global/footer.jsp"/>
 	</definition>
 	<definition name="*/*.tiles" extends="layout">
-		<put-attribute name="content" value="/WEB-INF/views/global/main.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/>
 	</definition>
 </tiles-definitions>
