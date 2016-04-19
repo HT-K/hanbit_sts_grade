@@ -6,7 +6,7 @@ SELECT
 	m.name 		AS name,
 	s.subj_name	AS subject,
 	g.score		AS score,
-	g.exam_date	AS examDate
+	g.exam_date	AS exam_date
 FROM
 	Member m, Grade g, Subject s
 WHERE

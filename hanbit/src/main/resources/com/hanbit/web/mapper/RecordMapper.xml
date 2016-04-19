@@ -4,11 +4,27 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hanbit.web.mapper.RecordMapper">
   <select id="selectList" resultType="com.hanbit.web.record.RecordDTO">
-    select *  from Record
+    SELECT seq,
+		name,
+		subject,
+		score,
+		exam_date AS examDate,
+		prof_id AS profID,
+		prof_name AS profName
+	FROM Record
   </select>
-  <select id="selectById" resultType="com.hanbit.web.record.RecordDTO" parameterType="string">
-  	select * from Record
-  	where id = #{id}
+  <select id="selectById" resultType="com.hanbit.web.record.RecordDTO" parameterType="com.hanbit.web.record.RecordCommand">
+  	select 
+	  	seq, 
+	  	score,
+		id,
+	  	name, 
+	  	subject,
+	  	exam_date AS examDate,
+	  	prof_id AS profId,
+	  	prof_name AS profName
+  	FROM Record
+  	WHERE id = #{id}
   </select>
   <select id="selectByIdWithExamDate" resultType="com.hanbit.web.record.RecordDTO" parameterType="string">
   	SELECT 
@@ -17,7 +33,9 @@
 	id,
   	name, 
   	subject,
-  	exam_date AS examDate
+  	exam_date AS examDate,
+  	prof_id AS profId,
+  	prof_name AS profName
   	FROM Record
 	WHERE id = #{id} AND exam_date = #{examDate}
   </select>
@@ -26,9 +44,15 @@
     SELECT COUNT(*)  FROM Record
   </select>
   <insert id="insert" parameterType="com.hanbit.web.record.RecordDTO">
+	
   </insert>
   <update id="update" parameterType="com.hanbit.web.record.RecordDTO">
+  	UPDATE Record 
+		SET  score = #{score}
+		WHERE id = #{id} AND exam_date = #{examDate} AND subject = #{subject}
   </update>
   <delete id="delete" parameterType="com.hanbit.web.record.RecordDTO">
+  	DELETE FROM Record 
+	WHERE id = #{id}
   </delete>
 </mapper>

@@ -26,16 +26,8 @@ public class GradeController {
 		return "grade/add_form";
 	}
 	@RequestMapping(value="/{id}/score",method=RequestMethod.POST)
-	public String add(@PathVariable("id")String id,
-			@RequestParam("java")int java,
-			@RequestParam("jsp")int jsp,
-			@RequestParam("sql")int sql,
-			@RequestParam("spring")int spring){
+	public String add(@PathVariable("id")String id){
 		logger.info("grade-add(POST)");
-		grade.setJava(java);
-		grade.setJsp(jsp);
-		grade.setSpring(spring);
-		grade.setSql(sql);
 		int result = service.input(grade);
 		return "admin/form";
 	}

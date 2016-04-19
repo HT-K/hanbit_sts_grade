@@ -3,8 +3,19 @@ DROP VIEW Record CASCADE;
 SELECT * FROM Record;
 
 SELECT * FROM Record
-WHERE id = 'kim' AND exam_date = '2016-03-31'
+WHERE id = 'hye' AND exam_date = '2016-04-30'
 
+UPDATE Record SET score = 60
+WHERE id = 'kim' AND exam_date = '2016-03-31' AND subject = 'java';
+
+-- INSERT INTO Record (seq,id,name,subject,score,exam_date,prof_id,prof_name)
+-- VALUES (9,'song','송중기','java',80,'2016-03-31','prof_kim','김교수');
+
+INSERT INTO Member(id,name,password,addr,birth,cate)
+VALUES ('hye','송혜교','1','우르크',851201,1);
+INSERT INTO Grade(score_seq,id,subj_seq,score,exam_date)
+VALUES (score_seq,'hye',1,80,'2016-03-31');
+-- INSERT INTO Subject(subj_name,prof_id) VALUES('java','prof_kim');
 
 CREATE OR REPLACE VIEW Record
 AS
@@ -14,9 +25,12 @@ SELECT
 	m.name AS name, -- varchar
 	s.subj_name AS subject, -- varchar
 	g.score AS score, -- int
-	g.exam_date AS exam_date -- varchar
-FROM Member m, Grade g, Subject s
-WHERE m.id = g.id AND s.subj_seq = g.subj_seq 
+	g.exam_date AS exam_date, -- varchar
+	s.prof_id AS prof_id, -- varchar
+	a.name AS prof_name -- varchar
+FROM Member m, Grade g, Subject s, Admin a
+WHERE m.id = g.id AND s.subj_seq = g.subj_seq
+AND s.prof_id = a.id
 
 
 

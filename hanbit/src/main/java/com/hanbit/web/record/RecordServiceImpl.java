@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hanbit.web.global.Command;
+import com.hanbit.web.grade.GradeDTO;
+import com.hanbit.web.mapper.GradeMapper;
 import com.hanbit.web.mapper.RecordMapper;
 @Service
 public class RecordServiceImpl implements RecordService {
@@ -17,10 +19,10 @@ private static final Logger logger = LoggerFactory.getLogger(RecordServiceImpl.c
 	@Autowired RecordDTO record;
 	
 	@Override
-	public int input(RecordDTO record) {
+	public int input(GradeDTO grade) {
 		logger.info("RecordService-input()");
-		RecordMapper mapper = session.getMapper(RecordMapper.class);
-		return mapper.insert(record);
+		GradeMapper mapper = session.getMapper(GradeMapper.class);
+		return mapper.insert(grade);
 	}
 
 	@Override
