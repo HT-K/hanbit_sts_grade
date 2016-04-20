@@ -58,12 +58,9 @@ public class MemberController {
 		return view;
 	}	
 	@RequestMapping("/list")
-	public @ResponseBody MemberDTO list(Model model){
+	public @ResponseBody List<MemberDTO> list(Model model){
 		logger.info("===member-list(GET)===");
-		List<MemberDTO> list = new ArrayList<MemberDTO>();
-		list = service.getList();
-		model.addAttribute("list",list);
-		return service.getList().get(0);
+		return service.getList();
 	}
 	@RequestMapping("/name/{name}")
 	public String getMembersByName(@PathVariable("name")String name){
