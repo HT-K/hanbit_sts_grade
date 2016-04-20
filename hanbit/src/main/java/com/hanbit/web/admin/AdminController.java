@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.hanbit.web.member.MemberDTO;
-import com.hanbit.web.member.MemberService;
-
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
