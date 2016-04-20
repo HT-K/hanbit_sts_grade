@@ -7,10 +7,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
+
+import com.hanbit.web.member.MemberDTO;
+import com.hanbit.web.member.MemberService;
 
 @Controller
 @RequestMapping("/admin")
@@ -18,6 +23,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	@Autowired AdminDTO admin;
 	@Autowired AdminService service;
+	@Autowired MemberService memberService;
 	
 	
 	
@@ -55,5 +61,11 @@ public class AdminController {
 		logger.info("=== member-logout() ===");
 		status.setComplete();
 		return "redirect:/admin/login.admin";
-	}	
+	}
+	@RequestMapping("/member/profile/{id}")
+	public @ResponseBody MemberDTO getMemberProfile(
+			@PathVariable("id")String id){
+		logger.info("=== 어드민 컨트롤러 getMemberProfile() ===");
+		return memberService.detail(id);
+	}
 }

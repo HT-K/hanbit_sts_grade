@@ -22,14 +22,14 @@ var member = {
 			+'<th>주소</th>'
 			+'<th>생년월일</th></tr>';
 			
-			$.each(data.list, function(index,member) {
-				member_list += '<tr><td>'+member.id+'</td>'
-					+'<td><a href="'+member.getContext()+'/grade/add/'+member.id+'">'
-						+member.name+'</a></td>'
-					+'<td>'+member.major+'</td>'
-					+'<td>'+member.subject+'</td> '
-					+'<td>'+member.addr+'</td>'
-					+'<td>'+member.birth+'</td></tr>';
+			$.each(data, function(index,value) {
+				member_list += '<tr><td>'+this.id+'</td>'
+					+'<td><a class="memberProfile" href="'+member.getContext()+'/admin/member/profile/'+this.id+'">'
+						+this.name+'</a></td>'
+					+'<td>'+this.major+'</td>'
+					+'<td>'+this.subject+'</td> '
+					+'<td>'+this.addr+'</td>'
+					+'<td>'+this.birth+'</td></tr>';
 			});
 			member_list += '</table></div>'
 			$('#content').html(member_list);
@@ -38,6 +38,11 @@ var member = {
 			$('#member_list tr').css('border','1px solid black');
 			$('#member_list tr td').css('border','1px solid black')
 			.css('text-align','center');
+			$('.memberProfile').click(function(e) {
+				e.preventDefault();
+				admin.memberProfile($(this).attr('href'));
+			});
+			
 		});
 	}		
 }
