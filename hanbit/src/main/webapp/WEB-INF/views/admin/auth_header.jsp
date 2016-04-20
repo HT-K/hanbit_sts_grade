@@ -10,6 +10,18 @@
   <li role="presentation" style="float:right;margin:0 100px 0 0">
   	<a href="${context}/admin/logout" >로그아웃</a>
   </li>
+   <li role="presentation" style="float:right;margin:0 100px 0 0">
+  	<a href="${context}/admin/logout" id="gradeMgmt" >성적관리</a>
+  </li>
+  <li role="presentation" style="float:right;margin:0 100px 0 0">
+  	<a href="${context}/admin/logout" >학생관리</a>
+  </li>
+   <li role="presentation" style="float:right;margin:0 100px 0 0">
+  	<a href="${context}/admin/logout" >교직원관리</a>
+  </li>
+   <li role="presentation" style="float:right;margin:0 100px 0 0">
+  	<a href="${context}/admin/logout" id="gradeMgmt" >학과관리</a>
+  </li>
 </ul>
 
 

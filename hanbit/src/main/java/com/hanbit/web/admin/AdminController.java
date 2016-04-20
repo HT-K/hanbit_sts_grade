@@ -46,7 +46,7 @@ public class AdminController {
 		if (admin != null) {
 			logger.info("로그인 성공");
 			session.setAttribute("user", admin);
-			view = "auth/admin/main.admin";
+			view = "auth/admin/content.admin";
 		} else {
 			logger.info("로그인 실패");
 			view = "admin/login.admin";

@@ -16,8 +16,16 @@
 	<div id="content">
 		<tiles:insertAttribute name="content" />
 	</div>
-	<div id="footer">
+	<div id="footer" style="text-align:center">
 		<tiles:insertAttribute name="footer" />
 	</div>
 </body>
+<script src="${js}/grade.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#gradeMgmt').click(function() {
+			grade.init('${context}');
+		});
+	});
+</script>
 </html>
