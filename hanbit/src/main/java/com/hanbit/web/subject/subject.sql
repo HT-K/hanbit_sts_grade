@@ -22,7 +22,14 @@ WHERE subj_name = 'spring' OR subj_name = 'sql';
 UPDATE Subject SET prof_id = 'prof_park'
 WHERE subj_name = 'nodejs' OR subj_name = 'python' OR subj_name = 'android';
 
-SELECT * FROM Subject;
+SELECT 
+	s.subj_seq AS subjSeq,
+	s.subj_name AS subjName,
+	s.prof_id AS profId,
+	a.name AS profName
+FROM Subject s, Admin a
+WHERE s.prof_id = a.id;
+
 
 
 SELECT * FROM Subject;
