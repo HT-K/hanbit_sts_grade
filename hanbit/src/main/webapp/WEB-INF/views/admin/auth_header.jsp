@@ -15,16 +15,16 @@
   	<a href="${context}/admin/logout" >로그아웃</a>
   </li>
    <li role="presentation" style="float:right;margin:0 100px 0 0">
-  	<a href="${context}/record/list" id="gradeMgmt" >성적관리</a>
+  	<a href="#" id="gradeMgmt" >성적관리</a>
   </li>
   <li role="presentation" style="float:right;margin:0 100px 0 0">
-  	<a href="${context}/member/list" id="memberMgmt" >학생관리</a>
+  	<a href="#" id="memberMgmt" >학생관리</a>
   </li>
    <li role="presentation" style="float:right;margin:0 100px 0 0">
-  	<a href="${context}/admin/logout" id="adminMgmt" >교직원관리</a>
+  	<a href="#" id="adminMgmt" >교직원관리</a>
   </li>
    <li role="presentation" style="float:right;margin:0 100px 0 0">
-  	<a href="${context}/subject/list" id="subjectMgmt" >학과관리</a>
+  	<a href="#" id="subjectMgmt" >학과관리</a>
   </li>
 </ul>
 </div>

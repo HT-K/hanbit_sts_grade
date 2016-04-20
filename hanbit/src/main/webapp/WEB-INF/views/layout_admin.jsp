@@ -14,12 +14,11 @@
 		  <tiles:insertAttribute name="header" />
 	</div>
 	<div id="content">
-		<tiles:insertAttribute name="content" />
+			<tiles:insertAttribute name="content" />
 	</div>
 	<div id="footer" style="text-align:center">
 		<tiles:insertAttribute name="footer" />
 	</div>
-	<div id="test"></div>
 </body>
 <script src="${js}/subject.js"></script>
 <script src="${js}/admin.js"></script>
@@ -34,14 +33,15 @@
 		$('#adminMgmt').click(function() {
 			admin.init(context);
 		});
-		$('#memberMgmt').click(function() {
-			alert('멤버관리 클릭');
+		$('#memberMgmt').click(function(e) {
+			e.preventDefault();
+			alert('test 클릭');
 			$.ajax({
 				url :'${context}/member/list',
 				dataType : 'json',
 				success : function(data) {
 					if (data != null) {
-						alert('성공 !!!'+data.name);
+						alert('성공 !!!');
 					}else{
 						alert('실패 !!!');
 					}
@@ -55,16 +55,15 @@
 						+'<th>주소</th>'
 						+'<th>생년월일</th></tr>';
 						
-						  $.each(data, function(index,value) { 
+						  $.each(data.list, function(index,value) { 
 							member_list += '<tr><td>'+this.id+'</td>'
-								+'<td>'
-									+this.name+'</a></td>'
+								+'<td>'+this.name+'</td>'
 								+'<td>'+this.major+'</td>'
 								+'<td>'+this.subject+'</td> '
 								+'<td>'+this.addr+'</td>'
 								+'<td>'+this.birth+'</td></tr>';
 						 });  
-						member_list += '</table></div>'
+						member_list += '</table></div>';
 						$('#content').html(member_list);
 						$('#member_list').css('border','1px solid black');
 						$('#member_list th').css('border','1px solid black').css('text-align','center');
