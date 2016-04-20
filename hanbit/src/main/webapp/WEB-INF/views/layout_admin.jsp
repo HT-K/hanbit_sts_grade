@@ -19,12 +19,66 @@
 	<div id="footer" style="text-align:center">
 		<tiles:insertAttribute name="footer" />
 	</div>
+	<div id="test"></div>
 </body>
-<script src="${js}/grade.js"></script>
+<script src="${js}/subject.js"></script>
+<script src="${js}/admin.js"></script>
+<script src="${js}/member.js"></script>
+<script src="${js}/record.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$('#gradeMgmt').click(function() {
-			grade.init('${context}');
+		var context = '${context}';
+		$('#subjectMgmt').click(function() {
+			subject.init(context);
+		});
+		$('#adminMgmt').click(function() {
+			admin.init(context);
+		});
+		$('#memberMgmt').click(function() {
+			alert('멤버관리 클릭');
+			$.ajax({
+				url :'${context}/member/list',
+				dataType : 'json',
+				success : function(data) {
+					if (data != null) {
+						alert('성공 !!!'+data.name);
+					}else{
+						alert('실패 !!!');
+					}
+					var member_list = '<div class="container" style="width:1000px;height:450px; margin:0 auto;">'
+						+ '<table id="member_list" style="width:100%;margin-top: 30px">'
+						+ '<tr style="background-color: yellow;">'
+						+ '<th style="text-align: center;">아이디</th>'
+						+'<th>이름</th>'
+						+'<th>전공</th>'
+						+'<th>수강과목</th> '
+						+'<th>주소</th>'
+						+'<th>생년월일</th></tr>';
+						
+						/*  $.each(data, function(index,v) { */
+							member_list += '<tr><td>'+data.id+'</td>'
+								+'<td>'
+									+data.name+'</a></td>'
+								+'<td>'+data.major+'</td>'
+								+'<td>'+data.subject+'</td> '
+								+'<td>'+data.addr+'</td>'
+								+'<td>'+data.birth+'</td></tr>';
+						/* });  */
+						member_list += '</table></div>'
+						$('#content').html(member_list);
+						$('#member_list').css('border','1px solid black');
+						$('#member_list th').css('border','1px solid black').css('text-align','center');
+						$('#member_list tr').css('border','1px solid black');
+						$('#member_list tr td').css('border','1px solid black')
+						.css('text-align','center');
+				},
+				error : function(xhr,status,msg) {
+					alert('에러발생상태 :'+status+',내용 : '+msg);
+				}
+			});
+		});
+		$('#recordMgmt').click(function() {
+			record.init(context);
 		});
 	});
 </script>

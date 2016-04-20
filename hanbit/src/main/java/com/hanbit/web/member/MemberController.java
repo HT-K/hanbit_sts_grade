@@ -1,5 +1,6 @@
 package com.hanbit.web.member;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -56,9 +58,12 @@ public class MemberController {
 		return view;
 	}	
 	@RequestMapping("/list")
-	public String list(Model model){
-		model.addAttribute("list",service.getList());
-		return "member/member_list";
+	public @ResponseBody MemberDTO list(Model model){
+		logger.info("===member-list(GET)===");
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+		list = service.getList();
+		model.addAttribute("list",list);
+		return service.getList().get(0);
 	}
 	@RequestMapping("/name/{name}")
 	public String getMembersByName(@PathVariable("name")String name){
