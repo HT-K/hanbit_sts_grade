@@ -20,4 +20,30 @@
 		<tiles:insertAttribute name="footer" />
 	</div>
 </body>
+<script src="${js}/subject.js"></script>
+<script src="${js}/admin.js"></script>
+<script src="${js}/member.js"></script>
+<script src="${js}/record.js"></script>
+<script src="${js}/Global.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var global = new Global('${context}');
+		$('#article_list').click(function(e) {
+			e.preventDefault();
+			article.init(global.getContext());
+		});
+		$('#logout').click(function(e) {
+			e.preventDefault();
+			location.href='${context}/member/logout';
+		});
+		$('#mypage').click(function(e) {
+			e.preventDefault();
+			member.detail(global.getContext());
+		});
+		$('#updateBtn').click(function(e) {
+			e.preventDefault();
+			member.updateForm(global.getContext());
+		});
+	});
+</script>
 </html>

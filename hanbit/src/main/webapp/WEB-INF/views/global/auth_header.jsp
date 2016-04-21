@@ -1,25 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <c:set var="now" value="<%=new java.util.Date()%>" />
+<style>
+ 	.nav li a {color:gray}
+ </style>
 <header style="width:100%;margin: 0 auto">
- <h3 style="color: white; text-align: center;">
-  		<a href="${context}/">한빛 교육 센터</a>
-  	</h3>
-  	<p style="float:right;margin-right: 50px;"><fmt:formatDate type="both" value="${now}" /></p>
-            
-
+   	<div style="text-align: center;">
+   		<h3><a href="${context}/">사용자 페이지</a></h3>
+   	</div>
+ <nav class="navbar navbar-inverse " >
+  <div class="container-fluid">           
 <ul class="nav nav-pills">
-  
-  <li role="presentation" style="margin-left: 100px">
-  	<a href="${context}/article/list">게시판</a>
+     <li role="presentation" style="float:right;margin:0 100px 0 0">
+  	<a href="${context}/member/login" id="logout">로그아웃</a>
   </li>
-   <li role="presentation" style="margin-left: 100px">
-  	<a href="${context}/member/login">로그아웃</a>
+   <li role="presentation" style="float:right;margin:0 100px 0 0">
+  	<a href="${context}/member/mypage" id="mypage">마이페이지</a>
   </li>
-  <li role="presentation" style="margin-left: 100px">
-  	<a href="${context}/member/mypage">마이페이지</a>
+  	<li role="presentation" style="float:right;margin:0 100px 0 0">
+  	<a href="${context}/article/list" id="article_list">게시판</a>
   </li>
-</ul>
+ 
 
+</ul>
+</div>
+</nav>
 
 </header>
 <%-- <c:choose>

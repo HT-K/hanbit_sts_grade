@@ -2,17 +2,9 @@
  * subject
  */
 var subject = {
-	context : '',
-	setContext : function(context) {
-		console.log('세터에 넘어온 컨텍스트 경로'+context);
-		this.context = context;
-	},
-	getContext : function() {
-		return this.context;
-	},
 	init : function(context) {
 		this.setContext(context);
-		$.getJSON(subject.getContext()+'/subject/list',function(data) {
+		$.getJSON(context+'/subject/list',function(data) {
 			var subject_list = '<div class="container" style="width:1000px;height:450px; margin:0 auto;">'
 			+ '<table id="subject_list" style="width:100%;margin-top: 30px">'
 			+ '<tr style="background-color: yellow;">'
@@ -22,8 +14,8 @@ var subject = {
 			+ '</tr>';
 			$.each(data.list,function(index,value){
 				subject_list += '<tr><td>'+value.subjSeq+'</td>'
-						+'<td><a href="'+subject.getContext()+'/subject/'+value.subjSeq+'">'+value.subjName+'</a></td>'
-						+'<td><a href="'+subject.getContext()+'/admin/'+value.profId+'">'+value.profName+'</a></td></tr>'
+						+'<td><a href="'+context+'/subject/'+value.subjSeq+'">'+value.subjName+'</a></td>'
+						+'<td><a href="'+context+'/admin/'+value.profId+'">'+value.profName+'</a></td></tr>'
 			});
 			subject_list +='</table></div>';
 			$('#content').html(subject_list);
