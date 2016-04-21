@@ -16,7 +16,7 @@ public class Constants {
 	public static final String MSSQL_URL = "";
 	public static final int PAGESIZE = 10;
 	public static final int GROUPSIZE = 5;
-	public static final String IMAGE_DOMAIN = "C:\\sts\\sourcetree\\hanbit-sts\\hanbit\\src\\main\\webapp\\resources\\img";
+	public static final String IMAGE_DOMAIN = "C:\\sts\\sourcetree\\hanbit-sts\\hanbit\\src\\main\\webapp\\resources\\img\\member";
 	
 	
 }

@@ -157,16 +157,17 @@ public class MemberController {
 	public @ResponseBody MemberDTO update(
 			@RequestParam(value="password",required=false)String password,
 			@RequestParam(value="addr",required=false)String addr,
-			@RequestParam(value="profileImg",required=false)MultipartFile file,
+			@RequestParam(value="file",required=false)MultipartFile file,
 			HttpSession session,
 			Model model){
 		logger.info("수정폼에서 넘어온 주소 = {}",addr);
 		logger.info("수정폼에서 넘어온 비밀번호 = {}",password);
-		logger.info("수정폼에서 넘어온 비밀번호 = {}",file);
+		
 		MemberDTO legacy = (MemberDTO) session.getAttribute("user");
 		MemberDTO param = (MemberDTO) session.getAttribute("user");
 		FileUpload fileUpload = new FileUpload();
 		String fileName = file.getOriginalFilename();
+		logger.info("수정폼에서 넘어온 파일 = {}",fileName);
 		String fullPath = fileUpload.uploadFile(file, 
 				Constants.IMAGE_DOMAIN, fileName );
 		logger.info("이미지 저장 경로 : {}",fullPath);

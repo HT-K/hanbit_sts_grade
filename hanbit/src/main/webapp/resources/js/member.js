@@ -43,7 +43,7 @@ var member = {
 				+		'<h2 class="text-center">수정정보</h2>'
 				+	'</div>'
 				+	'<div class="joinCenter row">'
-				+		'<form class="form-horizontal" method="post" enctype="multipart/form-data">'
+				+		'<form class="form-horizontal" id="frm" action="'+context+'/member/update" method="post" enctype="multipart/form-data">'
 				+			'<fieldset class="joinField">'
 				+				'<div class="form-group">'
 				+				 	'<label for="input_id" class="col-sm-4 control-label">프로필 이미지 등록</label>'
@@ -51,7 +51,7 @@ var member = {
 				+						'<img src="'+context+'/resources/img/member/'+member.profileImg+'" alt="" style="width:200px;height:230px"/>'
 				+					'</div>'
 				+				 	'<div class="col-sm-2">'
-				+						'<input type="file" id="profile_img" name="profile_img" />'
+				+						'<input type="file" id="file" name="file" value="이미지변경"/>'
 				+					'</div>'
 				+				'</div>'
 				+				'<div class="form-group">'
@@ -95,21 +95,18 @@ var member = {
 			$('#content').html(update_form);
 			$('#update').click(function(e) {
 				e.preventDefault();
-				$('form').submit(function(e) {
-					e.preventDefault();
 				alert('업데이트 클릭');
+				var $frm = $('#frm');
+				var postData = new FormData($('#frm')[0]);
+				
 				$.ajax({
-					url : context+'/member/update',
-					data : {
-						id : $('#id').val(),
-						password : $('#password').val(),
-						addr : $('#addr').val(),
-						profileImg : $('#profile_img').val()
-					},
-					dataType : 'json',
-					type : 'post',
-					contentType : 'application/json',
-					mimeType : 'application/json',
+					type: $frm.attr('method'),
+				      url: $frm.attr('action'),
+				      data: postData,
+				      dataType : 'json',
+				      mimeType: 'multipart/form-data',
+				      contentType: false, 
+				      processData : false,
 					success : function(data) {
 						alert('수정성공 '+data.profileImg);
 					},
@@ -119,7 +116,6 @@ var member = {
 				});
 				});
 			});
-		});
 	},
 	update : function(context) {
 		alert('업데이트 실행!!!');
@@ -133,7 +129,7 @@ var member = {
 			},
 			dataType : 'json',
 			type : 'post',
-			contentType : 'application/json',
+			contentType : 'application/x-www-form-urlencoded', 
 			mimeType : 'application/json',
 			success : function(data) {
 				alert('수정성공 '+data.profileImg);

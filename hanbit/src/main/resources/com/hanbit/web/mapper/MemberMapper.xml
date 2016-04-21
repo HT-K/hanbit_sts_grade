@@ -33,7 +33,7 @@
   <update id="update" parameterType="com.hanbit.web.member.MemberDTO">
   	
   	UPDATE Member SET password = #{password},
-  	addr = #{addr}
+  	addr = #{addr}, profile_img = #{profileImg}
   	WHERE id = #{id}
   	
   </update>

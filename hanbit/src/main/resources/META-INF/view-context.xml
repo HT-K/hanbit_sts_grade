@@ -16,6 +16,8 @@
 				<beans:entry key="atom" value="application/atom+xml" />
 				<beans:entry key="html" value="text/html" />
 				<beans:entry key="json" value="application/json" />
+				<beans:entry key="file" value="multipart/form-data" />
+				
 			</beans:map>
 		</beans:property>
 		<beans:property name="viewResolvers">

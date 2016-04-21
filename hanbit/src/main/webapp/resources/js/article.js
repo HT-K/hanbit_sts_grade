@@ -2,7 +2,18 @@
  * 게시판 
  */
 var article = {
-	
+	init : function(context) {
+		$.getJSON(context+'/article/list',function(article){
+			var article_list = ''
+				+''
+				+''
+				+''
+				+''
+				+'';
+			$('#content').html(article_list);
+				
+		});
+	},
 	writeForm : function() {
 		var writeForm = '<form>'
 			+'<div class="form-group">'
