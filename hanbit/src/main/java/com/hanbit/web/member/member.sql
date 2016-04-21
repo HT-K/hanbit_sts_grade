@@ -9,7 +9,8 @@ CREATE TABLE Member(
 	password VARCHAR(30) NOT NULL,
 	addr VARCHAR(100),
 	birth INT,
-	cate INT
+	cate INT,
+	profile_img VARCHAR(100)
 );
 INSERT INTO Member(id,name,password,addr,birth,cate)
 VALUES ('hong','홍길동','1','서울',800101,1);
@@ -36,13 +37,14 @@ UPDATE Member SET subject = 'java/jsp/sql/spring', major = 'security' WHERE id =
 UPDATE Member SET subject = 'java/jsp/sql/spring', major = 'security' WHERE id = 'jun';
 UPDATE Member SET subject = 'java/jsp/sql/spring', major = 'security' WHERE id = 'jang';
 
+UPDATE Member SET profile_img = 'default_profile.png';
 
 DELETE FROM Member WHERE id = 'choi';
 
 SELECT * FROM Member;
 
 SELECT * FROM Member
-WHERE id = 'choi';
+WHERE id = 'song';
 
 SELECT * FROM Member
 WHERE id = 'kim' and password = '1';
@@ -50,8 +52,9 @@ WHERE id = 'kim' and password = '1';
 -- DDL 테이블 수정
 
 -- 1. 컬럼 추가
-ALTER TABLE Member ADD subject varchar2(100); -- java/sql/spring
-ALTER TABLE Member ADD major varchar2(20); -- java/sql/spring
+ALTER TABLE Member ADD subject varchar(100); -- java/sql/spring
+ALTER TABLE Member ADD major varchar(20); -- java/sql/spring
+ALTER TABLE Member ADD profile_img varchar(100); -- 프로필 사진 
 
 -- 2. 컬럼 수정(이름)
 ALTER TABLE Member RENAME COLUMN password TO pass; 

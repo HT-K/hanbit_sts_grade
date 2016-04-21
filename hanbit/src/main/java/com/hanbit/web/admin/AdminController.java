@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.hanbit.web.member.MemberDTO;
 import com.hanbit.web.member.MemberService;
 
 @Controller
+@SessionAttributes("admin")
 @RequestMapping("/admin")
 public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
@@ -48,7 +50,7 @@ public class AdminController {
 		String view = "";
 		if (admin != null) {
 			logger.info("로그인 성공");
-			session.setAttribute("user", admin);
+			session.setAttribute("admin", admin);
 			view = "auth/admin/content.admin";
 		} else {
 			logger.info("로그인 실패");
@@ -58,7 +60,7 @@ public class AdminController {
 	}
 	@RequestMapping("/logout")
 	public String logout(SessionStatus status){
-		logger.info("=== member-logout() ===");
+		logger.info("=== admin-logout() ===");
 		status.setComplete();
 		return "redirect:/admin/login.admin";
 	}

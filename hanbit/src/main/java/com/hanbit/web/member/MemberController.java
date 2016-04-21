@@ -120,7 +120,7 @@ public class MemberController {
 	@RequestMapping("/update")
 	public String update(Model model,HttpSession session){
 		model.addAttribute("member",session.getAttribute("user"));
-		return "member/update_form";
+		return "auth/member/update.user";
 	}	
 	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public String update(

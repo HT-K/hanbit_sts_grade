@@ -4,22 +4,31 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hanbit.web.mapper.MemberMapper">
   <select id="selectList" resultType="com.hanbit.web.member.MemberDTO">
-    select *  from Member
+    select 
+    id,name,password,addr,birth,cate,
+    profile_img AS profileImg
+    from Member
   </select>
   <select id="selectById" resultType="com.hanbit.web.member.MemberDTO" parameterType="string">
-  	select * from Member
+  	select 
+  	id,name,password,addr,birth,cate,
+    profile_img AS profileImg
+  	from Member
   	where id = #{id}
   </select>
   <select id="login" resultType="com.hanbit.web.member.MemberDTO" parameterType="com.hanbit.web.member.MemberDTO">
-  	SELECT * FROM Member 
+  	SELECT 
+  	id,name,password,addr,birth,cate,
+    profile_img AS profileImg
+  	FROM Member 
   	where id = #{id} and password = #{password}
   </select>
   <select id="count" resultType="int">
     SELECT COUNT(*)  FROM Member
   </select>
   <insert id="insert" parameterType="com.hanbit.web.member.MemberDTO">
-  	INSERT INTO Member(id,name,password,addr,birth,cate)
-  	VALUES (#{id},#{name},#{password},#{addr},#{birth},#{cate})
+  	INSERT INTO Member(id,name,password,addr,birth,cate,profile_img)
+  	VALUES (#{id},#{name},#{password},#{addr},#{birth},#{cate},'default_profile.png')
   </insert>
   <update id="update" parameterType="com.hanbit.web.member.MemberDTO">
   	

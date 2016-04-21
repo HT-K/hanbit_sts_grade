@@ -1,12 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="../global/header.jsp"/>
 <div id="detail">
 		<div class="joinTop">
 			<h2 class="text-center">수정정보</h2>
 		</div>
+			
 		<div class="joinCenter row">
 			<form>
 				<fieldset class="joinField">
+					<div class="form-group">
+					 	<label for="input_id" class="col-sm-4 control-label">프로필 이미지 등록</label>
+					 	<div class="col-sm-2">
+							<img src="${img}/member/default_profile.png" alt="" style="width:200px;height:230px"/>
+						</div>
+					 	<div class="col-sm-2">
+							<input type="file" id="profile_img" name="profile_img" />
+						</div>
+					</div>
 					<div class="form-group">
 					 	<label for="input_id" class="col-sm-4 control-label">아이디</label>
 					 	<div class="col-sm-4">
@@ -38,7 +47,6 @@
 						</div>
 					</div>
 					<div class="input_button text-center">
-						<input type="submit" id="" class="btn btn-primary" value =""/>
 						<button id="updateBtn">수정</button>
 						<button id="cancleBtn">취소</button>
 					</div>
