@@ -1,9 +1,9 @@
 /**
  * member
  */
-var member = {
-	init : function(context) {
-		$.getJSON(context+'/member/list',function(data) {
+function Member(){
+	init = function(context) {
+		$.getJSON(global.getContext()+'/member/list',function(data) {
 			var member_list = '<div class="container" style="width:1000px;height:450px; margin:0 auto;">'
 			+ '<table id="member_list" style="width:100%;margin-top: 30px">'
 			+ '<tr style="background-color: yellow;">'
@@ -13,9 +13,10 @@ var member = {
 			+'<th>수강과목</th> '
 			+'<th>주소</th>'
 			+'<th>생년월일</th></tr>';
+			
 			$.each(data, function(index,value) {
 				member_list += '<tr><td>'+this.id+'</td>'
-					+'<td><a class="memberProfile" href="'+context+'/admin/member/profile/'+this.id+'">'
+					+'<td><a class="memberProfile" href="'+global.getContext()+'/admin/member/profile/'+this.id+'">'
 						+this.name+'</a></td>'
 					+'<td>'+this.major+'</td>'
 					+'<td>'+this.subject+'</td> '
@@ -35,42 +36,5 @@ var member = {
 			});
 			
 		});
-	},
-	updateForm : function(context) {
-		alert('업데이트 폼으로 진입');
-		$.getJSON(context+'/member/detail',function(data){
-			
-		});
-	},
-	update : function(context) {
-		$.ajax({
-			url : context+'/member/update',
-			data : {
-				"id" : $('#id').val(),
-				"password" : $('#password').val(),
-				"addr" : $('#addr').val(),
-				"profileImg" : $('#profile_img').val()
-			},
-			dataType : 'json',
-			type : 'post',
-			contentType : 'application/json',
-			mimeType : 'application/json',
-			success : function(data) {
-				alert('수정성공 '+data.profileImg);
-			},
-			error : function(xhr,status,msg) {
-				alert('에러발생상태 :'+status+',내용 : '+msg);
-			}
-		});
 	}
 }
-
-
-
-
-
-
-
-
-
-

@@ -4,8 +4,17 @@
 			<h2 class="text-center">${sessionScope.user.name} ${member.role}상세정보</h2>
 		</div>
 		<div class="joinCenter row">
-		<form >
+		<form class="form-horizontal">
 			<fieldset class="joinField">
+				<div class="form-group">
+					 	<label for="input_id" class="col-sm-4 control-label">프로필 이미지</label>
+					 	<div class="col-sm-2">
+							<img src="${img}/member/${member.profileImg}" alt="" style="width:200px;height:230px"/>
+						</div>
+					 	<div class="col-sm-2">
+							<input type="file" id="profile_img" name="profile_img" />
+						</div>
+					</div>
 				<div class="form-group">
 				 	<label for="input_id" class="col-sm-4 control-label">아이디</label>
 				 	<div class="col-sm-4">
@@ -44,18 +53,19 @@
 			</div>
 		</div>
 	</div>
+<%-- 	<script src="${js}/member.js"></script>
 	<script>
 	$(function() {
 		$('form').addClass('form-horizontal');
 		$('#updateBtn').addClass('btn btn-primary').click(function() {
-			location.href = '${context}/member/update'; 
+			member.update(global.getContext());
 		});
 		$('#delBtn').addClass('btn btn-primary').click(function() {
 			location.href = '${context}/member/delete.do';
 		});
 	});
 	</script>
-	
+	 --%>
 	
 	
 	

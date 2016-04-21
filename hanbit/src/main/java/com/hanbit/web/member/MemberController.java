@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.hanbit.web.global.Constants;
 import com.hanbit.web.grade.GradeServiceImpl;
+import com.hanbit.web.util.FileUpload;
 
 @Controller
 @SessionAttributes("user")
@@ -67,9 +70,21 @@ public class MemberController {
 	@RequestMapping("/name/{name}")
 	public String getMembersByName(@PathVariable("name")String name){
 		return "member/login_form";
+	}
+	@RequestMapping("/content/{id}")
+	public String getMemberContent(@PathVariable("id")String id,Model model){
+		logger.info("=== member-getMemberContent() ===");
+		if (service.isMember(id)) {
+			member = service.detail(id);
+			member.setRole(User.valueOf(service.detail(id).getCate()).toString());
+			model.addAttribute("member",member);
+		} else {
+			model.addAttribute("member","");
+		}
+		return "auth/member/content.user";
 	}	
 	@RequestMapping("/detail/{id}")
-	public String getMemberById(@PathVariable("id")String id,Model model){
+	public @ResponseBody MemberDTO getMemberById(@PathVariable("id")String id,Model model){
 		logger.info("=== member-getMemberById() ===");
 		if (service.isMember(id)) {
 			member = service.detail(id);
@@ -78,7 +93,7 @@ public class MemberController {
 		} else {
 			model.addAttribute("member","");
 		}
-		return "auth/member/detail.user";
+		return member;
 	}	
 	@RequestMapping("/count")
 	public String count(Model model){
@@ -103,11 +118,22 @@ public class MemberController {
 		String view = "";
 		if (member != null) {
 			logger.info("로그인 성공");
+			// 복수의 세션값 저장시 사용
+			model.addAttribute("user", member);
+			// 세션값 삭제 시 아래 메소드 사용
+			// status.setComplete();
+			
+			/*
+			=== [비교] ===
+			단수의 세션값 저장시 사용
 			session.setAttribute("user", member);
-			view = "redirect:/member/detail/"+id;
+			세션값 삭제 시 아래 메소드 사용
+			session.invalidate()
+			*/
+			view = "redirect:/member/content/"+id;
 		} else {
 			logger.info("로그인 실패");
-			view = "member/login_form";
+			view = "member/login";
 		}
 		return view;
 	}
@@ -116,36 +142,45 @@ public class MemberController {
 		logger.info("=== member-logout() ===");
 		status.setComplete();
 		return "redirect:/";
-	}	
+	}
+	/* AJAX 로 넘어오면서 필요없어짐
 	@RequestMapping("/update")
 	public String update(Model model,HttpSession session){
 		model.addAttribute("member",session.getAttribute("user"));
 		return "auth/member/update.user";
-	}	
+	}
+	*/	
 	@RequestMapping(value="/update",method=RequestMethod.POST)
-	public String update(
+	public @ResponseBody MemberDTO update(
 			@RequestParam("password")String password,
 			@RequestParam("addr")String addr,
+			@RequestParam(value="file",required=false)MultipartFile file,
 			HttpSession session,
 			Model model){
 		logger.info("수정폼에서 넘어온 주소 = {}",addr);
 		logger.info("수정폼에서 넘어온 비밀번호 = {}",password);
 		MemberDTO legacy = (MemberDTO) session.getAttribute("user");
 		MemberDTO param = (MemberDTO) session.getAttribute("user");
+		FileUpload fileUpload = new FileUpload();
+		String fileName = file.getOriginalFilename();
+		String fullPath = fileUpload.uploadFile(file, 
+				Constants.IMAGE_DOMAIN, fileName );
+		logger.info("이미지 저장 경로 : {}",fullPath);
+		param.setProfileImg(fileName);
 		param.setPassword(password);	
 		param.setAddr(addr);
 		int result = service.update(param);
 		String view = "";
 		if (result == 1) {
-			session.setAttribute("user", param);
+			model.addAttribute("user", param);
 			model.addAttribute("member",param);
 			view = "member/detail";
 		} else {
 			model.addAttribute("member",legacy);
 			view = "member/update_form";
 		}
-		logger.info("수정 후 비번 : {}",param.getPassword());
-		return view;
+		logger.info("수정 후 비번 : {}",param.getProfileImg());
+		return param;
 	}
 	@RequestMapping("/delete")
 	public String delete(Model model,HttpSession session){

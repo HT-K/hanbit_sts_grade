@@ -24,24 +24,26 @@
 <script src="${js}/admin.js"></script>
 <script src="${js}/member.js"></script>
 <script src="${js}/record.js"></script>
+<script src="${js}/Global.js"></script>
 <script type="text/javascript">
 	$(function() {
-		var context = '${context}';
+		
+		var global = new Global('${context}');
 		$('#subjectMgmt').click(function(e) {
 			e.preventDefault();
-			subject.init(context);
+			subject.init(global.getContext());
 		});
 		$('#adminMgmt').click(function(e) {
 			e.preventDefault();
-			admin.init(context);
+			admin.init(global.getContext());
 		});
 		$('#memberMgmt').click(function(e) {
 			e.preventDefault();
-			member.init(context);
+			member.init(global.getContext());
 		});
 		$('#recordMgmt').click(function(e) {
 			e.preventDefault();
-			record.init(context);
+			record.init(global.getContext());
 		});
 	});
 </script>

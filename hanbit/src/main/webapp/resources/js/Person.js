@@ -1,0 +1,6 @@
+/**
+ * Person
+ */
+function Person() {
+	
+} 

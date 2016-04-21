@@ -10,7 +10,7 @@
 					<div class="form-group">
 					 	<label for="input_id" class="col-sm-4 control-label">프로필 이미지 등록</label>
 					 	<div class="col-sm-2">
-							<img src="${img}/member/default_profile.png" alt="" style="width:200px;height:230px"/>
+							<img src="${img}/member/${member.profileImg}" alt="" style="width:200px;height:230px"/>
 						</div>
 					 	<div class="col-sm-2">
 							<input type="file" id="profile_img" name="profile_img" />
@@ -55,13 +55,19 @@
 			</form>
 		</div>
 	</div>
+	<script src="${js}/member.js"></script>
 	<script>
 	$(function() {
 		$form = $('form');
+		/*
+		=== AJAX 적용 전 방식 ===
 		$form.addClass('form-horizontal').attr('method','post')
 			.attr('action','${context}/member/update.do');
+		*/
+		$form.addClass('form-horizontal');
 		$('#updateBtn').addClass('btn btn-primary').click(function() {
-			$form.submit();
+			global.setContext('${context}');
+			member.update();
 		});
 		$('#cancleBtn').addClass('btn btn-primary').click(function() {
 			$form.reset();

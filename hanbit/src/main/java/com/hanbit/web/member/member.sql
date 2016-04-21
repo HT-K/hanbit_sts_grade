@@ -37,8 +37,9 @@ UPDATE Member SET subject = 'java/jsp/sql/spring', major = 'security' WHERE id =
 UPDATE Member SET subject = 'java/jsp/sql/spring', major = 'security' WHERE id = 'jun';
 UPDATE Member SET subject = 'java/jsp/sql/spring', major = 'security' WHERE id = 'jang';
 
-UPDATE Member SET profile_img = 'default_profile.png';
-
+UPDATE Member SET profile_img = 'default_profile.PNG';
+UPDATE Member SET profile_img = 'song.PNG'
+WHERE id = 'song';
 DELETE FROM Member WHERE id = 'choi';
 
 SELECT * FROM Member;

@@ -2,13 +2,7 @@
  * 게시판 
  */
 var article = {
-	context : '',
-	setContext : function(context) {
-		this.context = context;
-	},
-	getContext : function() {
-		return this.context;
-	},	
+	
 	writeForm : function() {
 		var writeForm = '<form>'
 			+'<div class="form-group">'
