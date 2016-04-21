@@ -155,8 +155,8 @@ public class MemberController {
 	*/	
 	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public @ResponseBody MemberDTO update(
-			@RequestParam(value="password",required=false)String password,
-			@RequestParam(value="addr",required=false)String addr,
+			@RequestParam("password")String password,
+			@RequestParam("addr")String addr,
 			@RequestParam(value="file",required=false)MultipartFile file,
 			HttpSession session,
 			Model model){

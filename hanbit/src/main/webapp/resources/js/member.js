@@ -37,6 +37,7 @@ var member = {
 		});
 	},
 	updateForm : function(context) {
+<<<<<<< HEAD
 		$.getJSON(context+'/member/detail',function(member){
 			var update_form = '<div id="detail">'
 				+	'<div class="joinTop">'
@@ -130,6 +131,25 @@ var member = {
 			dataType : 'json',
 			type : 'post',
 			contentType : 'application/x-www-form-urlencoded', 
+=======
+		alert('업데이트 폼으로 진입');
+		$.getJSON(context+'/member/detail',function(data){
+			
+		});
+	},
+	update : function(context) {
+		$.ajax({
+			url : context+'/member/update',
+			data : {
+				"id" : $('#id').val(),
+				"password" : $('#password').val(),
+				"addr" : $('#addr').val(),
+				"profileImg" : $('#profile_img').val()
+			},
+			dataType : 'json',
+			type : 'post',
+			contentType : 'application/json',
+>>>>>>> branch 'master' of https://coolbeat@dev.naver.com/git/hanbit-sts-1604.git
 			mimeType : 'application/json',
 			success : function(data) {
 				alert('수정성공 '+data.profileImg);

@@ -2,6 +2,7 @@
  * 게시판 
  */
 var article = {
+<<<<<<< HEAD
 	init : function(context) {
 		$.getJSON(context+'/article/list',function(article){
 			var article_list = ''
@@ -14,6 +15,9 @@ var article = {
 				
 		});
 	},
+=======
+	
+>>>>>>> branch 'master' of https://coolbeat@dev.naver.com/git/hanbit-sts-1604.git
 	writeForm : function() {
 		var writeForm = '<form>'
 			+'<div class="form-group">'
