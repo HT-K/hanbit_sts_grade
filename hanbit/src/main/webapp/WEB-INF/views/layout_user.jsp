@@ -21,6 +21,7 @@
 	</div>
 </body>
 <script src="${js}/subject.js"></script>
+<script src="${js}/article.js"></script>
 <script src="${js}/admin.js"></script>
 <script src="${js}/member.js"></script>
 <script src="${js}/record.js"></script>
@@ -28,9 +29,13 @@
 <script type="text/javascript">
 	$(function() {
 		var global = new Global('${context}');
-		$('#article_list').click(function(e) {
+		$('#article_all').click(function(e) {
 			e.preventDefault();
-			article.init(global.getContext());
+			article.articleAll(global.getContext());
+		});
+		$('#my_article').click(function(e) {
+			e.preventDefault();
+			article.myArticle(global.getContext());
 		});
 		$('#logout').click(function(e) {
 			e.preventDefault();

@@ -2,22 +2,12 @@
  * 게시판 
  */
 var article = {
-<<<<<<< HEAD
-	init : function(context) {
-		$.getJSON(context+'/article/list',function(article){
-			var article_list = ''
-				+''
-				+''
-				+''
-				+''
-				+'';
-			$('#content').html(article_list);
-				
-		});
+	myArticle : function(context) {
+		alert('내가 쓴 글 게시판 목록 진입');
 	},
-=======
-	
->>>>>>> branch 'master' of https://coolbeat@dev.naver.com/git/hanbit-sts-1604.git
+	articleAll : function(context) {
+		alert('전체 게시판 목록 진입');
+	},
 	writeForm : function() {
 		var writeForm = '<form>'
 			+'<div class="form-group">'

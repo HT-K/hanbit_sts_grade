@@ -17,7 +17,7 @@
   	<a href="${context}/member/mypage" id="mypage">마이페이지</a>
   </li>
   	<li role="presentation" style="float:right;margin:0 100px 0 0">
-  	<a href="${context}/article/list" id="article_list">게시판</a>
+  	<a href="#" id="my_article">게시판</a>
   </li>
  
 

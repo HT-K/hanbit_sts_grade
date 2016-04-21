@@ -107,8 +107,8 @@ var member = {
 				      mimeType: 'multipart/form-data',
 				      contentType: false, 
 				      processData : false,
-					success : function(data) {
-						alert('수정성공 '+data.profileImg);
+					success : function(member) {
+						location.href = context+'/member/content/'+member.id;
 					},
 					error : function(xhr,status,msg) {
 						alert('에러발생상태 :'+status+',내용 : '+msg);
