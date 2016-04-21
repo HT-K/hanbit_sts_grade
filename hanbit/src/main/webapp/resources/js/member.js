@@ -37,12 +37,92 @@ var member = {
 		});
 	},
 	updateForm : function(context) {
-		alert('업데이트 폼으로 진입');
-		$.getJSON(context+'/member/detail',function(data){
-			
+		$.getJSON(context+'/member/detail',function(member){
+			var update_form = '<div id="detail">'
+				+	'<div class="joinTop">'
+				+		'<h2 class="text-center">수정정보</h2>'
+				+	'</div>'
+				+	'<div class="joinCenter row">'
+				+		'<form class="form-horizontal" method="post" enctype="multipart/form-data">'
+				+			'<fieldset class="joinField">'
+				+				'<div class="form-group">'
+				+				 	'<label for="input_id" class="col-sm-4 control-label">프로필 이미지 등록</label>'
+				+				 	'<div class="col-sm-2">'
+				+						'<img src="'+context+'/resources/img/member/'+member.profileImg+'" alt="" style="width:200px;height:230px"/>'
+				+					'</div>'
+				+				 	'<div class="col-sm-2">'
+				+						'<input type="file" id="profile_img" name="profile_img" />'
+				+					'</div>'
+				+				'</div>'
+				+				'<div class="form-group">'
+				+				 	'<label for="input_id" class="col-sm-4 control-label">아이디</label>'
+				+					'<div class="col-sm-4">'
+				+						'<input type="text" class="form-control" id="id" name="id" value="' + member.id + '" readonly="readonly"/>'
+				+					'</div>'
+				+				'</div>'
+				+				'<div class="form-group">'
+				+					'<label for="input_pw" class="col-sm-4 control-label">비밀번호</label>'
+				+				 	'<div class="col-sm-4">'
+				+						'<input type="password" class="form-control" id="password" name="password" value="' + member.password + '"/>'
+				+					'</div>'
+				+				'</div>'
+				+				'<div class="form-group">'
+				+					'<label for="input_name" class="col-sm-4 control-label">이름</label>'
+				+				 	'<div class="col-sm-4">'
+				+						'<input type="text" class="form-control" id="name" name="name" value="' + member.name + '" readonly="readonly"/>'
+				+					'</div>'
+				+				'</div>'
+				+				'<div class="form-group">'
+				+					'<label for="input_name" class="col-sm-4 control-label">주소</label>'
+				+				 	'<div class="col-sm-4">'
+				+						'<input type="text" class="form-control" id="addr" name="addr" value="' + member.addr + '"/>'
+				+					'</div>'
+				+				'</div>'
+				+				'<div class="form-group">'
+				+					'<label for="input_name" class="col-sm-4 control-label">생년월일</label>'
+				+				 	'<div class="col-sm-4">'
+				+						'<input type="text" class="form-control" id="birth" name="birth" value="' + member.birth + '" readonly="readonly"/>'
+				+					'</div>'
+				+				'</div>'
+				+				'<div class="input_button text-center">'
+				+					'<button id="update" class="btn btn-primary">수정</button>'
+				+					'<button id="cancle" class="btn btn-primary">취소</button>'
+				+				'</div>'		
+				+			'</fieldset>'
+				+		'</form>'
+				+	'</div>'
+				+'</div>';
+			$('#content').html(update_form);
+			$('#update').click(function(e) {
+				e.preventDefault();
+				$('form').submit(function(e) {
+					e.preventDefault();
+				alert('업데이트 클릭');
+				$.ajax({
+					url : context+'/member/update',
+					data : {
+						id : $('#id').val(),
+						password : $('#password').val(),
+						addr : $('#addr').val(),
+						profileImg : $('#profile_img').val()
+					},
+					dataType : 'json',
+					type : 'post',
+					contentType : 'application/json',
+					mimeType : 'application/json',
+					success : function(data) {
+						alert('수정성공 '+data.profileImg);
+					},
+					error : function(xhr,status,msg) {
+						alert('에러발생상태 :'+status+',내용 : '+msg);
+					}
+				});
+				});
+			});
 		});
 	},
 	update : function(context) {
+		alert('업데이트 실행!!!');
 		$.ajax({
 			url : context+'/member/update',
 			data : {

@@ -83,9 +83,12 @@ public class MemberController {
 		}
 		return "auth/member/content.user";
 	}	
-	@RequestMapping("/detail/{id}")
-	public @ResponseBody MemberDTO getMemberById(@PathVariable("id")String id,Model model){
+	@RequestMapping("/detail")
+	public @ResponseBody MemberDTO getMemberById(Model model,HttpSession session){
 		logger.info("=== member-getMemberById() ===");
+		member = (MemberDTO) session.getAttribute("user");
+		String id = member.getId();
+		logger.info("세션에 들어있는 ID = {}",id);
 		if (service.isMember(id)) {
 			member = service.detail(id);
 			member.setRole(User.valueOf(service.detail(id).getCate()).toString());
@@ -152,13 +155,14 @@ public class MemberController {
 	*/	
 	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public @ResponseBody MemberDTO update(
-			@RequestParam("password")String password,
-			@RequestParam("addr")String addr,
-			@RequestParam(value="file",required=false)MultipartFile file,
+			@RequestParam(value="password",required=false)String password,
+			@RequestParam(value="addr",required=false)String addr,
+			@RequestParam(value="profileImg",required=false)MultipartFile file,
 			HttpSession session,
 			Model model){
 		logger.info("수정폼에서 넘어온 주소 = {}",addr);
 		logger.info("수정폼에서 넘어온 비밀번호 = {}",password);
+		logger.info("수정폼에서 넘어온 비밀번호 = {}",file);
 		MemberDTO legacy = (MemberDTO) session.getAttribute("user");
 		MemberDTO param = (MemberDTO) session.getAttribute("user");
 		FileUpload fileUpload = new FileUpload();
