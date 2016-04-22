@@ -41,7 +41,7 @@
     </ul>
   </li>
   <li role="presentation" style="margin-left: 100px">
-  	<a href="${context}/article/article_all" id="article_all">게시판</a>
+  	<a href="#" id="article_all">게시판</a>
   </li>
    <li role="presentation" style="margin-left: 100px">
   	<a href="${context}/member/login" id="login">로그인</a>

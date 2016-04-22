@@ -26,17 +26,18 @@
 <script src="${js}/member.js"></script>
 <script src="${js}/record.js"></script>
 <script src="${js}/Global.js"></script>
+<script src="${js}/Hanbit.js"></script>
 <script type="text/javascript">
 	$(function() {
-		var global = new Global('${context}'); 
-		var article = new Article();
+		var context = $.fn.global('${context}').getContext();
+		var article = $.fn.article();
 		$('#article_all').click(function(e) {
 			e.preventDefault();
-			article.articleAll(global.getContext());
+			article.articleAll(context);
 		});
 		$('#my_article').click(function(e) {
 			e.preventDefault();
-			article.myArticle(global.context);
+			article.myArticle(context);
 		});
 		$('#logout').click(function(e) {
 			e.preventDefault();
@@ -45,11 +46,11 @@
 		});
 		$('#mypage').click(function(e) {
 			e.preventDefault();
-			member.detail(global.context());
+			member.detail(context);
 		});
 		$('#updateBtn').click(function(e) {
 			e.preventDefault();
-			member.updateForm(global.context());
+			member.updateForm(context);
 		});
 	});
 </script>

@@ -16,3 +16,5 @@ Global.prototype.createArticle = function(){
 
 
 
+
+
