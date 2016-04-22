@@ -4,7 +4,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Command {
-	private int pageSize,groupSize,pageNO,startPage,endPage,startRow,endRow,totalPages,count;
+	private int pageSize,
+		groupSize,
+		pageNO,
+		startPage,
+		endPage,
+		startRow,
+		endRow,
+		totalPages,
+		count;
 		
 		
 	private String pkg,command,keyField,keyword,view;

@@ -25,6 +25,17 @@ function Article(){
 		+'<textarea id="content" name="content" class="form-control"  rows="5" placeholder="글 내 용"></textarea></div>'
 		+'<button type="submit" id="writeSubmit" class="btn btn-primary btn-lg btn-block">전 송</button>'
 		+'</form>';
+	this.searchOption = 
+		'<div style="float:right;margin:0 50px 0 0">\
+			<form>\
+				<select name="keyField" id="keyField">\
+					<option value="title" selected="selected">제목</option>\
+					<option value="name" >이름</option>\
+				</select>\
+				<input type="text" name="keyword" id="keyword" />\
+				<input type="submit" value="검색" id="searchBtn"/>\
+			</form>\
+		</div>';
 	this.articleAllTable = 
 /*		<style>
 	table th{background: yellow;text-align: center;}
@@ -102,19 +113,9 @@ function Article(){
       </a> </li>\
 		</c:if>\
  </ul>\
-	</nav>\
-	<div style="float:right;margin:0 50px 0 0">\
-		<form>\
-			<select name="keyField" id="keyField">\
-				<option value="title" selected="selected">제목</option>\
-				<option value="name" >이름</option>\
-			</select>\
-			<input type="text" name="keyword" id="keyword" />\
-			<input type="submit" value="검색" id="searchBtn"/>\
-		</form>\
-	</div>\
-\
-</div>';
+	</nav>';
+	//===
+'\</div>';
 }
 
 Article.prototype.myArticle = function(context) {
@@ -122,73 +123,91 @@ Article.prototype.myArticle = function(context) {
 	}
 Article.prototype.articleAll = function(context) {
 	$.getJSON(context+'/article/list',function(data) {
-		var totalPages = data.totalPages;
-		var startRow = data.startRow;
-		var endRow = data.endRow;
-		var pageNO = data.pageNO;
-		var count = data.count;
-		var startPage = data.startPage;
-		var endPage = data.endPage;
-		var pageSize = data.pageSize;
+		var totalPages = data.command.totalPages;
+		var startRow = data.command.startRow;
+		var endRow = data.command.endRow;
+		var pageNO = data.command.pageNO;
+		var count = data.command.count;
+		var startPage = data.command.startPage;
+		var endPage = data.command.endPage;
+		var pageSize = data.command.pageSize;
+		var groupSize = data.command.groupSize; // 임시값
+		var pagination = '<nav>\
+			<ul class="pagination" style="margin-left: 40%">';
+		if (startPage != 1) {
+			pagination += '<a href="${context}/article/list/1">\
+				<img src = "left.png"></a>'
+		}	
+		if (startPage -groupSize > 0) {
+				pagination += '<li class="disabled">\
+			      <a href="'+context+'/article/page/'+startPage-groupSize+'" aria-label="Previous">\
+			        <span aria-hidden="true">&laquo;</span>\
+			      </a>\
+			    </li>';
+			}
+		for (var i = startPage; i <= endPage; i++) {
+			if (i == pageNO) {
+				+i
+			} else {
+				pagination += ''
+			}
+		}
+		if ((startPage + groupSize) <= totalPages) {
+			pagination += '<a href="'+context+'/article/list/'+(startPage+groupSize)+'"></a>';
+		}
+		
 		var articleAllTable = 
 			/*		<style>
 				table th{background: yellow;text-align: center;}
 			</style>*/
 			'<div class="container">\
 			<span class="glyphicon glyphicon-pencil" id="writeBtn" style="cursor:pointer; float: right;margin : 0 50px 30px 0">글쓰기</span>\
-			<table class="table table-condensed table-bordered table-striped" >\
-				<c:if test="${data.totalPages > 0 }">\
-				<tr>\
+			<table class="table table-condensed table-bordered table-striped" >';
+			if(data.totalPages > 0){	
+			
+				articleAllTable +='<tr>\
 					<td colspan="5">\
 						${data.startRow} - ${data.endRow}\
 						[${data.pageNO}/${data.count}]\
 					</td>\
-				</tr>\
-				</c:if>\
-				<tr>\
+				</tr>';
+			}
+				articleAllTable +='<tr>\
 					<th>글 번호</th>\
 					<th>제목</th>\
 					<th>작성자</th>\
 					<th>작성일</th>\
 					<th>조회수</th>\
-				</tr>\
-				<c:choose>\
-				<c:when test="${data.count==0}">\
-				<tr>\
-					<td colspan="5" style="text-align: center;">\
-						게시글이 없습니다.\
-					</td>\
-				</tr>\
-					\
-				</c:when>\
-				<c:otherwise>';
-			$.each(data.list, function(index,value) {
-				articleAllTable+=
-					'<c:forEach var="article" items="${list}">\
-					<tr>\
-						<td>${article.articleId}</td>\
-						<td>\
-							<c:if test="${article.level}>0">\
-							<c:forEach begin="1" end="${article.level}">-</c:forEach>&gt;\
-							</c:if>\
-							<a class="searchId" href="${context}/article/search/${article.articleId}">${article.title}</a>\
-						</td>\
-						<td>${article.writerName}</td>\
-						<td>${article.postingDate}</td>\
-						<td>${article.readCount}</td>\
-					</tr>\
-					</c:forEach>';
+				</tr>';
+			if (data.count==0) {
+				articleAllTable += '<tr>\
+				<td colspan="5" style="text-align: center;">\
+					게시글이 없습니다.\
+				</td>\
+			</tr>';
+			} else {
+				$.each(data.list, function(index,article) {
+					articleAllTable+=
+						'<tr>\
+							<td>'+article.articleId+'</td>\
+							<td>\
+							<a class="searchId" href="'+context+'/article/search/'+article.articleId+'">'+article.title+'</a>\
+							</td>\
+							<td>'+article.writerName+'</td>\
+							<td>'+article.postingDate+'</td>\
+							<td>'+article.readCount+'</td>\
+						</tr>';
+						
+				});
+			}
+			
 					
-			});
-				
-					'</c:otherwise>\
-				</c:choose>\
-				</table>\
+			articleAllTable+='</table>\
 				<nav>\
 				<ul class="pagination" style="margin-left: 40%">\
-					<c:if test="${data.startPage -data.pageSize gt 0}">\
+					<c:if test="'+data.startPage -data.pageSize > 0+'">\
 						<li class="disabled">\
-			      <a href="${context}/article/page/${data.startPage-data.pageSize}" aria-label="Previous">\
+			      <a href="'+context+'/article/page/'+data.startPage-data.pageSize+'" aria-label="Previous">\
 			        <span aria-hidden="true">&laquo;</span>\
 			      </a>\
 			    </li>\
@@ -215,18 +234,9 @@ Article.prototype.articleAll = function(context) {
 			      </a> </li>\
 					</c:if>\
 			 </ul>\
-				</nav>\
-				<div style="float:right;margin:0 50px 0 0">\
-					<form>\
-						<select name="keyField" id="keyField">\
-							<option value="title" selected="selected">제목</option>\
-							<option value="name" >이름</option>\
-						</select>\
-						<input type="text" name="keyword" id="keyword" />\
-						<input type="submit" value="검색" id="searchBtn"/>\
-					</form>\
-				</div>\
-			\
+				</nav>';
+			articleAllTable += this.searchOption;
+			+'\
 			</div>';
 		$('#content').html(articleAllTable);
 	});
