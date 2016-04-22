@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,34 +32,24 @@ public class MemberController {
 	@Autowired MemberDTO member;
 	@Autowired MemberService service;
 	
-	@RequestMapping("/join")
+	@RequestMapping("/join2")
 	public String join(){
 		logger.info("===member-join(GET)===");
 		return "member/join_form";
 	}	
 	@RequestMapping(value="/join",method=RequestMethod.POST)
-	public String join(@RequestParam("id")String id,
-			@RequestParam("password")String password,
-			@RequestParam("name")String name,
-			@RequestParam("addr")String addr,
-			@RequestParam("birth")int birth,
-			@RequestParam("cate")int cate){
+	public @ResponseBody MemberDTO join(@RequestBody MemberDTO param){
 		logger.info("===member-join(POST)===");
-		logger.info("넘어온 ID = {}", id);
+		logger.info("넘어온 ID = {}", param.getId());
 		
-		member.setId(id);
-		member.setPassword(password);
-		member.setName(name);
-		member.setAddr(addr);
-		member.setBirth(birth);
-		member.setCate(cate);
-		String view = "";
-		if (service.join(member)==1) {
-			view = "member/login";
-		} else {
-			view = "member/join_form";
-		}
-		return view;
+		member.setId(param.getId());
+		member.setPassword(param.getPassword());
+		member.setName(param.getName());
+		member.setAddr(param.getAddr());
+		member.setBirth(param.getBirth());
+		member.setCate(param.getCate());
+		service.join(member);
+		return member;
 	}	
 	@RequestMapping("/list")
 	public @ResponseBody List<MemberDTO> list(){

@@ -2,7 +2,7 @@
  * Member
  */
 function Member(){}
-Member.prototype.joinForm = function() {
+Member.prototype.joinForm = function(context) {
 	var joinForm = '<div id="join">\
 		<div class="joinTop">\
 			<h2 class="text-center">회원가입</h2>\
@@ -69,4 +69,36 @@ Member.prototype.joinForm = function() {
 		</div>\
 	</div>';
 	$('#content').html(joinForm);
+	$('#joinBtn').click(function() {
+		alert('회원가입 버튼 클릭');
+		var member = {
+			"id" : $('#id').val(),	
+			"password" : $('#password').val(),	
+			"birth" : $('#birth').val(),	
+			"addr" : $('#addr').val(),	
+			"name" : $('#name').val(),	
+			"cate" : $('#cate').val()	
+		};
+		alert('멤버 데이터 JSON 처리됨'+context);
+		$.ajax({
+			url : context+'/member/join',
+			data : JSON.stringify(member),
+			dataType : 'json',
+			type : 'POST',
+			contentType: "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				if (data != null) {
+					alert(data.name+'님 회원으로 등록되었습니다');
+					location.href = context+'/member/login';
+				} else {
+					alert('회원가입 중 오류가 발생했습니다');
+					return false;
+				}
+			},
+			error : function(request,status,error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	});
 }
