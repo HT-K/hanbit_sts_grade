@@ -21,33 +21,35 @@
 	</div>
 </body>
 <script src="${js}/subject.js"></script>
-<script src="${js}/article.js"></script>
+<script src="${js}/Article.js"></script>
 <script src="${js}/admin.js"></script>
 <script src="${js}/member.js"></script>
 <script src="${js}/record.js"></script>
 <script src="${js}/Global.js"></script>
 <script type="text/javascript">
 	$(function() {
-		var global = new Global('${context}');
+		var global = new Global('${context}'); 
+		var article = new Article();
 		$('#article_all').click(function(e) {
 			e.preventDefault();
 			article.articleAll(global.getContext());
 		});
 		$('#my_article').click(function(e) {
 			e.preventDefault();
-			article.myArticle(global.getContext());
+			article.myArticle(global.context);
 		});
 		$('#logout').click(function(e) {
 			e.preventDefault();
-			location.href='${context}/member/logout';
+			location.href='${context}/member/logout'; 
+			
 		});
 		$('#mypage').click(function(e) {
 			e.preventDefault();
-			member.detail(global.getContext());
+			member.detail(global.context());
 		});
 		$('#updateBtn').click(function(e) {
 			e.preventDefault();
-			member.updateForm(global.getContext());
+			member.updateForm(global.context());
 		});
 	});
 </script>
