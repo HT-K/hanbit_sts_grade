@@ -105,9 +105,9 @@ Article.prototype.articleAll = function(context) {
 				}
 			for (var i = startPage; i <= endPage; i++) {
 				if (i == pageNO) {
-					pagination += '<span style="color:black;font-size:20px">['+i+']<font>';
+					pagination += '<li class="active"><span>'+i+'</span></li>';
 				} else {
-					pagination += '<a href="#"><font">['+i+']<font></a>';
+					pagination += '<li><a href="#"><span>'+i+'</span></a></li>';
 				}
 			}
 			if ((startPage + groupSize) <= totalPages) {
@@ -118,7 +118,7 @@ Article.prototype.articleAll = function(context) {
 				articleAllTable +=pagination;
 				articleAllTable +='<br/>';
 				var searchOption = 
-					'<div style="float:right;margin:0 50px 0 0">\
+					'<div style="float:right;margin:50px 50px 0 0">\
 						<form>\
 							<select name="keyField" id="keyField">\
 								<option value="title" selected="selected">제목</option>\
