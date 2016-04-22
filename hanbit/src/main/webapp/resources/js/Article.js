@@ -25,87 +25,6 @@ function Article(){
 		+'<textarea id="content" name="content" class="form-control"  rows="5" placeholder="글 내 용"></textarea></div>'
 		+'<button type="submit" id="writeSubmit" class="btn btn-primary btn-lg btn-block">전 송</button>'
 		+'</form>';
-	
-	this.articleAllTable = 
-/*		<style>
-	table th{background: yellow;text-align: center;}
-</style>*/
-'<div class="container">\
-<span class="glyphicon glyphicon-pencil" id="writeBtn" style="cursor:pointer; float: right;margin : 0 50px 30px 0">글쓰기</span>\
-<table class="table table-condensed table-bordered table-striped" >\
-	<c:if test="${data.totalPages > 0 }">\
-	<tr>\
-		<td colspan="5">\
-			${data.startRow} - ${data.endRow}\
-			[${data.pageNO}/${data.count}]\
-		</td>\
-	</tr>\
-	</c:if>\
-	<tr>\
-		<th>글 번호</th>\
-		<th>제목</th>\
-		<th>작성자</th>\
-		<th>작성일</th>\
-		<th>조회수</th>\
-	</tr>\
-	<c:choose>\
-	<c:when test="${data.count==0}">\
-	<tr>\
-		<td colspan="5" style="text-align: center;">\
-			게시글이 없습니다.\
-		</td>\
-	</tr>\
-		\
-	</c:when>\
-	<c:otherwise>\
-	<c:forEach var="article" items="${list}">\
-	<tr>\
-		<td>${article.articleId}</td>\
-		<td>\
-			<c:if test="${article.level}>0">\
-			<c:forEach begin="1" end="${article.level}">-</c:forEach>&gt;\
-			</c:if>\
-			<a class="searchId" href="${context}/article/search/${article.articleId}">${article.title}</a>\
-		</td>\
-		<td>${article.writerName}</td>\
-		<td>${article.postingDate}</td>\
-		<td>${article.readCount}</td>\
-	</tr>\
-	</c:forEach>\
-		</c:otherwise>\
-	</c:choose>\
-	</table>\
-	<nav>\
-	<ul class="pagination" style="margin-left: 40%">\
-		<c:if test="${data.startPage -data.pageSize gt 0}">\
-			<li class="disabled">\
-      <a href="${context}/article/page/${data.startPage-data.pageSize}" aria-label="Previous">\
-        <span aria-hidden="true">&laquo;</span>\
-      </a>\
-    </li>\
-		</c:if>\
-		\
-		<c:forEach begin="${data.startPage}" end="${data.endPage}" step="1" varStatus="i">\
-			<c:choose>\
-				<c:when test="${i.index == data.pageNO}">\
-					 <li class="active"><span>${i.index}<span class="sr-only">(current)</span></span></li>\
-				</c:when>\
-				<c:otherwise>\
-					<li><span><a href="${context}/article/page/${page}">${i.index}</a></span></li>\
-				</c:otherwise>\
-				\
-			</c:choose>\
-		</c:forEach>\
-		<c:if test="${data.startPage -data.pageSize gt 0}">\
-			<li class="disabled"><a href="${context}/article/page/${data.startPage+data.pageSize}" aria-label="Next">\
-       \
-        <span aria-hidden="true">&raquo;</span>\
-      </a> </li>\
-		</c:if>\
- </ul>\
-	</nav>';
-	//===
-'\</div>';
 }
 
 Article.prototype.myArticle = function(context) {
@@ -121,7 +40,7 @@ Article.prototype.articleAll = function(context) {
 		var startPage = data.command.startPage;
 		var endPage = data.command.endPage;
 		var pageSize = data.command.pageSize;
-		var groupSize = data.command.groupSize; // 임시값
+		var groupSize = data.command.groupSize; 
 		
 		
 		var articleAllTable = 
@@ -186,9 +105,9 @@ Article.prototype.articleAll = function(context) {
 				}
 			for (var i = startPage; i <= endPage; i++) {
 				if (i == pageNO) {
-					pagination += i;
+					pagination += '<span style="color:black;font-size:20px">['+i+']<font>';
 				} else {
-					pagination += i;
+					pagination += '<a href="#"><font">['+i+']<font></a>';
 				}
 			}
 			if ((startPage + groupSize) <= totalPages) {

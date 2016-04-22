@@ -23,8 +23,8 @@
 			password,
 			title
 		FROM Article 
-			ORDER BY sequence_no 
-			DESC LIMIT #{startRow}, #{endRow}
+			ORDER BY sequence_no DESC 
+			LIMIT #{startRow}, #{endRow}
 		
 	</select>
 	<select id="selectById" resultType="com.hanbit.web.board.ArticleDTO"

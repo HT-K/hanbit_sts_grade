@@ -38,8 +38,25 @@ INSERT INTO Article
 		writer_name,password,title,content)
 		VALUES
 		(1,'abcd',SYSDATE(),
-		0,'김길동','1','테스트','테스트');		
-		
+		0,'이길동','1','테스트','테스트');		
+INSERT INTO Article
+		(group_id,sequence_no,posting_date,read_count,
+		writer_name,password,title,content)
+		VALUES
+		(1,'abcd',SYSDATE(),
+		0,'일길동','1','테스트','테스트');
+INSERT INTO Article
+		(group_id,sequence_no,posting_date,read_count,
+		writer_name,password,title,content)
+		VALUES
+		(1,'abcd',SYSDATE(),
+		0,'삼길동','1','테스트','테스트');
+INSERT INTO Article
+		(group_id,sequence_no,posting_date,read_count,
+		writer_name,password,title,content)
+		VALUES
+		(1,'abcd',SYSDATE(),
+		0,'사길동','1','테스트','테스트');		
 CREATE TABLE Reply(
 	reply_seq INT NOT NULL AUTO_INCREMENT,
 	reply VARCHAR(1000),

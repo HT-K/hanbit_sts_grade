@@ -47,7 +47,7 @@ public class ArticleController {
 		return "redirect:/article/list";
 	}
 	@RequestMapping("/list")
-	public String list(@RequestParam(value="pageNO",defaultValue ="1")String pageNO,
+	public Model list(@RequestParam(value="pageNO",defaultValue ="1")String pageNO,
 			@RequestParam(value="keyField",defaultValue ="none")String keyField,
 			@RequestParam(value="keyword",defaultValue ="none")String keyword,
 			Model model){
@@ -72,7 +72,7 @@ public class ArticleController {
 		 logger.info("검색된 글 목록 : {} ",list);
 	}
 	 	model.addAttribute("command", command);
-		return "board/list";
+		return model;
 	}
 
 	@RequestMapping("/search/{id}")
