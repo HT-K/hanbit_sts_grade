@@ -107,7 +107,7 @@ Article.prototype.articleAll = function(context) {
 				if (i == pageNO) {
 					pagination += '<li class="active"><span>'+i+'</span></li>';
 				} else {
-					pagination += '<li><a href="#"><span>'+i+'</span></a></li>';
+					pagination += '<li><a href="'+context+'/article/list/'+i+'"><span>'+i+'</span></a></li>';
 				}
 			}
 			if ((startPage + groupSize) <= totalPages) {

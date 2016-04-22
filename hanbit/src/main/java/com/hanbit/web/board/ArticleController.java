@@ -46,6 +46,21 @@ public class ArticleController {
 		}
 		return "redirect:/article/list";
 	}
+	@RequestMapping("/list/{pageNO}")
+	public Model listWithPage(@PathVariable(value="pageNO")String pageNO,
+			Model model){
+	Command command = CommandFactory.createCommand("article","list", pageNO, "none", "none",service.count());
+	List<ArticleDTO> list = new ArrayList<ArticleDTO>();
+	logger.info("=== listWithPage() ===");
+	logger.info("현재 페이지 = {}",command.getPageNO());
+	logger.info("현재 startPage = {}",command.getStartPage());
+	logger.info("현재 endPage = {}",command.getEndPage());
+	logger.info("현재 startRow = {}",command.getStartRow());
+	logger.info("현재 endRow = {}",command.getEndRow());
+	
+	 	model.addAttribute("command", command);
+		return model;
+	}
 	@RequestMapping("/list")
 	public Model list(@RequestParam(value="pageNO",defaultValue ="1")String pageNO,
 			@RequestParam(value="keyField",defaultValue ="none")String keyField,

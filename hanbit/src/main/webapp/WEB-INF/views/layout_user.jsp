@@ -20,12 +20,13 @@
 		<tiles:insertAttribute name="footer" />
 	</div>
 </body>
-<script src="${js}/subject.js"></script>
+<script src="${js}/Subject.js"></script>
+<script src="${js}/Admin.js"></script>
 <script src="${js}/Article.js"></script>
-<script src="${js}/admin.js"></script>
-<script src="${js}/member.js"></script>
-<script src="${js}/record.js"></script>
 <script src="${js}/Global.js"></script>
+<script src="${js}/Grade.js"></script>
+<script src="${js}/Member.js"></script>
+<script src="${js}/Record.js"></script>
 <script src="${js}/Hanbit.js"></script>
 <script type="text/javascript">
 	$(function() {

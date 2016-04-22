@@ -10,9 +10,7 @@ Global.prototype.setContext = function(context) {
 Global.prototype.getContext = function() {
 	return this.context;
 }
-Global.prototype.createArticle = function(){
-	return new Article();
-}
+
 
 
 
