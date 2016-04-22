@@ -25,17 +25,7 @@ function Article(){
 		+'<textarea id="content" name="content" class="form-control"  rows="5" placeholder="글 내 용"></textarea></div>'
 		+'<button type="submit" id="writeSubmit" class="btn btn-primary btn-lg btn-block">전 송</button>'
 		+'</form>';
-	this.searchOption = 
-		'<div style="float:right;margin:0 50px 0 0">\
-			<form>\
-				<select name="keyField" id="keyField">\
-					<option value="title" selected="selected">제목</option>\
-					<option value="name" >이름</option>\
-				</select>\
-				<input type="text" name="keyword" id="keyword" />\
-				<input type="submit" value="검색" id="searchBtn"/>\
-			</form>\
-		</div>';
+	
 	this.articleAllTable = 
 /*		<style>
 	table th{background: yellow;text-align: center;}
@@ -132,43 +122,20 @@ Article.prototype.articleAll = function(context) {
 		var endPage = data.command.endPage;
 		var pageSize = data.command.pageSize;
 		var groupSize = data.command.groupSize; // 임시값
-		var pagination = '<nav>\
-			<ul class="pagination" style="margin-left: 40%">';
-		if (startPage != 1) {
-			pagination += '<a href="${context}/article/list/1">\
-				<img src = "left.png"></a>'
-		}	
-		if (startPage -groupSize > 0) {
-				pagination += '<li class="disabled">\
-			      <a href="'+context+'/article/page/'+startPage-groupSize+'" aria-label="Previous">\
-			        <span aria-hidden="true">&laquo;</span>\
-			      </a>\
-			    </li>';
-			}
-		for (var i = startPage; i <= endPage; i++) {
-			if (i == pageNO) {
-				+i
-			} else {
-				pagination += ''
-			}
-		}
-		if ((startPage + groupSize) <= totalPages) {
-			pagination += '<a href="'+context+'/article/list/'+(startPage+groupSize)+'"></a>';
-		}
+		
 		
 		var articleAllTable = 
-			/*		<style>
-				table th{background: yellow;text-align: center;}
-			</style>*/
-			'<div class="container">\
+			'		<style>\
+				table th{background: yellow;text-align: center;}\
+			</style>\
+			<div class="container">\
 			<span class="glyphicon glyphicon-pencil" id="writeBtn" style="cursor:pointer; float: right;margin : 0 50px 30px 0">글쓰기</span>\
 			<table class="table table-condensed table-bordered table-striped" >';
-			if(data.totalPages > 0){	
+			if(totalPages > 0){	
 			
 				articleAllTable +='<tr>\
-					<td colspan="5">\
-						${data.startRow} - ${data.endRow}\
-						[${data.pageNO}/${data.count}]\
+					<td colspan="5"> 총게시글\
+						['+(count)+']\
 					</td>\
 				</tr>';
 			}
@@ -179,7 +146,7 @@ Article.prototype.articleAll = function(context) {
 					<th>작성일</th>\
 					<th>조회수</th>\
 				</tr>';
-			if (data.count==0) {
+			if (count==0) {
 				articleAllTable += '<tr>\
 				<td colspan="5" style="text-align: center;">\
 					게시글이 없습니다.\
@@ -202,40 +169,47 @@ Article.prototype.articleAll = function(context) {
 			}
 			
 					
-			articleAllTable+='</table>\
-				<nav>\
-				<ul class="pagination" style="margin-left: 40%">\
-					<c:if test="'+data.startPage -data.pageSize > 0+'">\
-						<li class="disabled">\
-			      <a href="'+context+'/article/page/'+data.startPage-data.pageSize+'" aria-label="Previous">\
-			        <span aria-hidden="true">&laquo;</span>\
-			      </a>\
-			    </li>\
-					</c:if>';
-					
-			$.each(data.list,function(index,value){
-				articleAllTable+='<c:forEach begin="${data.startPage}" end="${data.endPage}" step="1" varStatus="i">\
-				<c:choose>\
-					<c:when test="${i.index == data.pageNO}">\
-						 <li class="active"><span>${i.index}<span class="sr-only">(current)</span></span></li>\
-					</c:when>\
-					<c:otherwise>\
-						<li><span><a href="${context}/article/page/${page}">${i.index}</a></span></li>\
-					</c:otherwise>\
-					\
-				</c:choose>\
-			</c:forEach>';
-			});
-					
-			articleAllTable+='<c:if test="${data.startPage -data.pageSize gt 0}">\
-						<li class="disabled"><a href="${context}/article/page/${data.startPage+data.pageSize}" aria-label="Next">\
-			       \
-			        <span aria-hidden="true">&raquo;</span>\
-			      </a> </li>\
-					</c:if>\
-			 </ul>\
+			articleAllTable+='</table>';
+			
+			var pagination = '<nav><ul class="pagination" style="margin-left: 40%">';
+				
+			if (startPage != 1) {
+				pagination += '<a href="'+context+'/article/list/1">\
+					<img src = "left.png"></a>'
+			}	
+			if (startPage -groupSize > 0) {
+					pagination += '<li class="disabled">\
+				      <a href="'+context+'/article/page/'+startPage-groupSize+'" aria-label="Previous">\
+				        <span aria-hidden="true">&laquo;</span>\
+				      </a>\
+				    </li>';
+				}
+			for (var i = startPage; i <= endPage; i++) {
+				if (i == pageNO) {
+					pagination += i;
+				} else {
+					pagination += i;
+				}
+			}
+			if ((startPage + groupSize) <= totalPages) {
+				pagination += '<a href="'+context+'/article/list/'+(startPage+groupSize)+'"></a>';
+			}
+			 '</ul>\
 				</nav>';
-			articleAllTable += this.searchOption;
+				articleAllTable +=pagination;
+				articleAllTable +='<br/>';
+				var searchOption = 
+					'<div style="float:right;margin:0 50px 0 0">\
+						<form>\
+							<select name="keyField" id="keyField">\
+								<option value="title" selected="selected">제목</option>\
+								<option value="name" >이름</option>\
+							</select>\
+							<input type="text" name="keyword" id="keyword" />\
+							<input type="submit" value="검색" id="searchBtn"/>\
+						</form>\
+					</div>';
+			articleAllTable += searchOption;
 			+'\
 			</div>';
 		$('#content').html(articleAllTable);
