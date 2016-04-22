@@ -57,12 +57,14 @@ public class ArticleController {
 	logger.info("현재 endPage = {}",command.getEndPage());
 	logger.info("현재 startRow = {}",command.getStartRow());
 	logger.info("현재 endRow = {}",command.getEndRow());
-	
+	list = service.getList(command);
+	logger.info("페이징 처리된 리스트 결과 {}",list);
 	 	model.addAttribute("command", command);
+	 	model.addAttribute("list", list);
 		return model;
 	}
-	@RequestMapping("/list")
-	public Model list(@RequestParam(value="pageNO",defaultValue ="1")String pageNO,
+	@RequestMapping("/list2/")
+	public Model list(@RequestParam(value="pageNO")String pageNO,
 			@RequestParam(value="keyField",defaultValue ="none")String keyField,
 			@RequestParam(value="keyword",defaultValue ="none")String keyword,
 			Model model){

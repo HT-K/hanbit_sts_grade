@@ -32,9 +32,10 @@
 	$(function() {
 		var context = $.fn.global('${context}').getContext();
 		var article = $.fn.article();
+		var member = $.fn.member();
 		$('#article_all').click(function(e) {
 			e.preventDefault();
-			article.articleAll(context);
+			article.articleAll(context,1);
 		});
 		$('#my_article').click(function(e) {
 			e.preventDefault();
@@ -52,6 +53,10 @@
 		$('#updateBtn').click(function(e) {
 			e.preventDefault();
 			member.updateForm(context);
+		});
+		$('#join').click(function(e) {
+			e.preventDefault();
+			member.joinForm(context);
 		});
 	});
 </script>

@@ -30,8 +30,8 @@ function Article(){
 Article.prototype.myArticle = function(context) {
 		alert('내가 쓴 글 게시판 목록 진입');
 	}
-Article.prototype.articleAll = function(context) {
-	$.getJSON(context+'/article/list',function(data) {
+Article.prototype.articleAll = function(context,pageNO) {
+	$.getJSON(context+'/article/list/'+pageNO,function(data) {
 		var totalPages = data.command.totalPages;
 		var startRow = data.command.startRow;
 		var endRow = data.command.endRow;
@@ -41,7 +41,6 @@ Article.prototype.articleAll = function(context) {
 		var endPage = data.command.endPage;
 		var pageSize = data.command.pageSize;
 		var groupSize = data.command.groupSize; 
-		
 		
 		var articleAllTable = 
 			'		<style>\
@@ -98,7 +97,7 @@ Article.prototype.articleAll = function(context) {
 			}	
 			if (startPage -groupSize > 0) {
 					pagination += '<li class="disabled">\
-				      <a href="'+context+'/article/page/'+startPage-groupSize+'" aria-label="Previous">\
+				      <a href="'+context+'/article/list/'+startPage-groupSize+'" aria-label="Previous">\
 				        <span aria-hidden="true">&laquo;</span>\
 				      </a>\
 				    </li>';
@@ -107,7 +106,7 @@ Article.prototype.articleAll = function(context) {
 				if (i == pageNO) {
 					pagination += '<li class="active"><span>'+i+'</span></li>';
 				} else {
-					pagination += '<li><a href="'+context+'/article/list/'+i+'"><span>'+i+'</span></a></li>';
+					pagination += '<li><a onclick="Article.prototype.articleAll('+'\''+context+'\''+','+'\''+i+'\')" href="#"><span>'+i+'</span></a></li>';
 				}
 			}
 			if ((startPage + groupSize) <= totalPages) {
