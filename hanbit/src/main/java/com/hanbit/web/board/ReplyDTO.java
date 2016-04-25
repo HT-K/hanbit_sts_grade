@@ -7,6 +7,7 @@ public class ReplyDTO {
 	private int replySeq;
 	private int articleId;
 	private String reply;
+	
 	public int getReplySeq() {
 		return replySeq;
 	}
