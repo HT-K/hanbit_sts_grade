@@ -5,8 +5,111 @@ function Article(){}
 Article.prototype.myarticle=function(){
 	alert('내가 쓴 글 진입');
 }
-Article.prototype.articleAll=function(){
-	alert("모든 게시글 보기 진입")
+Article.prototype.articleAll=function(context,page){
+	alert("모든 게시글 보기 진입");
+	$.getJSON(context+'/article/list/'+page,function(data) {
+		var totalPages = data.command.totalPages;
+		var startRow = data.command.startRow;
+		var endRow = data.command.endRow;
+		var pageNO = data.command.pageNO;
+		var count = data.command.count;
+		var startPage = data.command.startPage;
+		var endPage = data.command.endPage;
+		var pageSize = data.command.pageSize;
+		var groupSize = data.command.groupSize; 
+		
+		
+		var articleAllTable = 
+			'		<style>\
+				table th{background: yellow;text-align: center;}\
+			</style>\
+			<div class="container">\
+			<span class="glyphicon glyphicon-pencil" id="writeBtn" style="cursor:pointer; float: right;margin : 0 50px 30px 0">글쓰기</span>\
+			<table class="table table-condensed table-bordered table-striped" >';
+			if(totalPages > 0){	
+			
+				articleAllTable +='<tr>\
+					<td colspan="5"> 총게시글\
+						['+(count)+']\
+					</td>\
+				</tr>';
+			}
+				articleAllTable +='<tr>\
+					<th>글 번호</th>\
+					<th>제목</th>\
+					<th>작성자</th>\
+					<th>작성일</th>\
+					<th>조회수</th>\
+				</tr>';
+			if (count==0) {
+				articleAllTable += '<tr>\
+				<td colspan="5" style="text-align: center;">\
+					게시글이 없습니다.\
+				</td>\
+			</tr>';
+			} else {
+				$.each(data.list, function(index,article) {
+					articleAllTable+=
+						'<tr>\
+							<td>'+article.articleId+'</td>\
+							<td>\
+							<a class="searchId" href="'+context+'/article/search/'+article.articleId+'">'+article.title+'</a>\
+							</td>\
+							<td>'+article.writerName+'</td>\
+							<td>'+article.postingDate+'</td>\
+							<td>'+article.readCount+'</td>\
+						</tr>';
+						
+				});
+			}
+			
+					
+			articleAllTable+='</table>';
+			
+			var pagination = '<nav><ul class="pagination" style="margin-left: 40%">';
+				
+			if (startPage != 1) {
+				pagination += '<a href="'+context+'/article/list/1">\
+					<img src = "left.png"></a>'
+			}	
+			if (startPage -groupSize > 0) {
+					pagination += '<li class="disabled">\
+				      <a href="'+context+'/article/page/'+startPage-groupSize+'" aria-label="Previous">\
+				        <span aria-hidden="true">&laquo;</span>\
+				      </a>\
+				    </li>';
+				}
+			for (var i = startPage; i <= endPage; i++) {
+				if (i == pageNO) {
+					pagination += '<li class="active"><span>'+i+'</span></li>';
+				} else {
+					pagination += '<li><a href="#"><span>'+i+'</span></a></li>';
+				}
+			}
+			if ((startPage + groupSize) <= totalPages) {
+				pagination += '<a href="'+context+'/article/list/'+(startPage+groupSize)+'"></a>';
+			}
+			 '</ul>\
+				</nav>';
+				articleAllTable +=pagination;
+				articleAllTable +='<br/>';
+				var searchOption = 
+					'<div style="float:right;margin:50px 50px 0 0">\
+						<form>\
+							<select name="keyField" id="keyField">\
+								<option value="title" selected="selected">제목</option>\
+								<option value="name" >이름</option>\
+							</select>\
+							<input type="text" name="keyword" id="keyword" />\
+							<input type="submit" value="검색" id="searchBtn"/>\
+						</form>\
+					</div>';
+			articleAllTable += searchOption;
+			+'\
+			</div>';
+		$('#content').html(articleAllTable);
+	});
+		
 }
 Article.prototype.writeForm=function(){
 	var writeForm = 
