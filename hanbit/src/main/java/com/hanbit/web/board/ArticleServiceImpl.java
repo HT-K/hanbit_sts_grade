@@ -41,7 +41,9 @@ public class ArticleServiceImpl implements ArticleService{
 	public ArticleDTO getById(ArticleDTO article) {
 		 logger.info("=== articleService : getById() ===");
 		 ArticleMapper mapper = session.getMapper(ArticleMapper.class);
-		 return mapper.selectById(article);
+		 ArticleDTO xxx = mapper.selectById(article);
+		 logger.info("xxx 타이틀 : {}",xxx.getTitle());
+		 return xxx;
 	}
 
 	@Override

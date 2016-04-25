@@ -143,11 +143,13 @@ public class ArticleController {
 		}
 	}
 	@RequestMapping("/detail/{articleId}") // 게시글 제목 클릭 시 게시글 내용을 디비에서 가져와서 보여주기 위해 호출되는 메소드
-	public void detail( // ajax를 쓰기 때문에 return 값에 굳이 이동할 페이지가 없어도 된다 (해당 페이지에서 어느 부분을 지우고 그 부분에 원하는 결과를 띄우는게 ajax이기 때문!)
+	public @ResponseBody ArticleDTO detail( // ajax를 쓰기 때문에 return 값에 굳이 이동할 페이지가 없어도 된다 (해당 페이지에서 어느 부분을 지우고 그 부분에 원하는 결과를 띄우는게 ajax이기 때문!)
 			@PathVariable("articleId")int articleId,
 			Model model) {
 		logger.info("detail() 진입 체크");
-		model.addAttribute("article",service.getById(article));
+		article = service.getById(article);
+		logger.info("detail() DB 다녀온 결과 제목 : {}",article.getTitle());
+		return article;
 	}
 	@RequestMapping("/reply")
 	public void reply( // detail(게시판에서 게시글 제목 클릭 시 해당 게시글 내용 보여주기) 진입 시 해당 게시글에 달려있는 댓글들도 자동으로 보여주기 위해 호출되는 메소드

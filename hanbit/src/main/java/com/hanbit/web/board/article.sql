@@ -63,3 +63,17 @@ CREATE TABLE Reply(
 	article_id INT,
 	PRIMARY KEY (reply_seq)
 );		
+
+
+
+SELECT article_id AS articleId,
+			group_id AS groupId,
+			sequence_no AS sequenceNo,
+			DATE_FORMAT(posting_date, '%Y-%m-%d')AS postingDate,
+			read_count AS readCount,
+			writer_name AS writerName,
+			password,
+			title,
+			content
+		FROM Article 
+		WHERE article_id = 8 

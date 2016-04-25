@@ -9,6 +9,7 @@ public class ReplyDTO {
 	private String reply;
 	private String writerName;
 	private String regTime;
+	
 	public int getReplySeq() {
 		return replySeq;
 	}

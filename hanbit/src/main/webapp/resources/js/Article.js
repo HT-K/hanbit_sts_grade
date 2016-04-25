@@ -169,7 +169,8 @@ Article.prototype.write=function(){
 Article.prototype.detail=function(url){
 	alert('디테일 url :'+url);
 	$.getJSON(url,function(data){ // $.ajax({}) , 이런식으로 객체{}를 매개변수로 써야한다.
-			var detailForm =
+		alert('디테일 데이터'+data.title);	
+		var detailForm =
 				'<div class="container">'
 				+	'<form>'
 				+		'<div class="form-group">'
