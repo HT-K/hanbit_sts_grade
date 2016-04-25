@@ -74,9 +74,9 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public List<ReplyDTO> getReplyAll(int articleId) {
+	public List<ReplyDTO> getReplyById(ReplyDTO reply) {
 		logger.info("ArticleService - getReplyAll() 진입");
 		ArticleMapper mapper = session.getMapper(ArticleMapper.class);
-		return mapper.selectReplyAll(articleId);
+		return mapper.selectReplyById(reply);
 	}	
 }

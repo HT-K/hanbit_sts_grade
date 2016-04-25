@@ -110,8 +110,7 @@ Article.prototype.articleAll=function(context,page){
 		$('#content').html(articleAllTable);
 		$('.searchId').click(function(e) {
 			e.preventDefault();
-			alert('디테일 버튼 클릭');
-			Article.prototype.detail($(this).attr('href'));
+			Article.prototype.detail(context,$(this).attr('href'));
 		});
 	});
 		
@@ -167,7 +166,7 @@ Article.prototype.write=function(){
 		}*/
 	}); // write, .ajax() End
 }
-Article.prototype.detail=function(url){
+Article.prototype.detail=function(context,url){
 	$.getJSON(url,function(article) {
 
 			
@@ -220,14 +219,12 @@ Article.prototype.detail=function(url){
 				$('#content').html(detailForm);
 				// detail로 들어오는 즉시 댓글들을 보여주기 위한 $.ajax()
 				$.ajax({
-					url : article.getContext() + '/article/reply', 
-					data : { // 위 URL로 호출되는 컨트롤러에 보낼 데이터들이다.
-						articleId : article.articleId
-					},
+					url : context + '/article/reply/'+article.articleId, 
+					data : {},
 					async : true, // 당연히 true여야한다. 생략가능하다
 					dataType : 'json', // 생략이 가능하다, 왜냐하면 view-context.xml에서 설정해놨다.
 					success : function(data) { // 해당 URL로 호출된 컨트롤러의 메소드에서 model의 값을 가져오는 것을 성공하면 success가 실행된다 (해당 값(JSON형태)은 파라미터인 data에 들어있다!)
-						//alert("댓글 가져오기 성공!");
+						alert("댓글 가져오기 성공!");
 						$.each(data.reply, function(index, value) {  // 제이쿼리의 for - each문
 							// controller에서 보내온 "reply" 접근법, data.reply는 데이터베이스에서 가져온 List<ReplyDTO>를 뜻한다 
 							// index는 그안에 있는 하나하나의 ReplyDTO 객체 자체를 뜻한다.
@@ -244,7 +241,7 @@ Article.prototype.detail=function(url){
 							    +	'<button type="submit" class="btn btn-warning" style="margin-left:5px;">댓글 삭제</button>'
 							    +'</form>'
 							    +'<div class="form-group">'
-								+	'<input type="text" class="form-control" id="replyRes" name="replyRes" value="' + value.reply_content + '"  placeholder="댓글 내용" style="margin-top:10px;" readonly>' // value 값은 ''싱글 커터를 살리기 위해 ""더블커터 사이에 싱글커터안에 넣어준다!
+								+	'<input type="text" class="form-control" id="replyRes" name="replyRes" value="' + value.reply + '"  placeholder="댓글 내용" style="margin-top:10px;" readonly>' // value 값은 ''싱글 커터를 살리기 위해 ""더블커터 사이에 싱글커터안에 넣어준다!
 								+'</div>';
 							$('#replyRes').append(replyRes);
 						  });

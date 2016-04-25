@@ -19,5 +19,5 @@ public interface ArticleMapper {
 	public int delete(ArticleDTO article);
 	
 	public int replyInsert(ReplyDTO reply);
-	public List<ReplyDTO> selectReplyAll(int articleId);
+	public List<ReplyDTO> selectReplyById(ReplyDTO reply);
 }
