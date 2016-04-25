@@ -82,11 +82,11 @@
 	</insert>
 	
 	<select id="selectReplyById" parameterType="com.hanbit.web.board.ReplyDTO" resultType="com.hanbit.web.board.ReplyDTO"> 
-		SELECT reply_seq, 
+		SELECT reply_seq AS replySeq, 
 		article_id AS articleId,
 		writer_name AS writerName,
 		DATE_FORMAT(reg_time,'%Y-%m-%d %T') AS regTime, <!-- ReplyDTO의 regTime(String)에 넣기 전에 DATE_FORMAY으로 (연-월-일 시:분:초)형태로 만들고 넣어준다 -->
-		reply_content
+		reply
 		FROM Reply 
 		WHERE article_id = #{articleId}
 	</select>

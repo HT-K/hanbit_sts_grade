@@ -61,19 +61,22 @@ CREATE TABLE Reply(
 	reply_seq INT NOT NULL AUTO_INCREMENT,
 	reply VARCHAR(1000),
 	article_id INT,
+	writer_name VARCHAR(30),
+	reg_time DATE,
 	PRIMARY KEY (reply_seq)
 );		
+SELECT * FROM Reply;
+INSERT INTO Reply(reply,article_id,writer_name,reg_time)
+VALUES ('댓글테스트1',8,'댓글남',NOW());
+INSERT INTO Reply(reply,article_id,writer_name,reg_time)
+VALUES ('댓글테스트2',8,'댓글남',NOW());
+INSERT INTO Reply(reply,article_id,writer_name,reg_time)
+VALUES ('댓글테스트3',8,'댓글남',NOW());
 
-
-
-SELECT article_id AS articleId,
-			group_id AS groupId,
-			sequence_no AS sequenceNo,
-			DATE_FORMAT(posting_date, '%Y-%m-%d')AS postingDate,
-			read_count AS readCount,
-			writer_name AS writerName,
-			password,
-			title,
-			content
-		FROM Article 
-		WHERE article_id = 8 
+SELECT reply_seq AS replySeq, 
+		article_id AS articleId,
+		writer_name AS writerName,
+		DATE_FORMAT(reg_time,'%Y-%m-%d %T') AS regTime,
+		reply
+		FROM Reply 
+		WHERE article_id = 8

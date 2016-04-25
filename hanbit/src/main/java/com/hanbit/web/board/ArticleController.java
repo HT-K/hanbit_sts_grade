@@ -149,6 +149,7 @@ public class ArticleController {
 		logger.info("detail() 진입 체크");
 		article.setArticleId(articleId);
 		article = service.getById(article);
+		System.out.println(article.getTitle());
 		logger.info("detail() DB 다녀온 결과 제목 : {}",article.getTitle());
 		return article;
 	}
@@ -156,9 +157,19 @@ public class ArticleController {
 	public @ResponseBody List<ReplyDTO> replyById( // detail(게시판에서 게시글 제목 클릭 시 해당 게시글 내용 보여주기) 진입 시 해당 게시글에 달려있는 댓글들도 자동으로 보여주기 위해 호출되는 메소드
 			@PathVariable("articleId")int articleId) {
 		logger.info("게시글 댓글들만 가져오기 메소드 진입 성공");
+		System.out.println("====================");
+		System.out.println("====================");
+		System.out.println("====================");
+		System.out.println("====================");
+		System.out.println("====================");
 		replyDTO.setArticleId(articleId);
 		// 댓글을 가져오려면 해당 게시글 번호를 데이터베이스에 보내줘야한다~
-		return service.getReplyById(replyDTO); // JSON 형태로 $.ajax()의 success에 값이 보내진다.
+		List<ReplyDTO> temp = new ArrayList<ReplyDTO>();
+		temp = service.getReplyById(replyDTO);
+		logger.info("댓글리스트 보기 : {}",temp);
+		System.out.println("%%%%%%%%%%%%%%%%%");
+		System.out.println(temp);
+		return temp; // JSON 형태로 $.ajax()의 success에 값이 보내진다.
 	}
 	
 	@RequestMapping(value="/reply", method=RequestMethod.POST) // ajax로 이 URL을 호출해서 리턴 페이지가 필요없다!
