@@ -108,7 +108,8 @@ Article.prototype.articleAll=function(context,page){
 			+'\
 			</div>';
 		$('#content').html(articleAllTable);
-		$('.searchId').click(function() {
+		$('.searchId').click(function(e) {
+			e.preventDefault();
 			alert('디테일 버튼 클릭');
 			Article.prototype.detail($(this).attr('href'));
 		});
@@ -167,115 +168,114 @@ Article.prototype.write=function(){
 	}); // write, .ajax() End
 }
 Article.prototype.detail=function(url){
-	alert('디테일 url :'+url);
-	$.getJSON(url,function(data){ // $.ajax({}) , 이런식으로 객체{}를 매개변수로 써야한다.
-		alert('디테일 데이터'+data.title);	
-		var detailForm =
-				'<div class="container">'
-				+	'<form>'
-				+		'<div class="form-group">'
-				+			'<label for="articleId">게시글 번호</label>'
-				+			'<input type="text" class="form-control" id="articleId" name="articleId" placeholder="글 번호" value="' + data.article.articleId + '" readonly/>'
-				+		'</div>'
-				+		'<div class="form-group">'
-				+			'<label for="title">제목</label>'
-				+			'<input type="text" class="form-control" id="title" name="title" placeholder="제 목" value="' + data.article.title + '" readonly />' // value 값은 ''싱글 커터를 살리기 위해 ""더블커터 사이에 싱글커터안에 넣어준다!
-				+		'</div>'
-				+		'<div class="form-group">'
-				+			'<label for="writerName">작성자</label>'
-				+			'<input type="text" class="form-control" id="writerName" name="writerName" value="' + data.article.writerName + '" placeholder="작 성 자" readonly />'
-				+		'</div>'
-				+		'<div class="form-group">'
-				+			'<label for="password">글암호</label>'
-				+			'<input type="password" id="password" class="form-control" name="password" value="' + data.article.password + '" placeholder="비 밀 번 호" readonly />'
-				+		'</div>'
-				+		'<div class="form-group">'
-				+			'<label for="content">글내용</label>'
-				+			'<textarea class="form-control" id="content" name="content" rows="5" placeholder="글 내 용" readonly>' + data.article.content + '</textarea>'
-				+		'</div>'
-				+		'<div class="form-group">'
-				+			'<button type="submit" id="updateFormBtn" name="updateFormBtn" class="btn col-xs-4 btn-primary btn-lg">글 수 정 폼으로</button>'   
-				+			'<button type="submit" id="deleteBtn" name="deleteBtn" class="btn col-xs-4 btn-danger btn-lg">글 삭 제</button>'
-				+			'<button type="submit" id="replyFormBtn" name="replyFormBtn" class="btn col-xs-4 btn-info btn-lg">댓글 등록 폼</button>'
-				+		'</div>'
-				+	'</form>'
-				+'</div>'
-				+'<div class="container" style="margin-top:20px;">'
-				+	'<div id="replyDiv">'
-				+		'<form id="replyForm" style="display:none;">'
-				+			'<div class="form-group">'
-				+				'<label for="exampleInputFile">댓 글</label>'
-				+				'<textarea class="form-control" row="5" id="reply_content" name="reply_content" placeholder="댓글을 입력해주세요..." style="height : 100px"></textarea>'
-				+			'</div>'
-				+			'<div class="form-group">'
-				+				'<button type="submit" id="replyOkBtn" class="btn col-xs-6 btn-success btn-lg" >댓 글 등 록</button>'
-				+				'<button type="reset" id="replyCancle" class="btn col-xs-6 btn-warning btn-lg" >취 소</button>'
-				+			'</div>'
-				+		'</form>'
-				+	'</div>'
-				+'</div>'
-				+'<div class="container" style="margin-top:20px;" id="replyRes">' // 이 부분을 .html로해서 계속 댓글들을 최신화 시킨다.
-				+'</div>';
-			$('#wrapper').html(detailForm); // article.detail() 호출 시 article_home.jsp의 wrapper(div) 사이에 있던 내용을 삭제(.empty())하고 detailForm을 붙인다(.append())
+	$.getJSON(url,function(article) {
+
 			
-			// detail로 들어오는 즉시 댓글들을 보여주기 위한 $.ajax()
-			$.ajax({
-				url : article.getContext() + '/article/reply', 
-				data : { // 위 URL로 호출되는 컨트롤러에 보낼 데이터들이다.
-					articleId : data.article.articleId
-				},
-				async : true, // 당연히 true여야한다. 생략가능하다
-				dataType : 'json', // 생략이 가능하다, 왜냐하면 view-context.xml에서 설정해놨다.
-				success : function(data) { // 해당 URL로 호출된 컨트롤러의 메소드에서 model의 값을 가져오는 것을 성공하면 success가 실행된다 (해당 값(JSON형태)은 파라미터인 data에 들어있다!)
-					//alert("댓글 가져오기 성공!");
-					$.each(data.reply, function(index, value) {  // 제이쿼리의 for - each문
-						// controller에서 보내온 "reply" 접근법, data.reply는 데이터베이스에서 가져온 List<ReplyDTO>를 뜻한다 
-						// index는 그안에 있는 하나하나의 ReplyDTO 객체 자체를 뜻한다.
-						// value는 그 객체(ReplyDTO)에 들어있는 하나하나의 값(reply_seq, articleId, writerName, reply_content)에 접근할 때 쓴다.
-						var replyRes =
-							'<form class="form-inline">'
-						  	+	'<div class="form-group">'
-						    +		'<label for="writerName">댓글 작성자 : '+ value.writerName +'</label>'
-						    +	'</div>'
-						    +	'<div class="form-group">'
-						    +		'<label for="regTime" style="margin-left:20px;">댓글 작성시간 : '+ value.regTime +'</label>'
-						    +	'</div>'
-						    +	'<button type="submit" class="btn btn-success" style="margin-left:20px;">댓글 수정</button>'
-						    +	'<button type="submit" class="btn btn-warning" style="margin-left:5px;">댓글 삭제</button>'
-						    +'</form>'
-						    +'<div class="form-group">'
-							+	'<input type="text" class="form-control" id="replyRes" name="replyRes" value="' + value.reply_content + '"  placeholder="댓글 내용" style="margin-top:10px;" readonly>' // value 값은 ''싱글 커터를 살리기 위해 ""더블커터 사이에 싱글커터안에 넣어준다!
-							+'</div>';
-						$('#replyRes').append(replyRes);
-					  });
-				},
-				error : function(xhr, status, msg) { // 실패하면 이곳으로, 왼쪽 매개변수는 정해져 있다.
-					alert('에러 발생 상태 : '+status+' 내용 : '+msg);
-				}
-			}); // $.ajax() End
-			
-			$('#updateFormBtn').click(function(e) { // '수정 폼으로' 클릭 시 호출되는 메소드
-				e.preventDefault(); // 기존의 submit를 무력화 시켜라!! (이걸 써주지 않으면 /article/home (이전에 호출되던 URL)로 가버리게된다)
-				article.update(updateParam);
-			}); // updateFormBtn() End
-			
-			$('#deleteBtn').click(function(e) { // '글 삭 제' 클릭 시 호출되는 메소드
-				e.preventDefault();
-				article.deleteArticle(data.article.articleId); // 삭제 할 해당 게시글의 글번호를 매개변수로 보내준다.
-			}); // deleteBtn() End
-			
-			$('#replyFormBtn').click(function(e) { // '댓글 등록 폼' 클릭 시 호출되는 메소드
-				e.preventDefault();
-				$('#reply_content').val(""); // 또 댓글 등록하고 싶을 때 textarea에 적었던 내용을 없애기 위한 작업 (초기화!!!)
-				$("#replyForm").slideToggle("slow"); // 클릭할 때마다 댓글 적는 폼이 나타났다가 안나타났다가 하게 해주는 CSS효과임!!
-			}); // replyFormBtn() End
-			
-			$('#replyOkBtn').click(function(e) { // '댓글 등록' 클릭 시 호출되는 메소드
-				e.preventDefault();
-				article.reply(data.article.articleId, data.article.writerName, $('#reply_content').val()); // 데이터베이스에 넣을 게시글 번호, 댓글 쓴 사람, 댓글 내용을 파라미터로 보낸다~
-			}); // replyOkBtn() End
-			
-	}); // detail -> $.ajax() End
+			var detailForm =
+					'<div class="container">'
+					+	'<form>'
+					+		'<div class="form-group">'
+					+			'<label for="articleId">게시글 번호</label>'
+					+			'<input type="text" class="form-control" id="articleId" name="articleId" placeholder="글 번호" value="' + article.articleId + '" readonly/>'
+					+		'</div>'
+					+		'<div class="form-group">'
+					+			'<label for="title">제목</label>'
+					+			'<input type="text" class="form-control" id="title" name="title" placeholder="제 목" value="' + article.title + '" readonly />' // value 값은 ''싱글 커터를 살리기 위해 ""더블커터 사이에 싱글커터안에 넣어준다!
+					+		'</div>'
+					+		'<div class="form-group">'
+					+			'<label for="writerName">작성자</label>'
+					+			'<input type="text" class="form-control" id="writerName" name="writerName" value="' + article.writerName + '" placeholder="작 성 자" readonly />'
+					+		'</div>'
+					+		'<div class="form-group">'
+					+			'<label for="password">글암호</label>'
+					+			'<input type="password" id="password" class="form-control" name="password" value="' + article.password + '" placeholder="비 밀 번 호" readonly />'
+					+		'</div>'
+					+		'<div class="form-group">'
+					+			'<label for="content">글내용</label>'
+					+			'<textarea class="form-control" id="content" name="content" rows="5" placeholder="글 내 용" readonly>' + article.content + '</textarea>'
+					+		'</div>'
+					+		'<div class="form-group">'
+					+			'<button type="submit" id="updateFormBtn" name="updateFormBtn" class="btn col-xs-4 btn-primary btn-lg">글 수 정 폼으로</button>'   
+					+			'<button type="submit" id="deleteBtn" name="deleteBtn" class="btn col-xs-4 btn-danger btn-lg">글 삭 제</button>'
+					+			'<button type="submit" id="replyFormBtn" name="replyFormBtn" class="btn col-xs-4 btn-info btn-lg">댓글 등록 폼</button>'
+					+		'</div>'
+					+	'</form>'
+					+'</div>'
+					+'<div class="container" style="margin-top:20px;">'
+					+	'<div id="replyDiv">'
+					+		'<form id="replyForm" style="display:none;">'
+					+			'<div class="form-group">'
+					+				'<label for="exampleInputFile">댓 글</label>'
+					+				'<textarea class="form-control" row="5" id="reply_content" name="reply_content" placeholder="댓글을 입력해주세요..." style="height : 100px"></textarea>'
+					+			'</div>'
+					+			'<div class="form-group">'
+					+				'<button type="submit" id="replyOkBtn" class="btn col-xs-6 btn-success btn-lg" >댓 글 등 록</button>'
+					+				'<button type="reset" id="replyCancle" class="btn col-xs-6 btn-warning btn-lg" >취 소</button>'
+					+			'</div>'
+					+		'</form>'
+					+	'</div>'
+					+'</div>'
+					+'<div class="container" style="margin-top:20px;" id="replyRes">' // 이 부분을 .html로해서 계속 댓글들을 최신화 시킨다.
+					+'</div>';
+				$('#content').html(detailForm);
+				// detail로 들어오는 즉시 댓글들을 보여주기 위한 $.ajax()
+				$.ajax({
+					url : article.getContext() + '/article/reply', 
+					data : { // 위 URL로 호출되는 컨트롤러에 보낼 데이터들이다.
+						articleId : article.articleId
+					},
+					async : true, // 당연히 true여야한다. 생략가능하다
+					dataType : 'json', // 생략이 가능하다, 왜냐하면 view-context.xml에서 설정해놨다.
+					success : function(data) { // 해당 URL로 호출된 컨트롤러의 메소드에서 model의 값을 가져오는 것을 성공하면 success가 실행된다 (해당 값(JSON형태)은 파라미터인 data에 들어있다!)
+						//alert("댓글 가져오기 성공!");
+						$.each(data.reply, function(index, value) {  // 제이쿼리의 for - each문
+							// controller에서 보내온 "reply" 접근법, data.reply는 데이터베이스에서 가져온 List<ReplyDTO>를 뜻한다 
+							// index는 그안에 있는 하나하나의 ReplyDTO 객체 자체를 뜻한다.
+							// value는 그 객체(ReplyDTO)에 들어있는 하나하나의 값(reply_seq, articleId, writerName, reply_content)에 접근할 때 쓴다.
+							var replyRes =
+								'<form class="form-inline">'
+							  	+	'<div class="form-group">'
+							    +		'<label for="writerName">댓글 작성자 : '+ value.writerName +'</label>'
+							    +	'</div>'
+							    +	'<div class="form-group">'
+							    +		'<label for="regTime" style="margin-left:20px;">댓글 작성시간 : '+ value.regTime +'</label>'
+							    +	'</div>'
+							    +	'<button type="submit" class="btn btn-success" style="margin-left:20px;">댓글 수정</button>'
+							    +	'<button type="submit" class="btn btn-warning" style="margin-left:5px;">댓글 삭제</button>'
+							    +'</form>'
+							    +'<div class="form-group">'
+								+	'<input type="text" class="form-control" id="replyRes" name="replyRes" value="' + value.reply_content + '"  placeholder="댓글 내용" style="margin-top:10px;" readonly>' // value 값은 ''싱글 커터를 살리기 위해 ""더블커터 사이에 싱글커터안에 넣어준다!
+								+'</div>';
+							$('#replyRes').append(replyRes);
+						  });
+					},
+					error : function(xhr, status, msg) { // 실패하면 이곳으로, 왼쪽 매개변수는 정해져 있다.
+						alert('에러 발생 상태 : '+status+' 내용 : '+msg);
+					}
+				}); // $.ajax() End
+				
+				$('#updateFormBtn').click(function(e) { // '수정 폼으로' 클릭 시 호출되는 메소드
+					e.preventDefault(); // 기존의 submit를 무력화 시켜라!! (이걸 써주지 않으면 /article/home (이전에 호출되던 URL)로 가버리게된다)
+					article.update(updateParam);
+				}); // updateFormBtn() End
+				
+				$('#deleteBtn').click(function(e) { // '글 삭 제' 클릭 시 호출되는 메소드
+					e.preventDefault();
+					article.deleteArticle(data.article.articleId); // 삭제 할 해당 게시글의 글번호를 매개변수로 보내준다.
+				}); // deleteBtn() End
+				
+				$('#replyFormBtn').click(function(e) { // '댓글 등록 폼' 클릭 시 호출되는 메소드
+					e.preventDefault();
+					$('#reply_content').val(""); // 또 댓글 등록하고 싶을 때 textarea에 적었던 내용을 없애기 위한 작업 (초기화!!!)
+					$("#replyForm").slideToggle("slow"); // 클릭할 때마다 댓글 적는 폼이 나타났다가 안나타났다가 하게 해주는 CSS효과임!!
+				}); // replyFormBtn() End
+				
+				$('#replyOkBtn').click(function(e) { // '댓글 등록' 클릭 시 호출되는 메소드
+					e.preventDefault();
+					article.reply(data.article.articleId, data.article.writerName, $('#reply_content').val()); // 데이터베이스에 넣을 게시글 번호, 댓글 쓴 사람, 댓글 내용을 파라미터로 보낸다~
+				}); // replyOkBtn() End
+	});
+	
 }
 Article.prototype.update=function(){
 	var updateForm =

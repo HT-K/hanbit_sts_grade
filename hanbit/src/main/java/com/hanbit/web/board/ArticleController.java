@@ -147,6 +147,7 @@ public class ArticleController {
 			@PathVariable("articleId")int articleId,
 			Model model) {
 		logger.info("detail() 진입 체크");
+		article.setArticleId(articleId);
 		article = service.getById(article);
 		logger.info("detail() DB 다녀온 결과 제목 : {}",article.getTitle());
 		return article;
