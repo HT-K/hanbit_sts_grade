@@ -60,7 +60,7 @@ Member.prototype.joinForm = function(context) {
 					</div>\
 					\
 					<div class="input_button text-center">\
-						<button id="joinBtn">회원가입</button>\
+						<input type="button" id="joinBtn" value="회원가입"/>\
 						<button id="cancleBtn">취소</button>\
 					</div>\
 						\
@@ -72,12 +72,12 @@ Member.prototype.joinForm = function(context) {
 	$('#joinBtn').click(function() {
 		alert('회원가입 버튼 클릭');
 		var member = {
-			"id" : $('#id').val(),	
-			"password" : $('#password').val(),	
-			"birth" : $('#birth').val(),	
-			"addr" : $('#addr').val(),	
-			"name" : $('#name').val(),	
-			"cate" : $('#cate').val()	
+			id : $('#id').val(),	
+			password : $('#password').val(),	
+			birth : $('#birth').val(),	
+			addr : $('#addr').val(),	
+			name : $('#name').val(),	
+			cate : $('#cate').val()	
 		};
 		alert('멤버 데이터 JSON 처리됨'+context);
 		$.ajax({
@@ -87,6 +87,7 @@ Member.prototype.joinForm = function(context) {
 			type : 'POST',
 			contentType: "application/json",
 			mimeType : "application/json",
+			async : false,
 			success : function(data) {
 				if (data != null) {
 					alert(data.name+'님 회원으로 등록되었습니다');
