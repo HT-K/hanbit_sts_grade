@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hanbit.web.admin.AdminController;
 import com.hanbit.web.global.Command;
@@ -23,6 +24,7 @@ public class ArticleController {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 	@Autowired ArticleDTO article;
 	@Autowired ArticleService service;
+	@Autowired ReplyDTO replyDTO;
 	@RequestMapping("/write")
 	public String write(
 			@RequestParam("title")String title,
@@ -138,6 +140,47 @@ public class ArticleController {
 			model.addAttribute("message","삭제 성공 !!");
 		} else {
 			model.addAttribute("message","삭제 실패 !!");
+		}
+	}
+	@RequestMapping("/detail/{articleId}") // 게시글 제목 클릭 시 게시글 내용을 디비에서 가져와서 보여주기 위해 호출되는 메소드
+	public void detail( // ajax를 쓰기 때문에 return 값에 굳이 이동할 페이지가 없어도 된다 (해당 페이지에서 어느 부분을 지우고 그 부분에 원하는 결과를 띄우는게 ajax이기 때문!)
+			@PathVariable("articleId")int articleId,
+			Model model) {
+		logger.info("detail() 진입 체크");
+		model.addAttribute("article",service.getById(article));
+	}
+	@RequestMapping("/reply")
+	public void reply( // detail(게시판에서 게시글 제목 클릭 시 해당 게시글 내용 보여주기) 진입 시 해당 게시글에 달려있는 댓글들도 자동으로 보여주기 위해 호출되는 메소드
+			@RequestParam("articleId")int articleId,
+			Model model) {
+		logger.info("게시글 댓글들만 가져오기 메소드 진입 성공");
+		
+		// 댓글을 가져오려면 해당 게시글 번호를 데이터베이스에 보내줘야한다~
+		model.addAttribute("reply", service.getReplyAll(articleId)); // JSON 형태로 $.ajax()의 success에 값이 보내진다.
+	}
+	
+	@RequestMapping(value="/reply", method=RequestMethod.POST) // ajax로 이 URL을 호출해서 리턴 페이지가 필요없다!
+	public void reply( // '댓글 등록' 클릭 시 호출되는 메소드
+			@RequestParam("articleId")int articleId,
+			@RequestParam("writerName")String writerName,
+			@RequestParam("reply")String reply,
+			Model model) {
+		logger.info("댓글 등록과 해당 게시글 댓글들 가져오기 메소드 진입 성공");
+		replyDTO.setArticleId(articleId);
+		replyDTO.setWriterName(writerName);
+		replyDTO.setReply(reply);
+		
+		int res = service.replyInsert(replyDTO);
+				
+		if (res == 1) {
+			logger.info("=== replyInsert 성공 ===");
+			model.addAttribute("reply", service.getReplyAll(articleId)); // JSON 형태로 $.ajax()의 success에 값이 보내진다.
+			for (ReplyDTO temp : service.getReplyAll(articleId)) {
+				logger.info("작성자 : {}", temp.getWriterName());
+				logger.info("댓글 내용 : {}", temp.getReply());
+			}
+		} else {
+			logger.info("=== replyInsert 실패 ===");
 		}
 	}
 }

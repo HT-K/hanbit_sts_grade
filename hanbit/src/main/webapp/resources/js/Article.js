@@ -53,7 +53,7 @@ Article.prototype.articleAll=function(context,page){
 						'<tr>\
 							<td>'+article.articleId+'</td>\
 							<td>\
-							<a class="searchId" href="'+context+'/article/search/'+article.articleId+'">'+article.title+'</a>\
+							<a class="searchId" href="'+context+'/article/detail/'+article.articleId+'">'+article.title+'</a>\
 							</td>\
 							<td>'+article.writerName+'</td>\
 							<td>'+article.postingDate+'</td>\
@@ -108,6 +108,10 @@ Article.prototype.articleAll=function(context,page){
 			+'\
 			</div>';
 		$('#content').html(articleAllTable);
+		$('.searchId').click(function() {
+			alert('디테일 버튼 클릭');
+			Article.prototype.detail($(this).attr('href'));
+		});
 	});
 		
 }
@@ -162,15 +166,9 @@ Article.prototype.write=function(){
 		}*/
 	}); // write, .ajax() End
 }
-Article.prototype.detail=function(){
-	var updateParam;
-	$.ajax({ // $.ajax({}) , 이런식으로 객체{}를 매개변수로 써야한다.
-		url : url, // 호출할 URL주소
-		data : {}, // 데이터를 가지고 올 객체라고 생각하면 된다. (위에 적힌 url(컨트롤러)로 가서 model에 담긴 객체를 가져올 변수라고 생각하면된다.)
-		async : true, // 비동기라는 뜻
-		dataType : 'json',
-		success : function(data) {
-			updateParam = data;
+Article.prototype.detail=function(url){
+	alert('디테일 url :'+url);
+	$.getJSON(url,function(data){ // $.ajax({}) , 이런식으로 객체{}를 매개변수로 써야한다.
 			var detailForm =
 				'<div class="container">'
 				+	'<form>'
@@ -276,10 +274,6 @@ Article.prototype.detail=function(){
 				article.reply(data.article.articleId, data.article.writerName, $('#reply_content').val()); // 데이터베이스에 넣을 게시글 번호, 댓글 쓴 사람, 댓글 내용을 파라미터로 보낸다~
 			}); // replyOkBtn() End
 			
-		}, // detail() ->  $.ajax() -> success() End
-		error : function(xhr, status, msg) { // 실패하면 이곳으로, 왼쪽 매개변수는 정해져 있다.
-			alert('에러 발생 상태 : '+status+' 내용 : '+msg);
-		} // error() End
 	}); // detail -> $.ajax() End
 }
 Article.prototype.update=function(){

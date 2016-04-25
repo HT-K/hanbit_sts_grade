@@ -77,7 +77,7 @@ Article.prototype.articleAll = function(context) {
 						'<tr>\
 							<td>'+article.articleId+'</td>\
 							<td>\
-							<a class="searchId" href="'+context+'/article/search/'+article.articleId+'">'+article.title+'</a>\
+							<a class="searchId" href="'+context+'/article/detail/'+article.articleId+'">'+article.title+'</a>\
 							</td>\
 							<td>'+article.writerName+'</td>\
 							<td>'+article.postingDate+'</td>\
@@ -132,6 +132,11 @@ Article.prototype.articleAll = function(context) {
 			+'\
 			</div>';
 		$('#content').html(articleAllTable);
+		$('.searchId').click(function() {
+			alert('디테일 버튼 클릭');
+			e.preventDefault();
+			article.detail($(this).attr('href'));
+		});
 	});
 		
 		
