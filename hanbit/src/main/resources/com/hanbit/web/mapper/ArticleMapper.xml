@@ -24,7 +24,7 @@
 			title
 		FROM Article 
 			ORDER BY sequence_no DESC 
-			LIMIT #{startRow}, #{endRow}
+			LIMIT #{startRow}, #{pageSize}
 		
 	</select>
 	<select id="selectById" resultType="com.hanbit.web.board.ArticleDTO"

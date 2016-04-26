@@ -67,28 +67,23 @@ Article.prototype.articleAll=function(context,page){
 			articleAllTable+='</table>';
 			
 			var pagination = '<nav><ul class="pagination" style="margin-left: 40%">';
-				
-			if (startPage != 1) {
-				pagination += '<a href="'+context+'/article/list/1">\
-					<img src = "left.png"></a>'
-			}	
-			if (startPage -groupSize > 0) {
-					pagination += '<li class="disabled">\
-				      <a href="'+context+'/article/page/'+startPage-groupSize+'" aria-label="Previous">\
-				        <span aria-hidden="true">&laquo;</span>\
-				      </a>\
-				    </li>';
-				}
+			
+			if (startPage-pageSize > 0) {
+				pagination += '<li><span onclick="Article.prototype.articleAll('+'\''+context+'\''+','+'\''+(startPage-1)+'\')" href="#" aria-label="Previous">&laquo;</span></li>';
+			}
+
 			for (var i = startPage; i <= endPage; i++) {
 				if (i == pageNO) {
 					pagination += '<li class="active"><span>'+i+'</span></li>';
 				} else {
-					pagination += '<li><a href="#"><span>'+i+'</span></a></li>';
+					pagination += '<li><span onclick="Article.prototype.articleAll('+'\''+context+'\''+','+'\''+i+'\')" href="#">'+i+'</span></li>';
 				}
 			}
-			if ((startPage + groupSize) <= totalPages) {
-				pagination += '<a href="'+context+'/article/list/'+(startPage+groupSize)+'"></a>';
-			}
+
+			if (endPage < totalPages) {
+				pagination += '<li><span onclick="Article.prototype.articleAll('+'\''+context+'\''+','+'\''+(startPage+groupSize)+'\')" href="#">&raquo;</span></li>';
+			} 
+				
 			 '</ul>\
 				</nav>';
 				articleAllTable +=pagination;
